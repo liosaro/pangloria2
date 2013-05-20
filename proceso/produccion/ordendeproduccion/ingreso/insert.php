@@ -239,11 +239,11 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
     <td>&nbsp;</td>
     <td align="left" class="NO">&nbsp;</td>
     <td>&nbsp;</td>
-    <td align="right" class="retorno"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" href="compras.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"/></td>
+    <td align="right" class="retorno"><a href="encabeza.php.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" "/></a></td>
   </tr>
   <tr>
     <td>Orden de Produccion No.:</td>
-    <td align="left" class="NO"><?php echo $row_ultregis['IDENCABEORDPROD']; ?></td>
+    <td align="center" class="NO"><?php echo $row_ultregis['IDENCABEORDPROD']; ?></td>
     <td>Fecha:</td>
     <td class="retorno"><?php echo $row_ultregis['FECHA']; ?></td>
   </tr>

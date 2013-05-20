@@ -116,6 +116,13 @@ $row_idusuario = mysql_fetch_assoc($idusuario);
 $totalRows_idusuario = mysql_num_rows($idusuario);
 
 mysql_select_db($database_basepangloria, $basepangloria);
+$nom2 = $row_idusuario['IDUSUARIO'];
+$query_idemple = "SELECT IDEMPLEADO FROM CATEMPLEADO WHERE IDUSUARIO = '$nom2'";
+$idemple = mysql_query($query_idemple, $basepangloria) or die(mysql_error());
+$row_idemple = mysql_fetch_assoc($idemple);
+$totalRows_idemple = mysql_num_rows($idemple);
+
+mysql_select_db($database_basepangloria, $basepangloria);
 $nom = $row_idusuario['IDUSUARIO'];
 $query_emplenomb = "SELECT NOMBREEMPLEADO FROM CATEMPLEADO WHERE IDUSUARIO = '$nom'";
 $emplenomb = mysql_query($query_emplenomb, $basepangloria) or die(mysql_error());
@@ -128,6 +135,9 @@ $totalRows_emplenomb = mysql_num_rows($emplenomb);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
+<link href="../../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="../../../../css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
@@ -137,20 +147,48 @@ $totalRows_emplenomb = mysql_num_rows($emplenomb);
   </tr>
   <tr>
     <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-      <table align="center">
+      <table align="left">
         <tr valign="baseline">
-          <td nowrap="nowrap" align="right">IDENCABEORDPROD:</td>
-          <td><input name="IDENCABEORDPROD" type="text" value="" size="32" readonly="readonly" /></td>
+          <td nowrap="nowrap" align="right">Orden de Produccion No.</td>
+          <td nowrap="nowrap" align="right"><input name="IDENCABEORDPROD" type="text" value="<?php echo $row_ultimoenca['IDENCABEORDPROD']+1; ?>" size="32" readonly="readonly" /></td>
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="right">IDEMPLEADO:</td>
-          <td><input name="IDEMPLEADO" type="text" value="<?php echo $row_idusuario['IDUSUARIO']; ?>" size="4" readonly="readonly" />
+          <td nowrap="nowrap" align="right">Fecha:</td>
+          <td nowrap="nowrap" align="right"><script type="text/javascript"
+      src="../../../../SpryAssets/jquery-1.8.3.min.js">
+    </script> 
+    <script type="text/javascript"
+      src="../../../../SpryAssets/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+      src="../../../../SpryAssets/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="../../../../SpryAssets/bootstrap-datetimepicker.es.js">
+    </script>  <div id="datetimepicker4" class="input-append">
+    <input name="FECHAENTREGA" type="text" id="FECHAENTREGA" data-format="yyyy-MM-dd"></input>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker4').datetimepicker({
+      pickTime: false
+    });
+  });
+</script></td>
+          <td nowrap="nowrap" align="right">Empleado Que ingresa:</td>
+          <td><input name="IDEMPLEADO" type="text" value="<?php echo $row_idemple['IDEMPLEADO']; ?>" size="4" readonly="readonly" />
             <label for="textfield"></label>
             <input name="textfield" type="text" disabled="disabled" id="textfield" value="<?php echo $row_emplenomb['NOMBREEMPLEADO']; ?>" readonly="readonly" /></td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="right">IDSUCURSAL:</td>
-          <td><select name="IDSUCURSAL">
+          <td nowrap="nowrap" align="right">Pedido para sucursal:</td>
+          <td nowrap="nowrap" align="right"><select name="IDSUCURSAL">
             <?php 
 do {  
 ?>
@@ -159,17 +197,17 @@ do {
 } while ($row_sucur = mysql_fetch_assoc($sucur));
 ?>
           </select></td>
-        </tr>
-        <tr> </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" align="right">FECHA:</td>
-          <td><input type="text" name="FECHA" value="" size="32" /></td>
-        </tr>
-        <tr valign="baseline">
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td><input type="submit" value="Insertar registro" /></td>
         </tr>
-      </table>
+        <tr> </tr>
+        <tr valign="baseline">
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td></td>
+        </tr>
+        </table>
       <input type="hidden" name="MM_insert" value="form1" />
     </form></td>
   </tr>
@@ -184,6 +222,8 @@ mysql_free_result($empleado);
 mysql_free_result($ultimoenca);
 
 mysql_free_result($idusuario);
+
+mysql_free_result($idemple);
 
 mysql_free_result($emplenomb);
 ?>
