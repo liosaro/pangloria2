@@ -4,6 +4,7 @@
 	font-size: xx-large;
 	font-weight: bold;
 	color: #000;
+	text-align: center;
 }
 
 body {
@@ -11,6 +12,7 @@ body {
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
+	color: #000;
 }.etifactu {
 	font-family: "Times New Roman", Times, serif;
 	font-size: 14px;
@@ -18,6 +20,22 @@ body {
 	color: #666;
 }
 .retorno {
-	font-size: 14px;
+	font-size: 16px;
 	color: #39F;
+}
+.etiquetauser {
+	color: #CCC;
+}
+.NO {
+	color: #F00;
+	text-decoration: underline;
+}
+.deta {
+	font-size: x-large;
+	text-align: center;
+	font-weight: bold;
+	font-family: "Times New Roman", Times, serif;
+}
+.retabla {
+	color: #FFF;
 }

@@ -11,4 +11,15 @@
 <file name="consultaper.php" server="www.liosarpc.info//public_html/pan/" local="130128491748021982" remote="130128635400000000" />
 <file name="consultaperid.php" server="www.liosarpc.info//public_html/pan/" local="130130333481813647" remote="130130417400000000" />
 <file name="consultapertodo.php" server="www.liosarpc.info//public_html/pan/" local="130130333481853649" remote="130130417400000000" />
+<file name="consultaper.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134942772" remote="130134904200000000" />
+<file name="consultaperid.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135032766" remote="130134904200000000" />
+<file name="consultapermiso.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135062822" remote="130134904200000000" />
+<file name="consultapertodo.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135102820" remote="130134904200000000" />
+<file name="eliminaPermiso.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135112788" remote="130134904200000000" />
+<file name="eliminarpermisos.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135122811" remote="130134904200000000" />
+<file name="filtroeliminapermiso.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135132833" remote="130134904200000000" />
+<file name="filtromodificapermiso.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135142771" remote="130134904200000000" />
+<file name="IngresoPermiso.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134752730" remote="130134904200000000" />
+<file name="modificadorPermiso.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135142771" remote="130134904200000000" />
+<file name="modificarpermisos.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960135152778" remote="130134904200000000" />
 </dwsync>

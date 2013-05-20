@@ -11,4 +11,15 @@
 <file name="consultaTodo.php" server="www.liosarpc.info//public_html/pan/" local="130131552944645498" remote="130131624600000000" />
 <file name="filtroModiRol.php" server="www.liosarpc.info//public_html/pan/" local="130131561593600190" remote="130131633600000000" />
 <file name="eliminacionRol.php" server="www.liosarpc.info//public_html/pan/" local="130131536465092921" remote="130131634800000000" />
+<file name="consultaDescrip.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134052653" remote="130134904200000000" />
+<file name="consultaId.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134062683" remote="130134904200000000" />
+<file name="consultaRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134072656" remote="130134904200000000" />
+<file name="consultaTodo.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134072656" remote="130134904200000000" />
+<file name="eliminacionRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134082698" remote="130134904200000000" />
+<file name="eliminarRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134092659" remote="130134904200000000" />
+<file name="filtroEliminarRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134102654" remote="130134904200000000" />
+<file name="filtroModiRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134112650" remote="130134904200000000" />
+<file name="IngresarRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960133612600" remote="130134904200000000" />
+<file name="ModificacionRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960133622611" remote="130134904200000000" />
+<file name="modificarRol.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960134112650" remote="130134904200000000" />
 </dwsync>

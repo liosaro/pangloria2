@@ -10,4 +10,15 @@
 <file name="filtroeliminadepar.php" server="www.liosarpc.info//public_html/pan/" local="130134055901562500" remote="130133263800000000" />
 <file name="eliminacionDepartamento.php" server="www.liosarpc.info//public_html/pan/" local="130134050902968750" remote="130133263800000000" />
 <file name="eliminarDepartamento.php" server="www.liosarpc.info//public_html/pan/" local="130134025656093750" remote="130133260800000000" />
+<file name="ConsultaDepartamento.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131572367" remote="130134906000000000" />
+<file name="consultaid.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131902416" remote="130134906000000000" />
+<file name="consultanombre.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131912423" remote="130134906000000000" />
+<file name="consultatodos.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131912423" remote="130134906000000000" />
+<file name="eliminacionDepartamento.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131942402" remote="130134906000000000" />
+<file name="eliminarDepartamento.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131952398" remote="130134906000000000" />
+<file name="filtroeliminadepar.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131962397" remote="130134906000000000" />
+<file name="filtromodiDepto.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131962397" remote="130134906000000000" />
+<file name="IngresoDepartEmpresa.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131582366" remote="130134906000000000" />
+<file name="modidepart.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131972400" remote="130134906000000000" />
+<file name="modificaciondepar.php" server="www.liosarpc.info/public_html/pangloria/" local="130133960131982446" remote="130134906000000000" />
 </dwsync>

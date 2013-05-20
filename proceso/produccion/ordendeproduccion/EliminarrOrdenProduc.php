@@ -1,4 +1,4 @@
-<?php require_once('../Connections/basepangloria.php'); ?>
+<?php require_once('../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -49,17 +49,59 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
 }
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_empleado = "SELECT CATEMPLEADO.IDEMPLEADO, CATEMPLEADO.NOMBREEMPLEADO FROM CATEMPLEADO ORDER BY CATEMPLEADO.IDEMPLEADO";
+$empleado = mysql_query($query_empleado, $basepangloria) or die(mysql_error());
+$row_empleado = mysql_fetch_assoc($empleado);
+$totalRows_empleado = mysql_num_rows($empleado);
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_consultasucursal = "SELECT CATSUCURSAL.IDSUCURSAL, CATSUCURSAL.NOMBRESUCURSAL FROM CATSUCURSAL";
+$consultasucursal = mysql_query($query_consultasucursal, $basepangloria) or die(mysql_error());
+$row_consultasucursal = mysql_fetch_assoc($consultasucursal);
+$totalRows_consultasucursal = mysql_num_rows($consultasucursal);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Control de Empleados</title>
-<link href="../style.css" rel="stylesheet" type="text/css" />
-<script src="../SpryAssets/SpryAccordion.js" type="text/javascript"></script>
-<script src="../SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
-<link href="../SpryAssets/SpryAccordion.css" rel="stylesheet" type="text/css" />
-<link href="../SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+<link href="../../style.css" rel="stylesheet" type="text/css" />
+<script src="../../SpryAssets/SpryAccordion.js" type="text/javascript"></script>
+<script src="../../SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="../../SpryAssets/SpryAccordion.css" rel="stylesheet" type="text/css" />
+<link href="../../SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../../css/jquery-ui-1.7.2.custom.css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+ 	<script type="text/javascript">
+jQuery(function($){
+	$.datepicker.regional['es'] = {
+		closeText: 'Cerrar',
+		prevText: '&#x3c;Ant',
+		nextText: 'Sig&#x3e;',
+		currentText: 'Hoy',
+		monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+		'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+		'Jul','Ago','Sep','Oct','Nov','Dic'],
+		dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd/mm/yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+});    
+
+        $(document).ready(function() {
+           $("#datepicker").datepicker();
+        });
+    </script>
 </head>
 
 <body>
@@ -114,7 +156,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                 <td><div class="usuario" id="user1">
                   <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Man_Red_256.png" width="45" height="45" /><img src="../imagenes/icono/Supervisor-256.png" width="45" height="45" /><img src="../imagenes/icono/Judge-256.png" width="45" height="45" alt="Consultar Empleados" /></td>
+                      <td align="center" valign="bottom"><img src="../../imagenes/icono/Man_Red_256.png" width="45" height="45" /><img src="../../imagenes/icono/Supervisor-256.png" width="45" height="45" /><img src="../../imagenes/icono/Judge-256.png" width="45" height="45" alt="Consultar Empleados" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Empleados</h4></td>
@@ -124,7 +166,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                 <td><div class="usuario" id="user2">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/shopping_cart_128.png" width="45" height="45" /><img src="../imagenes/icono/Shopping-cart-256.png" width="45" height="45" /><img src="../imagenes/icono/Red-Wallet-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="../../imagenes/icono/shopping_cart_128.png" width="45" height="45" /><img src="../../imagenes/icono/Shopping-cart-256.png" width="45" height="45" /><img src="../../imagenes/icono/Red-Wallet-256.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Compras</h4></td>
@@ -134,7 +176,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                 <td><div class="usuario" id="user3">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Invoice-256.png" width="45" height="45" /><img src="../imagenes/icono/Safe-256.png" width="45" height="45" /><img src="../imagenes/icono/Cash-register-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="../../imagenes/icono/Invoice-256.png" width="45" height="45" /><img src="../../imagenes/icono/Safe-256.png" width="45" height="45" /><img src="../../imagenes/icono/Cash-register-256.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Cotizaciones</h4></td>
@@ -144,7 +186,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                 <td><div class="usuario" id="user4">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Delivery-Truck.png" width="45" height="45" /><img src="../imagenes/icono/Card-file.png" width="45" height="45" /><img src="../imagenes/icono/Time.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="../../imagenes/icono/Delivery-Truck.png" width="45" height="45" /><img src="../../imagenes/icono/Card-file.png" width="45" height="45" /><img src="../../imagenes/icono/Time.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Proveedores</h4></td>
@@ -154,7 +196,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                 <td><div class="usuario" id="user5">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Banana-128.png" width="45" height="45" /><img src="../imagenes/icono/Breakfast-Box-128.png" width="45" height="45" /><img src="../imagenes/icono/Compurter-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="../../imagenes/icono/Banana-128.png" width="45" height="45" /><img src="../../imagenes/icono/Breakfast-Box-128.png" width="45" height="45" /><img src="../../imagenes/icono/Compurter-256.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Materia Prima</h4></td>
@@ -246,31 +288,17 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
       <form id="ordcompra" name="ordcompra" method="post" action="">
         <table width="820px" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="5" align="center" bgcolor="#999999"><h1>Ingreso Pedido de Materia Prima</h1></td>
+            <td colspan="5" align="center" bgcolor="#999999"><h1>Eliminar Orden de Producción</h1></td>
           </tr>
           <tr>
-            <td width="186">Codigo de  Pedido Materia Prima</td>
-            <td width="188"><label for="IDPRODUCTO"></label>
-              <input name="IDPRODUCTO" type="text" disabled="disabled" id="IDPRODUCTO" /></td>
-            <td width="43">&nbsp;</td>
-            <td width="231">Fecha</td>
-            <td width="172"><input name="IDPRODUCTO3" type="text" id="IDPRODUCTO3" /></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Orden de produccion Usara</td>
-            <td><select name="IDSucursal" id="IDSucursal">
-              <?php
+            <td>Id de Orden de Produccion</td>
+            <td><label for="IDPRODUCTO2">
+              <select name="IDSucursal2" id="IDSucursal2">
+                <?php
 do {  
 ?>
-              <option value="<?php echo $row_SELCTORPROD['IDENCABEORDPROD']?>"<?php if (!(strcmp($row_SELCTORPROD['IDENCABEORDPROD'], $row_SELCTORPROD['IDENCABEORDPROD']))) {echo "selected=\"selected\"";} ?>><?php echo $row_SELCTORPROD['IDENCABEORDPROD']?></option>
-              <?php
+                <option value="<?php echo $row_SELCTORPROD['IDENCABEORDPROD']?>"<?php if (!(strcmp($row_SELCTORPROD['IDENCABEORDPROD'], $row_SELCTORPROD['IDENCABEORDPROD']))) {echo "selected=\"selected\"";} ?>><?php echo $row_SELCTORPROD['IDENCABEORDPROD']?></option>
+                <?php
 } while ($row_SELCTORPROD = mysql_fetch_assoc($SELCTORPROD));
   $rows = mysql_num_rows($SELCTORPROD);
   if($rows > 0) {
@@ -278,10 +306,25 @@ do {
 	  $row_SELCTORPROD = mysql_fetch_assoc($SELCTORPROD);
   }
 ?>
-            </select></td>
+              </select>
+            </label></td>
             <td>&nbsp;</td>
-            <td>Id detalle Pedido Materia Prima</td>
-            <td><input name="IDPRODUCTO4" type="text" disabled="disabled" id="IDPRODUCTO4" /></td>
+            <td>Fecha</td>
+            <td><input name="IDPRODUCTO2" type="text" id="IDPRODUCTO4" readonly="readonly" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>Sucursal que Solicita</td>
+            <td><input name="IDPRODUCTO" type="text" id="IDPRODUCTO" readonly="readonly" /></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td><p>&nbsp;</p></td>
@@ -292,23 +335,10 @@ do {
           </tr>
           <tr>
             <td>Empleado que Ingresa</td>
-            <td><select name="IDPRODUCTO" id="IDPRODUCTO">
-              <?php
-do {  
-?>
-              <option value="<?php echo $row_SELECTPRODUCTO['IDPRODUCTO']?>"<?php if (!(strcmp($row_SELECTPRODUCTO['IDPRODUCTO'], $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']))) {echo "selected=\"selected\"";} ?>><?php echo $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']?></option>
-              <?php
-} while ($row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO));
-  $rows = mysql_num_rows($SELECTPRODUCTO);
-  if($rows > 0) {
-      mysql_data_seek($SELECTPRODUCTO, 0);
-	  $row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO);
-  }
-?>
-            </select></td>
+            <td><input name="IDPRODUCTO3" type="text" id="IDPRODUCTO2" readonly="readonly" /></td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>Id detalle Orden de Produccion</td>
+            <td><input name="IDPRODUCTO4" type="text" id="IDPRODUCTO4" readonly="readonly" /></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
@@ -316,6 +346,13 @@ do {
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="186">&nbsp;</td>
+            <td width="188">&nbsp;</td>
+            <td width="47">&nbsp;</td>
+            <td width="199">&nbsp;</td>
+            <td width="200">&nbsp;</td>
           </tr>
           <tr>
             <td colspan="5" align="center" bgcolor="#999999">DETALLE</td>
@@ -323,55 +360,16 @@ do {
           <tr>
             <td colspan="5"><table width="100%" border="1" cellpadding="0" cellspacing="0" id="detalleprod">
               <tr>
-                <td width="16%" align="center" bgcolor="#C8C8C8">Numero de Pedido</td>
-                <td width="13%" align="center" bgcolor="#C8C8C8">Cantidad</td>
-                <td width="14%" align="center" bgcolor="#C8C8C8">Unidad</td>
-                <td width="57%" align="center" bgcolor="#C8C8C8">Materia Prima</td>
+                <td width="8%" align="center" bgcolor="#C8C8C8">Cantidad</td>
+                <td width="8%" align="center" bgcolor="#C8C8C8">Medida</td>
+                <td width="14%" align="center" bgcolor="#C8C8C8">Orden de Produccion</td>
+                <td width="70%" align="center" bgcolor="#C8C8C8">Producto</td>
               </tr>
               <tr>
-                <td><select name="OrdProdIDMedida2" id="OrdProdIDMedida2">
-                  <?php
-do {  
-?>
-                  <option value="<?php echo $row_SELECTPRODUCTO['IDPRODUCTO']?>"<?php if (!(strcmp($row_SELECTPRODUCTO['IDPRODUCTO'], $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']))) {echo "selected=\"selected\"";} ?>><?php echo $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']?></option>
-                  <?php
-} while ($row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO));
-  $rows = mysql_num_rows($SELECTPRODUCTO);
-  if($rows > 0) {
-      mysql_data_seek($SELECTPRODUCTO, 0);
-	  $row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO);
-  }
-?>
-                </select></td>
                 <td>&nbsp;</td>
-                <td><select name="OrdProdIDMedida" id="OrdProdIDMedida">
-                  <?php
-do {  
-?>
-                  <option value="<?php echo $row_SELECTPRODUCTO['IDPRODUCTO']?>"<?php if (!(strcmp($row_SELECTPRODUCTO['IDPRODUCTO'], $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']))) {echo "selected=\"selected\"";} ?>><?php echo $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']?></option>
-                  <?php
-} while ($row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO));
-  $rows = mysql_num_rows($SELECTPRODUCTO);
-  if($rows > 0) {
-      mysql_data_seek($SELECTPRODUCTO, 0);
-	  $row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO);
-  }
-?>
-                </select></td>
-                <td><select name="OrdProdIDPRODUCTO5" id="OrdProdIDPRODUCTO5">
-                  <?php
-do {  
-?>
-                  <option value="<?php echo $row_SELECTPRODUCTO['IDPRODUCTO']?>"<?php if (!(strcmp($row_SELECTPRODUCTO['IDPRODUCTO'], $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']))) {echo "selected=\"selected\"";} ?>><?php echo $row_SELECTPRODUCTO['DESCRIPCIONPRODUC']?></option>
-                  <?php
-} while ($row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO));
-  $rows = mysql_num_rows($SELECTPRODUCTO);
-  if($rows > 0) {
-      mysql_data_seek($SELECTPRODUCTO, 0);
-	  $row_SELECTPRODUCTO = mysql_fetch_assoc($SELECTPRODUCTO);
-  }
-?>
-                </select></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
@@ -412,8 +410,28 @@ do {
             </table>              <label for="IDMEDIDA"></label></td>
             </tr>
           <tr>
-            <td colspan="5"><input type="submit" name="SEND" id="SEND" value="Enviar" />
-              <input type="reset" name="add2" id="add2" value="Limpiar" /></td>
+            <td colspan="5"><input type="submit" name="SEND" id="SEND" value="Eliminar" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
         </table>
       </form>
@@ -442,9 +460,6 @@ do {
 
       </tr>
     </table>
-      <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-        <input type="hidden" name="MM_insert" value="form1" />
-      </form>
     <p>&nbsp;</p></td>
   </tr>
 </table>
@@ -454,8 +469,8 @@ var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"SpryAssets/SpryMenu
 </script>
 </body>
 </html>
+<?php
+mysql_free_result($empleado);
 
- 
-            
-            
-            
+mysql_free_result($consultasucursal);
+?>
