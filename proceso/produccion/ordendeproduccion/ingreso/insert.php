@@ -226,6 +226,8 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
+<script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -239,7 +241,7 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
     <td>&nbsp;</td>
     <td align="left" class="NO">&nbsp;</td>
     <td>&nbsp;</td>
-    <td align="right" class="retorno"><a href="encabeza.php.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" "/></a></td>
+    <td align="right" class="retorno"><a href="encabeza.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" "/></a></td>
   </tr>
   <tr>
     <td>Orden de Produccion No.:</td>
@@ -273,7 +275,9 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
             </tr>
             <tr valign="baseline">
               <td width="11%" align="right" nowrap="nowrap">Cantidad:</td>
-              <td width="10%"><input type="text" name="CANTIDADORPROD" value="" size="9" /></td>
+              <td width="10%"><span id="ordprodcant">
+              <input type="text" name="CANTIDADORPROD" value="" size="9" />
+              <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
               <td width="9%">Medida:</td>
               <td width="8%"><select name="ID_MEDIDA">
                 <?php
@@ -374,6 +378,9 @@ $totalRows_Producto = mysql_num_rows($Producto);
     </table></td>
   </tr>
 </table>
+<script type="text/javascript">
+var sprytextfield1 = new Spry.Widget.ValidationTextField("ordprodcant", "real", {validateOn:["change"], minValue:0});
+</script>
 </body>
 </html>
 <?php

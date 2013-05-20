@@ -138,6 +138,14 @@ $totalRows_emplenomb = mysql_num_rows($emplenomb);
 <link href="../../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" media="screen"
      href="../../../../css/bootstrap-datetimepicker.min.css">
+     
+<script>
+function cerrarse()
+{
+ opener.location.reload();
+ window.close()
+}
+</script>
 </head>
 
 <body>
@@ -184,11 +192,11 @@ $totalRows_emplenomb = mysql_num_rows($emplenomb);
           <td nowrap="nowrap" align="right">Empleado Que ingresa:</td>
           <td><input name="IDEMPLEADO" type="text" value="<?php echo $row_idemple['IDEMPLEADO']; ?>" size="4" readonly="readonly" />
             <label for="textfield"></label>
-            <input name="textfield" type="text" disabled="disabled" id="textfield" value="<?php echo $row_emplenomb['NOMBREEMPLEADO']; ?>" readonly="readonly" /></td>
+            <input name="textfield" type="text" disabled="disabled" id="textfield"    value="<?php echo $row_emplenomb['NOMBREEMPLEADO']; ?>" readonly="readonly" /></td>
         </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">Pedido para sucursal:</td>
-          <td nowrap="nowrap" align="right"><select name="IDSUCURSAL">
+          <td nowrap="nowrap" align="right"><select name="IDSUCURSAL" onfocus="document.form1.SUBIT.disabled=false;">
             <?php 
 do {  
 ?>
@@ -198,14 +206,14 @@ do {
 ?>
           </select></td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td><input type="submit" value="Insertar registro" /></td>
+          <td><input name="SUBIT" type="submit" disabled class="badge-info" id="SUBIT" value="Insertar registro"  /></td>
         </tr>
         <tr> </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td></td>
+          <td align="right"><input name="CERADOR" type="submit" class="label-warning" id="CERADOR" value="Cerrar" onclick="cerrarse()"/></td>
         </tr>
         </table>
       <input type="hidden" name="MM_insert" value="form1" />
