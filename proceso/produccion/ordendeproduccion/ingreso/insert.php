@@ -160,7 +160,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ultregis = "SELECT * FROM TRNENCABEZADOORDENPROD ORDER BY IDENCABEORDPROD DESC";
+$query_ultregis = "SELECT * FROM TRNENCABEZADOORDENPROD where ELIMIN = '0' ORDER BY IDENCABEORDPROD DESC";
 $ultregis = mysql_query($query_ultregis, $basepangloria) or die(mysql_error());
 $row_ultregis = mysql_fetch_assoc($ultregis);
 $totalRows_ultregis = mysql_num_rows($ultregis);
@@ -193,7 +193,7 @@ if (isset($_GET['IDENCABEORDPROD'])) {
 }
 mysql_select_db($database_basepangloria, $basepangloria);
 $Ultenca = $row_ultregis['IDENCABEORDPROD'];
-$query_ultdetad = sprintf("SELECT IDORDENPRODUCCION, CANTIDADORPROD, ID_MEDIDA, PRODUCTOORDPRODUC FROM TRNDETORDENPRODUCCION WHERE IDENCABEORDPROD = '$Ultenca' ORDER BY IDORDENPRODUCCION DESC");
+$query_ultdetad = sprintf("SELECT IDORDENPRODUCCION, CANTIDADORPROD, ID_MEDIDA, PRODUCTOORDPRODUC FROM TRNDETORDENPRODUCCION WHERE IDENCABEORDPROD = '$Ultenca' AND ELIMIN = '0' ORDER BY IDORDENPRODUCCION DESC");
 $ultdetad = mysql_query($query_ultdetad, $basepangloria) or die(mysql_error());
 $row_ultdetad = mysql_fetch_assoc($ultdetad);
 $totalRows_ultdetad = mysql_num_rows($ultdetad);

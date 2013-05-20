@@ -1,5 +1,4 @@
 <?php require_once('../../../../Connections/basepangloria.php'); ?>
-<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -207,7 +206,7 @@ if (isset($_GET['IDENCABEORDPROD'])) {
 }
 mysql_select_db($database_basepangloria, $basepangloria);
 $Ultenca = $row_ultregis['IDENCABEORDPROD'];
-$query_ultdetad = sprintf("SELECT IDORDENPRODUCCION, CANTIDADORPROD, ID_MEDIDA, PRODUCTOORDPRODUC FROM TRNDETORDENPRODUCCION WHERE IDENCABEORDPROD = '$Ultenca' ORDER BY IDORDENPRODUCCION DESC");
+$query_ultdetad = sprintf("SELECT IDORDENPRODUCCION, CANTIDADORPROD, ID_MEDIDA, PRODUCTOORDPRODUC FROM TRNDETORDENPRODUCCION WHERE IDENCABEORDPROD = '$Ultenca' AND ELIMIN = '0' ORDER BY IDORDENPRODUCCION DESC");
 $ultdetad = mysql_query($query_ultdetad, $basepangloria) or die(mysql_error());
 $row_ultdetad = mysql_fetch_assoc($ultdetad);
 $totalRows_ultdetad = mysql_num_rows($ultdetad);
@@ -242,6 +241,17 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
 <script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 <link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
+}
+else {
+document.location = url;
+return true;
+}
+}
+</script>
 </head>
 
 <body>
@@ -393,7 +403,7 @@ $totalRows_Producto = mysql_num_rows($Producto);
                 <td align="center" bgcolor="#999999"><?php echo $row_Medida['MEDIDA']; ?></td>
                 <td align="left" bgcolor="#666666"><?php echo $row_Producto['DESCRIPCIONPRODUC']; ?></td>
                 <td align="center" bgcolor="#666666"><a href="modi.php?enca=<?php echo $row_ultregis['IDENCABEORDPROD']; ?>&IDOR=<?php echo $row_ultdetad['IDORDENPRODUCCION']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
-                <td align="center" bgcolor="#666666"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32" /></td>
+                <td align="center" bgcolor="#666666"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_ultdetad['IDORDENPRODUCCION'];?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32"/></a></td>
               </tr>
               <?php } while ($row_ultdetad = mysql_fetch_assoc($ultdetad)); ?>
           </table></td>
