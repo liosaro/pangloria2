@@ -168,14 +168,14 @@ if (isset($_POST['user'])) {
           <p>&nbsp;</p>
           <p><img src="imagenes/logotipo.png" width="242" height="114" /></p>
           <form id="form1" name="form1" method="POST" action="<?php echo $loginFormAction; ?>">
-            <p>Inicio de secion:
+            <p>Inicio de Sesion:
 </p>
             <p>Usuario:
               <label for="user"></label>
               <input type="text" name="user" id="user" />
             </p>
             <p>Clave:
-              <input type="text" name="pass" id="pass" />
+              <input type="password" name="pass" id="pass" />
             </p>
             <p>
               <label for="pass"></label>
