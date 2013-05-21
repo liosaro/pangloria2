@@ -53,6 +53,6 @@ $query = "UPDATE TRNENCABEZADOORDENPROD SET ELIMIN=1 WHERE IDENCABEORDPROD=$id";
  }
 $url = $_SERVER['HTTP_REFERER'];
 echo $url;
-header ("location: $url; ");
+header ("location: $url ");
 
 ?>
