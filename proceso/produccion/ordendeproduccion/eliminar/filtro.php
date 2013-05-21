@@ -82,10 +82,22 @@ $queryString_disponibl = sprintf("&totalRows_disponibl=%d%s", $totalRows_disponi
 .retabla {
 	text-align: center;
 }
-</style></head>
+</style>
+<script language="JavaScript">
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
+}
+else {
+document.location = url;
+return true;
+}
+}
+</script>
+</head>
 
 <body>
-<p>Elija La Orden de Produccion que desea Modificar: 
+<p>Elija La Orden de Produccion que desea Eliminar: 
   <label for="select"></label>
   <select name="select" id="select"   onchange="window.location.href='modi.php?enca='+document.getElementById(this.id).value ;">
     <?php
@@ -113,7 +125,7 @@ do {
         <td bgcolor="#000000" class="retabla"><span class="retabla">Codigo de Empleado</span></td>
         <td bgcolor="#000000" class="retabla"><span class="retabla">Sucursal</span></td>
         <td bgcolor="#000000" class="retabla"><span class="retabla">Fecha</span></td>
-        <td>Modificar</td>
+        <td><p>Eliminar</p></td>
       </tr>
       <?php do { ?>
       <?php mysql_select_db($database_basepangloria, $basepangloria);
@@ -127,7 +139,7 @@ $totalRows_sucur = mysql_num_rows($sucur);?>
         <td bgcolor="#999999"><?php echo $row_disponibl['IDEMPLEADO']; ?></td>
         <td bgcolor="#CCCCCC"><?php echo $row_sucur['NOMBRESUCURSAL']; ?></td>
         <td bgcolor="#999999"><?php echo $row_disponibl['FECHA']; ?></td>
-        <td align="right"><a href="modi.php?enca=<?php echo $row_disponibl['IDENCABEORDPROD']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
+        <td align="right"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_disponibl['IDENCABEORDPROD'] ?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32"/></a></td>
       </tr>
       <?php } while ($row_disponibl = mysql_fetch_assoc($disponibl)); ?>
     </table></td>
