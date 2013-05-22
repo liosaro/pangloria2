@@ -44,9 +44,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['FECHA'], "date"),
                        GetSQLValueString($_POST['USUARIO'], "int"),
                        GetSQLValueString($_POST['FECHAHORAUSUA'], "date"));
+$ord = $_POST['IDORDENPRODUCCION'];
+$updateSQL = sprintf("UPDATE TRNENCABEZADOORDENPROD SET EDITA=1 WHERE IDENCABEORDPROD= $ord");
 
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
+  $Result2 = mysql_query($updateSQL, $basepangloria) or die(mysql_error());
+  
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
@@ -88,7 +92,7 @@ body {
 <body>
 <table width="820" border="0">
   <tr>
-    <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+    <td><form action="<?php echo $editFormAction; ?> " method="post" name="form1" id="form1">
         <table width="100%" border="0">
           <tr>
             <td colspan="4" align="center" bgcolor="#999999"><h1>Ingreso Pedido de Materia Prima</h1></td>
