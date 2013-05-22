@@ -80,8 +80,9 @@ body {
 	margin-bottom: 0px;
 }
 </style>
-<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="../../../css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
@@ -95,8 +96,8 @@ body {
           <tr>
             <td>Id Encabezado de Pedido:</td>
             <td><input name="ID_ENCAPEDIDO" type="text" disabled="disabled" value="<?php echo $row_ultimoped['ID_ENCAPEDIDO']+1;?>" size="32" readonly="readonly" /></td>
-            <td>Empleado Pide:</td>
-            <td><select name="IDEMPLEADO">
+            <td>Empleado que Pide:</td>
+            <td><select name="IDEMPLEADO" onchange="document.form1.enviarenca.disabled=false;">
               <?php
 do {  
 ?>
@@ -118,8 +119,8 @@ do {
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td>IDORDENPRODUCCION</td>
-            <td><select name="IDORDENPRODUCCION">
+            <td>Eliga la Orden de Producción:</td>
+            <td><select name="IDORDENPRODUCCION" onchange="document.form1.enviarenca.disabled=false;">
               <?php
 do {  
 ?>
@@ -133,13 +134,35 @@ do {
   }
 ?>
             </select></td>
-            <td>FECHA</td>
-            <td><span id="spryfecha">
-            <input type="text" name="FECHA" value="" size="32" />
-            <span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldRequiredMsg">Se necesita un valor.</span></span></td>
+            <td>Fecha:</td>
+            <td><script type="text/javascript"
+      src="../../../SpryAssets/jquery-1.8.3.min.js">
+    </script> 
+    <script type="text/javascript"
+      src="../../../SpryAssets/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+      src="../../../SpryAssets/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="../../../SpryAssets/bootstrap-datetimepicker.es.js">
+    </script>  <div id="datetimepicker4" class="input-append">
+    <input name="FECHA" type="text" id="FECHA" data-format="yyyy-MM-dd"  onchange="document.form1.enviarenca.disabled=false;"></input>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker4').datetimepicker({
+      pickTime: false
+    });
+  });
+</script></td>
           </tr>
           <tr>
-            <td><input type="submit" name="enviarenca" id="enviarenca" value="Insertar Encabezado" /></td>
+            <td><input type="submit" name="enviarenca" id="enviarenca" value="Insertar Encabezado" disabled/></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -152,11 +175,9 @@ do {
       </form>  
       </tr>
 </table>
-    <p><iframe src="insertadordetalle.php" name="conteb" width="820" height="350" scrolling="auto" frameborder="0"></iframe>&nbsp;</p></td>
-
-<script type="text/javascript">
-var sprytextfield1 = new Spry.Widget.ValidationTextField("spryfecha", "date", {format:"yyyy-mm-dd", validateOn:["blur"]});
-</script>
+    <p><iframe src="ingresar/insertadordetalle.php" name="conteb" width="820" height="350" scrolling="auto" frameborder="0"></iframe>&nbsp;</p>
+    <p>&nbsp;</p>
+    </td>
 </body>
 </html>
 <?php

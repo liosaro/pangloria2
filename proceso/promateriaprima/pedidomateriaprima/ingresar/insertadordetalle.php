@@ -1,4 +1,4 @@
-<?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -83,7 +83,8 @@ if (isset($_GET['pageNum_ultimoingresado'])) {
 $startRow_ultimoingresado = $pageNum_ultimoingresado * $maxRows_ultimoingresado;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ultimoingresado = "SELECT * FROM TRNPEDIDO_MAT_PRIMA ORDER BY ID_PED_MAT_PRIMA DESC";
+$encaped= $row_sumaridnuevo['ID_ENCAPEDIDO'];
+$query_ultimoingresado = "SELECT * FROM TRNPEDIDO_MAT_PRIMA WHERE ID_ENCAPEDIDO = $encaped ORDER BY ID_PED_MAT_PRIMA DESC";
 $query_limit_ultimoingresado = sprintf("%s LIMIT %d, %d", $query_ultimoingresado, $startRow_ultimoingresado, $maxRows_ultimoingresado);
 $ultimoingresado = mysql_query($query_limit_ultimoingresado, $basepangloria) or die(mysql_error());
 $row_ultimoingresado = mysql_fetch_assoc($ultimoingresado);
@@ -131,7 +132,7 @@ $totalRows_nombremateria = mysql_num_rows($nombremateria);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
-<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+<link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -141,19 +142,17 @@ $totalRows_nombremateria = mysql_num_rows($nombremateria);
     <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
         <table align="left">
           <tr valign="baseline">
-            <td nowrap="nowrap" align="right">ID_PED_MAT_PRIMA:</td>
-            <td><input name="ID_PED_MAT_PRIMA" type="text" disabled="disabled" value="<?php echo $row_ultimodetallepedido['ID_PED_MAT_PRIMA']+1; ?>" size="32" readonly="readonly" /></td>
-            <td>ID_ENCAPEDIDO:</td>
+            <td colspan="3" align="right" nowrap="nowrap">Pedido de Materia Prima No.</td>
+            <td><input name="ID_PED_MAT_PRIMA" type="text" disabled="disabled" value="<?php echo $row_ultimodetallepedido['ID_PED_MAT_PRIMA']+1; ?>" size="9" readonly="readonly" /></td>
+            <td>Detalle Para pedido:</td>
             
-            <td><input name="ID_ENCAPEDIDO" type="text" disabled="disabled" value="<?php echo $row_sumaridnuevo['ID_ENCAPEDIDO']+1; ?>" size="32" readonly="readonly" /></td>
+            <td><input name="ID_ENCAPEDIDO" type="text" value="<?php  echo $row_sumaridnuevo['ID_ENCAPEDIDO']; ?>" size="9" readonly="readonly" /></td>
           </tr>
                           
-                    
           <tr valign="baseline">
-            <td nowrap="nowrap" align="right">&nbsp;</td>
-          </tr>
-          <tr valign="baseline">
-            <td nowrap="nowrap" align="right">IDUNIDAD:</td>
+            <td nowrap="nowrap" align="right">Cantidad:</td>
+            <td nowrap="nowrap" align="right"><input type="text" name="CANTIDADPEDMATPRI" value="" size="9" /></td>
+            <td nowrap="nowrap" align="right">Unidad de Medida</td>
             <td><select name="IDUNIDAD">
               <?php
 do {  
@@ -168,7 +167,7 @@ do {
   }
 ?>
             </select></td>
-            <td>IDMATPRIMA:</td>
+            <td>Materia Prima a Solicitar</td>
             <td><select name="IDMATPRIMA" onfocus="document.form1.cuerpo.disabled=false;">
               <?php
 do {  
@@ -186,16 +185,9 @@ do {
           </tr>
           <tr valign="baseline">
             <td nowrap="nowrap" align="right">&nbsp;</td>
-          </tr>
-          <tr valign="baseline">
-            <td nowrap="nowrap" align="right">CANTIDADPEDMATPRI:</td>
-            <td><input type="text" name="CANTIDADPEDMATPRI" value="" size="32" /></td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr valign="baseline">
+            <td nowrap="nowrap" align="right"><input name="cuerpo" type="submit" id="cuerpo" value="Insertar registro" disabled /></td>
             <td nowrap="nowrap" align="right">&nbsp;</td>
-            <td><input name="cuerpo" type="submit" id="cuerpo" value="Insertar registro" disabled /></td>
+            <td>&nbsp;</td>
           </tr>
         </table>
         <input type="hidden" name="MM_insert" value="form1" />
@@ -205,14 +197,12 @@ do {
 </table>
 <table width="820" border="1">
   <tr>
-    <td colspan="5" align="center">Ultimo Registro Agregado</td>
+    <td colspan="3" align="center" bgcolor="#CCCCCC" class="encaforms">Ultimo Registro Agregado</td>
   </tr>
-  <tr>
-    <td>ID_PED_MAT_PRIMA</td>
-    <td>ID_ENCAPEDIDO</td>
-    <td>IDUNIDAD</td>
-    <td>IDMATPRIMA</td>
-    <td>CANTIDADPEDMATPRI</td>
+  <tr class="retabla">
+    <td width="75" align="center" bgcolor="#000000">Cantidad</td>
+    <td width="150" align="center" bgcolor="#000000">Unidad de Medida</td>
+    <td width="328" align="center" bgcolor="#000000">Materia Prima</td>
   </tr>
   <?php do { ?>
   <?php 
@@ -232,11 +222,9 @@ $totalRows_unidamedida = mysql_num_rows($unidamedida);
 
   ?>
     <tr>
-      <td><?php echo $row_ultimoingresado['ID_PED_MAT_PRIMA']; ?></td>
-      <td><?php echo $row_ultimoingresado['ID_ENCAPEDIDO']; ?></td>
-      <td><?php echo $row_unidamedida['TIPOUNIDAD']; ?></td>
-      <td><?php echo $row_nombremateria['DESCRIPCION']; ?></td>
       <td><?php echo $row_ultimoingresado['CANTIDADPEDMATPRI']; ?></td>
+      <td><?php echo $row_unidamedida['TIPOUNIDAD']; ?></td>
+      <td align="center"><?php echo $row_nombremateria['DESCRIPCION']; ?></td>
     </tr>
     <?php } while ($row_ultimoingresado = mysql_fetch_assoc($ultimoingresado)); ?>
 </table>
