@@ -263,7 +263,7 @@ return true;
     <td>&nbsp;</td>
     <td align="left" class="NO">&nbsp;</td>
     <td>&nbsp;</td>
-    <td align="right" class="retorno"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_ultregis['IDENCABEORDPROD'];?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32"/></a></td>
+    <td align="right" class="retorno"><a href="javascript:;" onclick="aviso('eliminar2.php?id=<?php echo $row_ultregis['IDENCABEORDPROD'];?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32"/></a></td>
   </tr>
   <tr>
     <td>Orden de Produccion No.:</td>
