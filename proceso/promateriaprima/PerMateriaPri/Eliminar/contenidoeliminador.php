@@ -11,8 +11,8 @@ body {
 	margin-bottom: 0px;
 }
 </style>
-<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

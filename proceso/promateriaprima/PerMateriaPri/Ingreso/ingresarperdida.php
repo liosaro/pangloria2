@@ -1,4 +1,4 @@
-<?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -32,7 +32,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
-$MM_restrictGoTo = "../../../seguridad.php";
+$MM_restrictGoTo = "../../../../seguridad.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
@@ -44,8 +44,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
-<?php require_once('../../../Connections/basepangloria.php'); ?>
-<?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -201,10 +201,10 @@ body {
 	margin-top: 0px;
 }
 </style>
-<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<script src="../../../SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
-<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
-<link href="../../../SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css" />
+<script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<script src="../../../../SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
+<link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="../../../../SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

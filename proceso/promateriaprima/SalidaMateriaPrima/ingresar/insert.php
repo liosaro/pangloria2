@@ -1,5 +1,4 @@
 <?php require_once('../../../../Connections/basepangloria.php'); ?>
-<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -76,106 +75,18 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-$editFormAction = $_SERVER['PHP_SELF'];
-if (isset($_SERVER['QUERY_STRING'])) {
-  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO TRNDETORDENPRODUCCION (IDORDENPRODUCCION, IDENCABEORDPROD, CANTIDADORPROD, ID_MEDIDA, PRODUCTOORDPRODUC, FECHAHORAUSUA, USUARIO) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                       GetSQLValueString($_POST['IDORDENPRODUCCION'], "int"),
-                       GetSQLValueString($_POST['IDENCABEORDPROD'], "int"),
-                       GetSQLValueString($_POST['CANTIDADORPROD'], "double"),
-                       GetSQLValueString($_POST['ID_MEDIDA'], "int"),
-                       GetSQLValueString($_POST['PRODUCTOORDPRODUC'], "int"),
-                       GetSQLValueString($_POST['FECHAHORAUSUA'], "date"),
-                       GetSQLValueString($_POST['USUARIO'], "int"));
-
-  mysql_select_db($database_basepangloria, $basepangloria);
-  $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
-}
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_ultimoencasali = "SELECT IDENCABEZADOSALMATPRI, IDEMPLEADO, ID_PED_MAT_PRIMA, FECHAYHORASALIDAMATPRIMA FROM TRNENCABEZADOSALIDMATPRIMA ORDER BY IDENCABEZADOSALMATPRI DESC";
+$ultimoencasali = mysql_query($query_ultimoencasali, $basepangloria) or die(mysql_error());
+$row_ultimoencasali = mysql_fetch_assoc($ultimoencasali);
+$totalRows_ultimoencasali = mysql_num_rows($ultimoencasali);
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ultregis = "SELECT IDENCABEZADOSALMATPRI, IDEMPLEADO, ID_PED_MAT_PRIMA, FECHAYHORASALIDAMATPRIMA FROM TRNENCABEZADOSALIDMATPRIMA WHERE ELIMIN = 0 ORDER BY IDENCABEZADOSALMATPRI DESC";
+$ulti = $row_ultimoencasali['ID_PED_MAT_PRIMA'];
+$query_ultregis = "SELECT IDUNIDAD, IDMATPRIMA, CANTIDADPEDMATPRI,ID_PED_MAT_PRIMA FROM TRNPEDIDO_MAT_PRIMA WHERE ID_ENCAPEDIDO = $ulti ";
 $ultregis = mysql_query($query_ultregis, $basepangloria) or die(mysql_error());
 $row_ultregis = mysql_fetch_assoc($ultregis);
 $totalRows_ultregis = mysql_num_rows($ultregis);
-
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_comboMedida = "SELECT ID_MEDIDA, MEDIDA FROM CATMEDIDAS";
-$comboMedida = mysql_query($query_comboMedida, $basepangloria) or die(mysql_error());
-$row_comboMedida = mysql_fetch_assoc($comboMedida);
-$totalRows_comboMedida = mysql_num_rows($comboMedida);
-
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_comboProducto = "SELECT IDPRODUCTO, DESCRIPCIONPRODUC FROM CATPRODUCTO";
-$comboProducto = mysql_query($query_comboProducto, $basepangloria) or die(mysql_error());
-$row_comboProducto = mysql_fetch_assoc($comboProducto);
-$totalRows_comboProducto = mysql_num_rows($comboProducto);
 
 $colname_textusuario = "-1";
 if (isset($_SESSION['MM_Username'])) {
@@ -187,23 +98,31 @@ $textusuario = mysql_query($query_textusuario, $basepangloria) or die(mysql_erro
 $row_textusuario = mysql_fetch_assoc($textusuario);
 $totalRows_textusuario = mysql_num_rows($textusuario);
 
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_departa = "SELECT IDDEPTO, DEPARTAMENTO FROM CATDEPARTAMENEMPRESA ORDER BY DEPARTAMENTO ASC";
+$departa = mysql_query($query_departa, $basepangloria) or die(mysql_error());
+$row_departa = mysql_fetch_assoc($departa);
+$totalRows_departa = mysql_num_rows($departa);
+
+
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$nomemplusua = $row_textusuario['IDUSUARIO'];
+$query_emplia = "SELECT IDEMPLEADO, NOMBREEMPLEADO FROM CATEMPLEADO WHERE IDUSUARIO = $nomemplusua";
+$emplia = mysql_query($query_emplia, $basepangloria) or die(mysql_error());
+$row_emplia = mysql_fetch_assoc($emplia);
+$totalRows_emplia = mysql_num_rows($emplia);
+
 $colname_ultdetad = "-1";
 if (isset($_GET['IDENCABEORDPROD'])) {
   $colname_ultdetad = $_GET['IDENCABEORDPROD'];
 }
-mysql_select_db($database_basepangloria, $basepangloria);
-$Ultenca = $row_ultregis['IDENCABEORDPROD'];
-$query_ultdetad = sprintf("SELECT IDORDENPRODUCCION, CANTIDADORPROD, ID_MEDIDA, PRODUCTOORDPRODUC FROM TRNDETORDENPRODUCCION WHERE IDENCABEORDPROD = '$Ultenca' AND ELIMIN = '0' ORDER BY IDORDENPRODUCCION DESC");
-$ultdetad = mysql_query($query_ultdetad, $basepangloria) or die(mysql_error());
-$row_ultdetad = mysql_fetch_assoc($ultdetad);
-$totalRows_ultdetad = mysql_num_rows($ultdetad);
-
 $colname_empleado = "-1";
 if (isset($_POST['IDEMPLEADO'])) {
   $colname_empleado = $_POST['IDEMPLEADO'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$emple = $row_ultregis['IDEMPLEADO'];
+$emple = $row_ultimoencasali['IDEMPLEADO'];
 $query_empleado = sprintf("SELECT NOMBREEMPLEADO FROM CATEMPLEADO WHERE IDEMPLEADO = '$emple'");
 $empleado = mysql_query($query_empleado, $basepangloria) or die(mysql_error());
 $row_empleado = mysql_fetch_assoc($empleado);
@@ -212,12 +131,6 @@ $colname_Sucursal = "-1";
 if (isset($_GET['IDSUCURSAL'])) {
   $colname_Sucursal = $_GET['IDSUCURSAL'];
 }
-mysql_select_db($database_basepangloria, $basepangloria);
-$sucu = $row_ultregis['IDSUCURSAL'];
-$query_Sucursal = sprintf("SELECT NOMBRESUCURSAL FROM CATSUCURSAL WHERE IDSUCURSAL = '$sucu='");
-$Sucursal = mysql_query($query_Sucursal, $basepangloria) or die(mysql_error());
-$row_Sucursal = mysql_fetch_assoc($Sucursal);
-$totalRows_Sucursal = mysql_num_rows($Sucursal);
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -226,8 +139,6 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
-<script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -241,19 +152,19 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
     <td>&nbsp;</td>
     <td align="left" class="NO">&nbsp;</td>
     <td>&nbsp;</td>
-    <td align="right" class="retorno"><a href="encabeza.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" "/></a></td>
+    <td align="right" class="retorno"><a href="encabeza.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32"/></a></td>
   </tr>
   <tr>
     <td align="left">Salida de Materia Prima No.:</td>
-    <td align="left" class="NO"><?php echo $row_ultregis['IDENCABEZADOSALMATPRI']; ?></td>
+    <td align="left" class="NO"><?php echo $row_ultimoencasali['IDENCABEZADOSALMATPRI']; ?></td>
     <td align="left">Empleado:</td>
     <td align="left" class="retorno"><?php echo $row_empleado['NOMBREEMPLEADO']; ?></td>
   </tr>
   <tr>
     <td align="left">Pedido de Materia Prima que Usara:</td>
-    <td align="left" class="retorno"><?php echo $row_ultregis['ID_PED_MAT_PRIMA']; ?></td>
+    <td align="left" class="retorno"><?php echo $row_ultimoencasali['ID_PED_MAT_PRIMA']; ?></td>
     <td align="left">Fecha:</td>
-    <td align="left" class="retorno"><?php echo $row_ultregis['FECHAYHORASALIDAMATPRIMA']; ?></td>
+    <td align="left" class="retorno"><?php echo $row_ultimoencasali['FECHAYHORASALIDAMATPRIMA']; ?></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -265,122 +176,51 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
 </td>
   </tr>
   <tr>
-    <td><table width="100%" border="1">
+    <td><form action="script.php" method="post" target="_self"><table width="100%" border="1">
       <tr>
-        <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-          <table width="100%" align="center">
-            <tr valign="baseline">
-              <td colspan="6" align="left" nowrap="nowrap">Detalle Para Orden No.:
-                <input name="IDENCABEORDPROD" type="text" value="<?php echo $row_ultregis['IDENCABEORDPROD']; ?>" size="32" readonly="readonly" /></td>
-            </tr>
-            <tr valign="baseline">
-              <td width="11%" align="right" nowrap="nowrap">Cantidad:</td>
-              <td width="10%"><span id="ordprodcant">
-              <input type="text" name="CANTIDADORPROD" value="" size="9" />
-              <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
-              <td width="9%">Medida:</td>
-              <td width="8%"><select name="ID_MEDIDA">
-                <?php
-do {  
-?>
-                <option value="<?php echo $row_comboMedida['ID_MEDIDA']?>"><?php echo $row_comboMedida['MEDIDA']?></option>
-                <?php
-} while ($row_comboMedida = mysql_fetch_assoc($comboMedida));
-  $rows = mysql_num_rows($comboMedida);
-  if($rows > 0) {
-      mysql_data_seek($comboMedida, 0);
-	  $row_comboMedida = mysql_fetch_assoc($comboMedida);
-  }
-?>
-              </select></td>
-              <td width="18%">Producto :</td>
-              <td width="44%" align="left"><select name="PRODUCTOORDPRODUC" onfocus="document.form1.cuerpo.disabled=false;">
-                <?php
-do {  
-?>
-                <option value="<?php echo $row_comboProducto['IDPRODUCTO']?>"><?php echo $row_comboProducto['DESCRIPCIONPRODUC']?></option>
-                <?php
-} while ($row_comboProducto = mysql_fetch_assoc($comboProducto));
-  $rows = mysql_num_rows($comboProducto);
-  if($rows > 0) {
-      mysql_data_seek($comboProducto, 0);
-	  $row_comboProducto = mysql_fetch_assoc($comboProducto);
-  }
-?>
-              </select></td>
-            </tr>
-            <tr valign="baseline">
-              <td nowrap="nowrap" align="right">&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td align="right" class="etiquetauser">Fecha y Hora del Usuario:</td>
-              <td align="left"><input name="FECHAHORAUSUA" type="text" value="<?php echo date("Y-m-d H:i:s");;?> " size="32" readonly="readonly" /></td>
-            </tr>
-            <tr valign="baseline">
-              <td nowrap="nowrap" align="right">&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td align="right" class="etiquetauser">Usuario:</td>
-              <td align="left"><input name="IDEMPLEADO" type="text" value="<?php echo $row_textusuario['IDUSUARIO']; ?>" size="32" readonly="readonly" /></td>
-            </tr>
-            <tr valign="baseline">
-              <td nowrap="nowrap" align="right">&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td><input name="cuerpo" type="submit" disabled="disabled" id="cuerpo" value="Insertar registro" /></td>
-            </tr>
-          </table>
-          <input type="hidden" name="MM_insert" value="form1" />
-        </form></td>
-      </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td><table width="100%" border="1">
-      <tr>
-        <td bgcolor="#CCCCCC" class="deta">Registros Agregados</td>
+        <td bgcolor="#CCCCCC" class="deta">Registros Solicitados</td>
       </tr>
       <tr>
         <td>
           <table width="100%" border="1" align="left" cellpadding="0" cellspacing="0">
             <tr class="retabla">
+              <td width="10%" align="center" bgcolor="#000000">Agregar</td>
+              <td width="10%" align="center" bgcolor="#000000">Codigo</td>
               <td width="10%" align="center" bgcolor="#000000">Cantidad</td>
               <td width="20%" align="center" bgcolor="#000000">Medida</td>
-              <td width="70%" align="center" bgcolor="#000000">Producto</td>
+              <td width="70%" align="center" bgcolor="#000000">Materia Prima</td>
             </tr>
             <?php do { ?>
             <?php 
-			mysql_select_db($database_basepangloria, $basepangloria);
-$filprod = $row_ultdetad['PRODUCTOORDPRODUC'];
-$filmedi = $row_ultdetad['ID_MEDIDA'];
-$query_Medida = "SELECT MEDIDA FROM CATMEDIDAS where ID_MEDIDA = '$filmedi'";
-$Medida = mysql_query($query_Medida, $basepangloria) or die(mysql_error());
-$row_Medida = mysql_fetch_assoc($Medida);
-$totalRows_Medida = mysql_num_rows($Medida);
-$query_Producto = "SELECT DESCRIPCIONPRODUC FROM CATPRODUCTO WHERE IDPRODUCTO = '$filprod'";
-$Producto = mysql_query($query_Producto, $basepangloria) or die(mysql_error());
-$row_Producto = mysql_fetch_assoc($Producto);
-$totalRows_Producto = mysql_num_rows($Producto);
+ // ACA CONSULTAMOS EL NOMBRE DE LA MATERIA PRIMA BASDO EN EL ID QUE ME VA TOMANDO CADA VES EL WHILE
+  mysql_select_db($database_basepangloria, $basepangloria);
+$idtemp = $row_ultregis['IDMATPRIMA'];
+$query_nombremateria = sprintf("SELECT DESCRIPCION FROM CATMATERIAPRIMA WHERE IDMATPRIMA = '$idtemp'", GetSQLValueString($colname_nombremateria, "int"));
+$nombremateria = mysql_query($query_nombremateria, $basepangloria) or die(mysql_error());
+$row_nombremateria = mysql_fetch_assoc($nombremateria);
+$totalRows_nombremateria = mysql_num_rows($nombremateria);
+// ACA CONSULTAMOS EL NOMBRE DE LA UNIDAD BASDO EN EL ID QUE ME VA TOMANDO CADA VES EL WHILE
+$idtempunida = $row_ultregis['IDUNIDAD'];
+$query_unidamedida = sprintf("SELECT TIPOUNIDAD FROM CATUNIDADES WHERE IDUNIDAD = $idtempunida", GetSQLValueString($colname_unidamedida, "int"));
+$unidamedida = mysql_query($query_unidamedida, $basepangloria) or die(mysql_error());
+$row_unidamedida = mysql_fetch_assoc($unidamedida);
+$totalRows_unidamedida = mysql_num_rows($unidamedida);
 
 			?>
               <tr>
-                <td align="center" bgcolor="#CCCCCC"><?php echo $row_ultdetad['CANTIDADORPROD']; ?></td>
-                <td align="center" bgcolor="#999999"><?php echo $row_Medida['MEDIDA']; ?></td>
-                <td align="left" bgcolor="#666666"><?php echo $row_Producto['DESCRIPCIONPRODUC']; ?></td>
+                <td align="center" bgcolor="#CCCCCC"><input type="checkbox" name="very[]" id="very[]" value="<?php echo $row_ultregis['ID_PED_MAT_PRIMA'];?>" />
+                  <label for="very[]"></label></td>
+                <td align="center" bgcolor="#CCCCCC"><?php echo $row_ultregis['ID_PED_MAT_PRIMA'];?></td>
+                <td align="center" bgcolor="#CCCCCC"><?php echo $row_ultregis['CANTIDADPEDMATPRI']; ?></td>
+                <td align="center" bgcolor="#999999"><?php echo $row_unidamedida['TIPOUNIDAD']; ?></td>
+                <td align="left" bgcolor="#666666"><?php echo $row_nombremateria['DESCRIPCION']; ?></td>
               </tr>
-              <?php } while ($row_ultdetad = mysql_fetch_assoc($ultdetad)); ?>
-          </table></td>
+              <?php } while ($row_ultregis = mysql_fetch_assoc($ultregis)); ?>
+          </table><input name="" type="submit" value="Enviar" /></td>
       </tr>
-    </table></td>
+    </table></form></td>
   </tr>
 </table>
-<script type="text/javascript">
-var sprytextfield1 = new Spry.Widget.ValidationTextField("ordprodcant", "real", {validateOn:["change"], minValue:0});
-</script>
 </body>
 </html>
 <?php
@@ -390,11 +230,13 @@ mysql_free_result($empleado);
 
 mysql_free_result($ultregis);
 
-mysql_free_result($comboMedida);
-
-mysql_free_result($comboProducto);
-
 mysql_free_result($textusuario);
+
+mysql_free_result($departa);
+
+mysql_free_result($ultimoencasali);
+
+mysql_free_result($emplia);
 
 mysql_free_result($ultdetad);
 ?>

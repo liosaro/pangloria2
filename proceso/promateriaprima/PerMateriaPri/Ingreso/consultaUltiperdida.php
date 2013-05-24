@@ -1,4 +1,4 @@
-<?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -83,7 +83,7 @@ body {
 	margin-top: 0px;
 }
 </style>
-<link href="../../../style.css" rel="stylesheet" type="text/css" />
+<link href="../../../../style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

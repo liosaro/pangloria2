@@ -91,7 +91,7 @@ $queryString_disponibl = sprintf("&totalRows_disponibl=%d%s", $totalRows_disponi
 </style></head>
 
 <body>
-<p>Elija La Orden de Produccion que desea Modificar: 
+<p>Elija El Pedido de Materia Prima que desea Modificar: 
   <label for="select"></label>
   <select name="select" id="select"   onchange="window.location.href='modi.php?enca='+document.getElementById(this.id).value ;">
     <?php
@@ -108,6 +108,7 @@ do {
 ?>
   </select>
 </p>
+<p class="etiquetauser"><span class="retorno">Si el codigo de pedido que desea modificar no aparece; fue eliminado o ya no se puede editar.</span></p>
 <table width="820" border="0">
   <tr>
     <td align="left"><a href="<?php printf("%s?pageNum_disponibl=%d%s", $currentPage, 0, $queryString_disponibl); ?>"><img src="../../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_disponibl=%d%s", $currentPage, max(0, $pageNum_disponibl - 1), $queryString_disponibl); ?>"><img src="../../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_disponibl=%d%s", $currentPage, min($totalPages_disponibl, $pageNum_disponibl + 1), $queryString_disponibl); ?>"><img src="../../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_disponibl=%d%s", $currentPage, $totalPages_disponibl, $queryString_disponibl); ?>"><img src="../../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></td>

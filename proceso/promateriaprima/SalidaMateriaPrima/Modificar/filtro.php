@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_disponibl'])) {
 $startRow_disponibl = $pageNum_disponibl * $maxRows_disponibl;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_disponibl = "SELECT * FROM TRNENCABEZADOPEDMATPRI where ELIMINA=0 and EDITA =0 ORDER BY ID_ENCAPEDIDO DESC";
+$query_disponibl = "SELECT IDENCABEZADOSALMATPRI, IDEMPLEADO, FECHAYHORASALIDAMATPRIMA, ID_PED_MAT_PRIMA FROM TRNENCABEZADOSALIDMATPRIMA WHERE ELIMIN=0 and EDITA =0 ORDER BY IDENCABEZADOSALMATPRI DESC";
 $query_limit_disponibl = sprintf("%s LIMIT %d, %d", $query_disponibl, $startRow_disponibl, $maxRows_disponibl);
 $disponibl = mysql_query($query_limit_disponibl, $basepangloria) or die(mysql_error());
 $row_disponibl = mysql_fetch_assoc($disponibl);
@@ -55,7 +55,7 @@ if (isset($_GET['totalRows_disponibl'])) {
 $totalPages_disponibl = ceil($totalRows_disponibl/$maxRows_disponibl)-1;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_COMBO = "SELECT ID_ENCAPEDIDO FROM TRNENCABEZADOPEDMATPRI WHERE ELIMINA = 0 AND EDITA = 0";
+$query_COMBO = "SELECT IDENCABEZADOSALMATPRI FROM  TRNENCABEZADOSALIDMATPRIMA WHERE ELIMIN = 0 AND EDITA = 0";
 $COMBO = mysql_query($query_COMBO, $basepangloria) or die(mysql_error());
 $row_COMBO = mysql_fetch_assoc($COMBO);
 $totalRows_COMBO = mysql_num_rows($COMBO);
@@ -97,7 +97,7 @@ $queryString_disponibl = sprintf("&totalRows_disponibl=%d%s", $totalRows_disponi
     <?php
 do {  
 ?>
-    <option value="<?php echo $row_COMBO['ID_ENCAPEDIDO']?>"><?php echo $row_COMBO['ID_ENCAPEDIDO']?></option>
+    <option value="<?php echo $row_COMBO['IDENCABEZADOSALMATPRI']?>"><?php echo $row_COMBO['IDENCABEZADOSALMATPRI']?></option>
     <?php
 } while ($row_COMBO = mysql_fetch_assoc($COMBO));
   $rows = mysql_num_rows($COMBO);
@@ -117,12 +117,13 @@ Registros <?php echo ($startRow_disponibl + 1) ?> a <?php echo min($startRow_dis
   <tr>
     <td colspan="2"><table border="1" cellpadding="0" cellspacing="0">
       <tr>
-        <td bgcolor="#000000" class="retabla"><span class="retabla">Pedido de Materia Prima No.</span></td>
-        <td bgcolor="#000000" class="retabla"><span class="retabla">Codigo de Empleado que pidio</span></td>
-        <td bgcolor="#000000" class="retabla"><span class="retabla">Orden de Produccion</span></td>
+        <td bgcolor="#000000" class="retabla"><span class="retabla">Salida de Materia Prima No.</span></td>
+        <td bgcolor="#000000" class="retabla"><span class="retabla">Empleado que pidio</span></td>
+        <td bgcolor="#000000" class="retabla"><span class="retabla">Pedido de Materia Prima</span></td>
         <td bgcolor="#000000" class="retabla"><span class="retabla">Fecha</span></td>
         <td>Modificar</td>
       </tr>
+        
       <?php do { ?>
       <?php mysql_select_db($database_basepangloria, $basepangloria);
 	  $suc = $row_disponibl['IDEMPLEADO'];
@@ -131,11 +132,11 @@ $sucur = mysql_query($query_sucur, $basepangloria) or die(mysql_error());
 $row_sucur = mysql_fetch_assoc($sucur);
 $totalRows_sucur = mysql_num_rows($sucur);?>
       <tr >
-        <td bgcolor="#CCCCCC" ><?php echo $row_disponibl['ID_ENCAPEDIDO']; ?></td>
+        <td bgcolor="#CCCCCC" ><?php echo $row_disponibl['IDENCABEZADOSALMATPRI']; ?></td>
         <td bgcolor="#999999"><?php echo $row_sucur['NOMBREEMPLEADO']; ?></td>
-        <td bgcolor="#CCCCCC"><?php echo $row_disponibl['IDORDENPRODUCCION']; ?></td>
-        <td bgcolor="#999999"><?php echo $row_disponibl['FECHA']; ?></td>
-        <td align="right"><a href="modi.php?enca=<?php echo $row_disponibl['ID_ENCAPEDIDO']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
+        <td bgcolor="#CCCCCC"><?php echo $row_disponibl['ID_PED_MAT_PRIMA']; ?></td>
+        <td bgcolor="#999999"><?php echo $row_disponibl['FECHAYHORASALIDAMATPRIMA']; ?></td>
+        <td align="right"><a href="modi.php?enca=<?php echo $row_disponibl['IDENCABEZADOSALMATPRI']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
       </tr>
       <?php } while ($row_disponibl = mysql_fetch_assoc($disponibl)); ?>
     </table></td>

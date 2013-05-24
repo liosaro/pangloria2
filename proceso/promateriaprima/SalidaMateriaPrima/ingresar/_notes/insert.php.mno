@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <info>
-	<infoitem key="UD_ultregis" value="name:IDENCABEZADOSALMATPRI;datatype:int,name:IDEMPLEADO;datatype:int,name:ID_PED_MAT_PRIMA;datatype:int,name:FECHAYHORASALIDAMATPRIMA;datatype:datetime" />
-	<infoitem key="UD_comboMedida" value="name:ID_MEDIDA;datatype:int,name:MEDIDA;datatype:blob" />
-	<infoitem key="UD_comboProducto" value="name:IDPRODUCTO;datatype:int,name:DESCRIPCIONPRODUC;datatype:string" />
+	<infoitem key="UD_ultregis" value="name:IDUNIDAD;datatype:int,name:IDMATPRIMA;datatype:int,name:CANTIDADPEDMATPRI;datatype:real" />
+	<infoitem key="UD_comboMedida" value="name:IDUNIDAD;datatype:int,name:TIPOUNIDAD;datatype:blob" />
+	<infoitem key="UD_comboProducto" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
 	<infoitem key="UD_Recordset1" value="name:IDENCABEORDPROD;datatype:int" />
 	<infoitem key="UD_comboSucursal" value="name:IDSUCURSAL;datatype:int,name:NOMBRESUCURSAL;datatype:blob" />
 	<infoitem key="UD_textboxempleados" value="name:IDEMPLEADO;datatype:int" />
@@ -15,4 +15,9 @@
 	<infoitem key="UD_produc" value="name:DESCRIPCIONPRODUC;datatype:string" />
 	<infoitem key="UD_Medi" value="name:MEDIDA;datatype:blob" />
 	<infoitem key="UD_emple" value="name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_departamento" value="name:IDDEPTO;datatype:int,name:DEPARTAMENTO;datatype:blob" />
+	<infoitem key="UD_empledetale" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_departa" value="name:IDDEPTO;datatype:int,name:DEPARTAMENTO;datatype:blob" />
+	<infoitem key="UD_emplia" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_ultimoencasali" value="name:IDENCABEZADOSALMATPRI;datatype:int,name:IDEMPLEADO;datatype:int,name:ID_PED_MAT_PRIMA;datatype:int,name:FECHAYHORASALIDAMATPRIMA;datatype:datetime" />
 </info>

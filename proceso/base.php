@@ -92,32 +92,42 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
       <tr>
         <td align="right"><div class="tope" id="admin2tope">
           <ul id="MenuBar1" class="MenuBarHorizontal">
-            <li><a class="MenuBarItemSubmenu" href="#">Orden de Produccion</a>
+            <li><a class="MenuBarItemSubmenu" href="#">Produccion</a>
               <ul>
-                <li><a href="ModificarOrdenProdccion.php" target="contenedor">Modificar Orden de Produccion</a></li>
+                <li><a href="ModificarOrdenProdccion.php" target="contenedor" class="MenuBarItemSubmenu">Orden de Produccion</a>
+                  <ul>
+                    <li><a href="produccion/ordendeproduccion/ingreso/insert.php">Ingresar Orden de Produccion</a></li>
+                    <li><a href="produccion/ordendeproduccion/Modificacion/filtro.php">Modificar Orden de Produccion</a></li>
+                    <li><a href="produccion/ordendeproduccion/eliminar/filtro.php">Eliminar Orden de Produccion</a></li>
+                    <li><a href="produccion/ordendeproduccion/consulta/filtro.php">Consultar Orden de Produccion</a></li>
+                  </ul>
+                </li>
                 <li><a href="ConsultarOrdenProduc.php" target="contenedor">Consultar Orden de Produccion</a></li>
                 <li><a href="#">Elemento 1.3</a></li>
               </ul>
             </li>
             <li><a href="#" class="MenuBarItemSubmenu MenuBarItemSubmenu">Materia Prima</a>
               <ul>
-                <li><a href="#" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
+                <li><a href="promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
                   <ul>
                     <li><a href="promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor">Ingresar Pedido</a></li>
+                    <li><a href="promateriaprima/pedidomateriaprima/Modificar/filtro.php">Modificar Pedido de Materia Prima</a></li>
+                    <li><a href="promateriaprima/pedidomateriaprima/eliminar/filtro.php">Eliminar Pedido de Materia Prima</a></li>
+                    <li><a href="promateriaprima/pedidomateriaprima/consulta/filtro.php">Consultar Pedido de Materia Prima</a></li>
                   </ul>
                 </li>
                 <li><a href="#" class="MenuBarItemSubmenu">Salida Materia Prima</a>
                   <ul>
-                    <li><a href="promateriaprima/SalidaMateriaPrima/ingresoSalidaMateriaPrima.php" target="contenedor">Ingreso de Salida de Materia Prima</a></li>
+                    <li><a href="promateriaprima/SalidaMateriaPrima/ingresar/insert.php" target="contenedor">Ingreso de Salida de Materia Prima</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Elemento sin t&iacute;tulo</a></li>
                 <li><a href="#">Entrega de Materia Prima</a></li>
                 <li><a href="#" class="MenuBarItemSubmenu">Justificacion Perdia Materia Prima</a>
                   <ul>
-                    <li><a href="promateriaprima/PerMateriaPri/ingresarperdida.php" target="contenedor">Ingresar Justificacion</a></li>
-                    <li><a href="promateriaprima/PerMateriaPri/modificarjustificacion.php" target="contenedor">Modificar Justificacion</a></li>
-                    <li><a href="promateriaprima/PerMateriaPri/contenidoeliminador.php" target="contenedor">Eliminar Justificacion</a></li>
+                    <li><a href="promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificacion</a></li>
+                    <li><a href="promateriaprima/PerMateriaPri/Modificar/modificarjustificacion.php" target="contenedor">Modificar Justificacion</a></li>
+                    <li><a href="promateriaprima/PerMateriaPri/Eliminar/contenidoeliminador.php" target="contenedor">Eliminar Justificacion</a></li>
                   </ul>
                 </li>
 </ul>

@@ -32,7 +32,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 mysql_select_db($database_basepangloria, $basepangloria);
 $id=$_GET["id"];
-$query = "UPDATE TRNPEDIDO_MAT_PRIMA SET ELIMIN=1 WHERE ID_PED_MAT_PRIMA=$id";
+$query = "UPDATE TRNSALIDA_MAT_PRIM SET ELIMIN=1 WHERE ID_SALIDA=$id";
 
     $result = mysql_query($query);
 
