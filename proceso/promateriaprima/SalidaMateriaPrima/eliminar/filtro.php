@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_disponibl'])) {
 $startRow_disponibl = $pageNum_disponibl * $maxRows_disponibl;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_disponibl = "SELECT * FROM  TRNENCABEZADOPEDMATPRI WHERE ELIMINA=0 and EDITA =0 ORDER BY ID_ENCAPEDIDO  DESC";
+$query_disponibl = "SELECT * FROM TRNENCABEZADOSALIDMATPRIMA  WHERE ELIMIN=0  ORDER BY IDENCABEZADOSALMATPRI";
 $query_limit_disponibl = sprintf("%s LIMIT %d, %d", $query_disponibl, $startRow_disponibl, $maxRows_disponibl);
 $disponibl = mysql_query($query_limit_disponibl, $basepangloria) or die(mysql_error());
 $row_disponibl = mysql_fetch_assoc($disponibl);
@@ -55,7 +55,7 @@ if (isset($_GET['totalRows_disponibl'])) {
 $totalPages_disponibl = ceil($totalRows_disponibl/$maxRows_disponibl)-1;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_combollen = "SELECT * FROM TRNENCABEZADOPEDMATPRI WHERE TRNENCABEZADOPEDMATPRI.ELIMINA = 0 AND  EDITA = 0";
+$query_combollen = "SELECT IDENCABEZADOSALMATPRI FROM TRNENCABEZADOSALIDMATPRIMA WHERE ELIMIN = 0 ORDER BY IDENCABEZADOSALMATPRI";
 $combollen = mysql_query($query_combollen, $basepangloria) or die(mysql_error());
 $row_combollen = mysql_fetch_assoc($combollen);
 $totalRows_combollen = mysql_num_rows($combollen);
@@ -109,7 +109,7 @@ return true;
     <?php
 do {  
 ?>
-    <option value="<?php echo $row_combollen['ID_ENCAPEDIDO']?>"><?php echo $row_combollen['ID_ENCAPEDIDO']?></option>
+    <option value="<?php echo $row_combollen['IDENCABEZADOSALMATPRI']?>"><?php echo $row_combollen['IDENCABEZADOSALMATPRI']?></option>
     <?php
 } while ($row_combollen = mysql_fetch_assoc($combollen));
   $rows = mysql_num_rows($combollen);
@@ -129,9 +129,9 @@ Registros <?php echo ($startRow_disponibl + 1) ?> a <?php echo min($startRow_dis
   <tr>
     <td colspan="2"><table border="1" cellpadding="0" cellspacing="0">
       <tr>
+        <td bgcolor="#000000" class="retabla"><span class="retabla">Salida de Materia Prima No.</span></td>
         <td bgcolor="#000000" class="retabla"><span class="retabla">Pedido de Materia Prima No.</span></td>
-        <td bgcolor="#000000" class="retabla"><span class="retabla">Orden de Produccion No.</span></td>
-        <td bgcolor="#000000" class="retabla"><span class="retabla">Codigo de Empleado</span></td>
+        <td bgcolor="#000000" class="retabla"><span class="retabla">Codigo deEmpleado que recive</span></td>
         <td bgcolor="#000000" class="retabla"><span class="retabla">Fecha</span></td>
         <td><p>Eliminar</p></td>
       </tr>
@@ -143,11 +143,11 @@ $sucur = mysql_query($query_sucur, $basepangloria) or die(mysql_error());
 $row_sucur = mysql_fetch_assoc($sucur);
 $totalRows_sucur = mysql_num_rows($sucur);?>
       <tr >
-        <td bgcolor="#CCCCCC" ><?php echo $row_disponibl['ID_ENCAPEDIDO']; ?></td>
-        <td bgcolor="#999999"><?php echo $row_disponibl['IDORDENPRODUCCION']; ?></td>
+        <td bgcolor="#CCCCCC" ><?php echo $row_disponibl['IDENCABEZADOSALMATPRI']; ?></td>
+        <td bgcolor="#999999"><?php echo $row_disponibl['ID_PED_MAT_PRIMA']; ?></td>
         <td bgcolor="#CCCCCC"><?php echo $row_disponibl['IDEMPLEADO']; ?></td>
-        <td bgcolor="#999999"><?php echo $row_disponibl['FECHA']; ?></td>
-        <td align="right"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_disponibl['ID_ENCAPEDIDO']; ?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32"/></a></td>
+        <td bgcolor="#999999"><?php echo $row_disponibl['FECHAYHORASALIDAMATPRIMA']; ?></td>
+        <td align="right"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_disponibl['IDENCABEZADOSALMATPRI']; ?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32"/></a></td>
       </tr>
       <?php } while ($row_disponibl = mysql_fetch_assoc($disponibl)); ?>
     </table></td>

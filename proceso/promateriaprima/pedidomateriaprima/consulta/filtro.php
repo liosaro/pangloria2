@@ -45,7 +45,7 @@ mysql_select_db($database_basepangloria, $basepangloria);
 
         $fechafin = '"' . $_GET['fechaf'] . '"';
 
-        $row_consulta = "SELECT * FROM TRNENCABEZADOPEDMATPRI WHERE FECHA BETWEEN $fechainicio AND $fechafin ORDER BY FECHA DESC";
+        $row_consulta = "SELECT * FROM TRNENCABEZADOPEDMATPRI WHERE FECHA BETWEEN $fechainicio AND $fechafin AND ELIMINA='0' ORDER BY FECHA DESC ";
 
         $result_buscar = mysql_query($row_consulta);
 

@@ -119,6 +119,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <li><a href="#" class="MenuBarItemSubmenu">Salida Materia Prima</a>
                   <ul>
                     <li><a href="promateriaprima/SalidaMateriaPrima/ingresar/insert.php" target="contenedor">Ingreso de Salida de Materia Prima</a></li>
+                    <li><a href="promateriaprima/SalidaMateriaPrima/Modificar/filtro.php" target="contenedor">Modificar Salida de Materia Prima</a></li>
+                    <li><a href="promateriaprima/SalidaMateriaPrima/eliminar/filtro.php" target="contenedor">Eliminar Salida de Materia Prima </a></li>
+                    <li><a href="promateriaprima/SalidaMateriaPrima/consulta/filtro.php" target="contenedor">Consultar Salida de Materia Prima</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Elemento sin t&iacute;tulo</a></li>
