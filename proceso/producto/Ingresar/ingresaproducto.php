@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -68,15 +68,22 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "envioproducto")) {
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
 }
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_ultimo = "SELECT IDPRODUCTO FROM CATPRODUCTO ORDER BY IDPRODUCTO DESC";
+$ultimo = mysql_query($query_ultimo, $basepangloria) or die(mysql_error());
+$row_ultimo = mysql_fetch_assoc($ultimo);
+$totalRows_ultimo = mysql_num_rows($ultimo);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Control de Empleados</title>
-<link href="../../style.css" rel="stylesheet" type="text/css" />
-<script src="../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="../../../style.css" rel="stylesheet" type="text/css" />
+<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -85,13 +92,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "envioproducto")) {
     <td><form id="envioproducto" name="envioproducto" method="post" action="<?php echo $editFormAction; ?>">
       <table width="820px" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td colspan="5" align="center" bgcolor="#999999"><h1>Ingresar Productos</h1></td>
+          <td colspan="5" align="center" bgcolor="#999999"><h1 class="encaforms">Ingresar Productos</h1></td>
         </tr>
         <tr>
-          <td colspan="5" align="center">ID de compra
+          <td colspan="5" align="center">Codigo del Producto
             <label for="IDPRODUCTO"></label>
             *
-            <input name="IDPRODUCTO" type="text" id="IDPRODUCTO" value="Automaticamente" readonly="readonly" /></td>
+            <input name="IDPRODUCTO" type="text" id="IDPRODUCTO" value="<?php echo $row_ultimo['IDPRODUCTO']; ?>" readonly="readonly" /></td>
         </tr>
         <tr>
           <td width="186">&nbsp;</td>
@@ -108,8 +115,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "envioproducto")) {
           <td>&nbsp;</td>
           <td>Precio de venta al Menudeo</td>
           <td><span id="PRODVENTAMENOR">
-            <input type="text" name="PRECIO_VENTAMENOR" id="PRECIO_VENTAMENOR" />
-            <span class="textfieldInvalidFormatMsg">Formato no válido.</span></span></td>
+          <input type="text" name="PRECIO_VENTAMENOR" id="PRECIO_VENTAMENOR" />
+          <span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
 </tr>
         <tr>
           <td><p>&nbsp;</p></td>
@@ -121,13 +128,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "envioproducto")) {
         <tr>
           <td>Precio de Costo</td>
           <td><span id="PRODCOSTO">
-            <input type="text" name="PRECIO_COSTO" id="date" />
-            <span class="textfieldInvalidFormatMsg">Formato no válido.</span></span></td>
+          <input type="text" name="PRECIO_COSTO" id="date" />
+          <span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
           <td>&nbsp;</td>
           <td>Precio de Venta Mayoreo</td>
           <td><span id="PRODVENTAMAYOR">
-            <input type="text" name="PRECIO_VENTAMAYOR" id="PRECIO_VENTAMAYOR" />
-            <span class="textfieldInvalidFormatMsg">Formato no válido.</span></span></td>
+          <input type="text" name="PRECIO_VENTAMAYOR" id="PRECIO_VENTAMAYOR" />
+          <span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
 </tr>
         <tr>
           <td>&nbsp;</td>
@@ -148,7 +155,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "envioproducto")) {
           <td><input type="submit" name="SEND" id="SEND" value="Enviar" /></td>
           <td><input type="reset" name="add2" id="add2" value="Limpiar" /></td>
           <td>&nbsp;</td>
-          <td><input type="reset" name="prodbotNuevo" id="prodbotNuevo" value="Nuevo Registro" /></td>
+          <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>
       </table>
@@ -164,15 +171,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "envioproducto")) {
 </div>
 <script type="text/javascript">
 var sprytextfield2 = new Spry.Widget.ValidationTextField("PRODCADUCIDAD", "integer", {minChars:1, maxChars:3, minValue:1, maxValue:365, validateOn:["blur"]});
-var sprytextfield5 = new Spry.Widget.ValidationTextField("PRODVENTAMAYOR", "currency", {hint:"0.00", validateOn:["blur"], isRequired:false});
-var sprytextfield3 = new Spry.Widget.ValidationTextField("PRODCOSTO", "currency", {validateOn:["blur"], hint:"0.00", isRequired:false});
-var sprytextfield4 = new Spry.Widget.ValidationTextField("PRODVENTAMENOR", "currency", {hint:"0.00", isRequired:false, validateOn:["blur"]});
+var sprytextfield5 = new Spry.Widget.ValidationTextField("PRODVENTAMAYOR", "currency", {hint:"0.00", validateOn:["blur"], isRequired:false, format:"dot_comma", minValue:0});
+var sprytextfield3 = new Spry.Widget.ValidationTextField("PRODCOSTO", "currency", {validateOn:["blur"], hint:"0.00", isRequired:false, format:"dot_comma", minValue:0});
+var sprytextfield4 = new Spry.Widget.ValidationTextField("PRODVENTAMENOR", "currency", {hint:"0.00", isRequired:false, validateOn:["blur"], format:"dot_comma", minValue:0});
 var sprytextfield1 = new Spry.Widget.ValidationTextField("verficardortiponombre", "none", {validateOn:["blur"], minChars:4});
 </script>
 </body>
 </html>
-
- 
-            
-            
-            
+<?php
+mysql_free_result($ultimo);
+?>

@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_nombre'])) {
 $startRow_nombre = $pageNum_nombre * $maxRows_nombre;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_nombre = "SELECT * FROM CATPRODUCTO ORDER BY IDPRODUCTO ASC";
+$query_nombre = "SELECT * FROM CATPRODUCTO WHERE ELIMIN=0 ORDER BY IDPRODUCTO ASC";
 $query_limit_nombre = sprintf("%s LIMIT %d, %d", $query_nombre, $startRow_nombre, $maxRows_nombre);
 $nombre = mysql_query($query_limit_nombre, $basepangloria) or die(mysql_error());
 $row_nombre = mysql_fetch_assoc($nombre);
@@ -52,18 +52,12 @@ if (isset($_GET['totalRows_nombre'])) {
   $all_nombre = mysql_query($query_nombre);
   $totalRows_nombre = mysql_num_rows($all_nombre);
 }
-$totalPages_nombre = ceil($totalRows_nombre/$maxRows_nombre = 20;
+$totalPages_nombre = ceil($totalRows_nombre/$maxRows_nombre = 20);
 $pageNum_nombre = 0;
 if (isset($_GET['pageNum_nombre'])) {
   $pageNum_nombre = $_GET['pageNum_nombre'];
 }
 $startRow_nombre = $pageNum_nombre * $maxRows_nombre;
-
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_nombre = "SELECT * FROM CATPRODUCTO ORDER BY IDPRODUCTO ASC";
-$query_limit_nombre = sprintf("%s LIMIT %d, %d", $query_nombre, $startRow_nombre, $maxRows_nombre);
-$nombre = mysql_query($query_limit_nombre, $basepangloria) or die(mysql_error());
-$row_nombre = mysql_fetch_assoc($nombre);
 
 if (isset($_GET['totalRows_nombre'])) {
   $totalRows_nombre = $_GET['totalRows_nombre'];
@@ -94,7 +88,7 @@ $queryString_nombre = sprintf("&totalRows_nombre=%d%s", $totalRows_nombre, $quer
     <td colspan="6" align="center" bgcolor="#999999"><h1>Detalle</h1></td>
   </tr>
   <tr>
-    <td colspan="6"><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, 0, $queryString_nombre); ?>"><img src="../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, max(0, $pageNum_nombre - 1), $queryString_nombre); ?>"><img src="../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, min($totalPages_nombre, $pageNum_nombre + 1), $queryString_nombre); ?>"><img src="../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, $totalPages_nombre, $queryString_nombre); ?>"><img src="../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></td>
+    <td colspan="6"><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, 0, $queryString_nombre); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, max(0, $pageNum_nombre - 1), $queryString_nombre); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, min($totalPages_nombre, $pageNum_nombre + 1), $queryString_nombre); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, $totalPages_nombre, $queryString_nombre); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></td>
   </tr>
   <tr>
     <td>Id del Producto</td>

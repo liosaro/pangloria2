@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -43,7 +43,7 @@ if (isset($_POST['filtroprod'])) {
   $colname_filtradoproducto = $_POST['filtroprod'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_filtradoproducto = sprintf("SELECT * FROM CATPRODUCTO WHERE DESCRIPCIONPRODUC LIKE %s ORDER BY DESCRIPCIONPRODUC ASC", GetSQLValueString("%" . $colname_filtradoproducto . "%", "text"));
+$query_filtradoproducto = sprintf("SELECT * FROM CATPRODUCTO WHERE DESCRIPCIONPRODUC LIKE %s AND ELIMIN= 0 ORDER BY DESCRIPCIONPRODUC ASC", GetSQLValueString("%" . $colname_filtradoproducto . "%", "text"));
 $query_limit_filtradoproducto = sprintf("%s LIMIT %d, %d", $query_filtradoproducto, $startRow_filtradoproducto, $maxRows_filtradoproducto);
 $filtradoproducto = mysql_query($query_limit_filtradoproducto, $basepangloria) or die(mysql_error());
 $row_filtradoproducto = mysql_fetch_assoc($filtradoproducto);
@@ -67,12 +67,21 @@ body {
 	margin-top: 0px;
 }
 </style>
+<script language="JavaScript">
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
+}
+else {
+document.location = url;
+return true;
+}
+}
+</script>
 </head>
 
 <body>
-<iframe src="cmodproducto.php" name="modiprodu" width="780" height="250" align="middle" scrolling="No" frameborder="0" id="modiproducs"></iframe>
-<p>&nbsp;</p>
-<table width="830" border="1" cellpadding="0" cellspacing="0">
+<table width="820" border="1" cellpadding="0" cellspacing="0">
   <tr>
     <td>Modificacion</td>
     <td>ID de Producto</td>
@@ -84,7 +93,7 @@ body {
   </tr>
   <?php do { ?>
     <tr>
-      <td><a href="cmodproducto.php?root=<?php echo $row_filtradoproducto['IDPRODUCTO']; ?>" target="modiprodu">Modificar</a></td>
+      <td><a href="javascript:;" onclick="aviso('eliminarProducto.php?root=<?php echo $row_filtradoproducto['IDPRODUCTO'];?>'); return false;">Eliminar</a></td>
       <td><?php echo $row_filtradoproducto['IDPRODUCTO']; ?></td>
       <td><?php echo $row_filtradoproducto['DESCRIPCIONPRODUC']; ?></td>
       <td><?php echo $row_filtradoproducto['PRECIO_COSTO']; ?></td>

@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -32,11 +32,12 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 if ((isset($_GET['root'])) && ($_GET['root'] != "")) {
-  $deleteSQL = sprintf("DELETE FROM CATPRODUCTO WHERE IDPRODUCTO=%s",
+  $deleteSQL = sprintf("UPDATE CATPRODUCTO SET ELIMIN = 1 WHERE IDPRODUCTO=%s",
                        GetSQLValueString($_GET['root'], "int"));
 
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($deleteSQL, $basepangloria) or die(mysql_error());
+  echo 'Registro Eliminado Satisfactoriamente';
 
   $deleteGoTo = "eliminacionProducto.php";
   if (isset($_SERVER['QUERY_STRING'])) {

@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -91,7 +91,7 @@ $queryString_consultaProducto = sprintf("&totalRows_consultaProducto=%d%s", $tot
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Control de Empleados</title>
-<link href="../../style.css" rel="stylesheet" type="text/css" />
+<link href="../../../style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -104,7 +104,7 @@ $queryString_consultaProducto = sprintf("&totalRows_consultaProducto=%d%s", $tot
             <tr>
               <td width="800" colspan="6" align="left">&nbsp;
                 <iframe src="cmodproducto.php" name="modiprodu" width="830" height="400" align="middle" scrolling="auto" frameborder="0" id="modiprodu"></iframe>
-                <p><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, 0, $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, max(0, $pageNum_consultaproducto - 1), $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, min($totalPages_consultaproducto, $pageNum_consultaproducto + 1), $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, $totalPages_consultaproducto, $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></p>
+                <p><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, 0, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, max(0, $pageNum_consultaproducto - 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, min($totalPages_consultaproducto, $pageNum_consultaproducto + 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, $totalPages_consultaproducto, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></p>
                 <table width="830" border="1">
                   <tr>
                     <td colspan="4">Ingrese el Nombre del Producto a Modificar:

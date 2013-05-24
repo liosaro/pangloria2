@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -40,12 +40,6 @@ if (isset($_GET['pageNum_consultaproducto'])) {
 }
 $startRow_consultaproducto = $pageNum_consultaproducto * $maxRows_consultaproducto;
 
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_consultaproducto = "SELECT * FROM CATPRODUCTO ORDER BY IDPRODUCTO DESC";
-$query_limit_consultaproducto = sprintf("%s LIMIT %d, %d", $query_consultaproducto, $startRow_consultaproducto, $maxRows_consultaproducto);
-$consultaproducto = mysql_query($query_limit_consultaproducto, $basepangloria) or die(mysql_error());
-$row_consultaproducto = mysql_fetch_assoc($consultaproducto);
-
 if (isset($_GET['totalRows_consultaproducto'])) {
   $totalRows_consultaproducto = $_GET['totalRows_consultaproducto'];
 } else {
@@ -60,7 +54,7 @@ if (isset($_GET['pageNum_consultaproducto'])) {
 $startRow_consultaproducto = $pageNum_consultaproducto * $maxRows_consultaproducto;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_consultaproducto = "SELECT * FROM CATPRODUCTO ORDER BY IDPRODUCTO DESC";
+$query_consultaproducto = "SELECT * FROM CATPRODUCTO WHERE ELIMIN = 0 ORDER BY IDPRODUCTO DESC";
 $query_limit_consultaproducto = sprintf("%s LIMIT %d, %d", $query_consultaproducto, $startRow_consultaproducto, $maxRows_consultaproducto);
 $consultaproducto = mysql_query($query_limit_consultaproducto, $basepangloria) or die(mysql_error());
 $row_consultaproducto = mysql_fetch_assoc($consultaproducto);
@@ -110,7 +104,7 @@ $queryString_consultaProducto = sprintf("&totalRows_consultaProducto=%d%s", $tot
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Control de Empleados</title>
-<link href="../../style.css" rel="stylesheet" type="text/css" />
+<link href="../../../style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript">
 function aviso(url){
 if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
@@ -134,7 +128,7 @@ return true;
             <tr>
               <td width="800" colspan="6" align="left">&nbsp;
                 <iframe src="filtroeliminaproducto.php" name="modiprodu" width="830" height="200" align="middle" scrolling="Auto" frameborder="0" id="modiprodu"></iframe>
-<p><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, 0, $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, max(0, $pageNum_consultaproducto - 1), $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, min($totalPages_consultaproducto, $pageNum_consultaproducto + 1), $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, $totalPages_consultaproducto, $queryString_consultaproducto); ?>"><img src="../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></p>
+<p><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, 0, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, max(0, $pageNum_consultaproducto - 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, min($totalPages_consultaproducto, $pageNum_consultaproducto + 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, $totalPages_consultaproducto, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></p>
                 <table width="830" border="1">
                   <tr>
                     <td colspan="2"><input type="text" name="filtroprod" id="filtroprod" />

@@ -156,10 +156,10 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a href="#" class="MenuBarItemSubmenu">Administrar Productos</a>
                   <ul>
-                    <li><a href="producto/ingresaproducto.php" target="contenedor">Ingresar Producto</a></li>
-                    <li><a href="producto/modificarproducto.php" target="contenedor">Modificar Producto</a></li>
-                    <li><a href="producto/eliminacionProducto.php" target="contenedor">Eliminar Producto</a></li>
-                    <li><a href="producto/consultaproducto.php" target="contenedor">Consultar Productos</a></li>
+                    <li><a href="producto/Ingresar/ingresaproducto.php" target="contenedor">Ingresar Producto</a></li>
+                    <li><a href="producto/Modificar/modificarproducto.php" target="contenedor">Modificar Producto</a></li>
+                    <li><a href="producto/Eliminar/eliminacionProducto.php" target="contenedor">Eliminar Producto</a></li>
+                    <li><a href="producto/Consultar/consultaproducto.php" target="contenedor">Consultar Productos</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Justificar Perdida Productos</a></li>
