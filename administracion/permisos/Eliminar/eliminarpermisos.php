@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_consultapermi'])) {
 $startRow_consultapermi = $pageNum_consultapermi * $maxRows_consultapermi;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_consultapermi = "SELECT * FROM CATPERMISOS";
+$query_consultapermi = "SELECT * FROM CATPERMISOS WHERE ELIMIN=0";
 $query_limit_consultapermi = sprintf("%s LIMIT %d, %d", $query_consultapermi, $startRow_consultapermi, $maxRows_consultapermi);
 $consultapermi = mysql_query($query_limit_consultapermi, $basepangloria) or die(mysql_error());
 $row_consultapermi = mysql_fetch_assoc($consultapermi);
@@ -122,13 +122,13 @@ return true;
                 </p>
                 <table border="1" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td align="center">Modificar</td>
+                    <td align="center">Eliminar</td>
                     <td align="center">Codigo de Permiso</td>
                     <td align="center">Permiso</td>
                   </tr>
                   <?php do { ?>
                     <tr>
-                      <td><a href="javascript:;" onclick="aviso('eliminaPermiso.php?root=<?php echo $row_consultapermi['IDPERMISO'];?>'); return false;">Eliminar</a></td>
+                      <td><a href="javascript:;" onclick="aviso('eliminaPermiso.php?id=<?php echo $row_consultapermi['IDPERMISO']; ?>'); return false;"><img src="../../../imagenes/icono/delete-32.png" alt="" width="32" height="32" /></a></td>
                       <td><?php echo $row_consultapermi['IDPERMISO']; ?></td>
                       <td><?php echo $row_consultapermi['DESCRIPCION']; ?></td>
                     </tr>

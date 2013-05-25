@@ -50,7 +50,7 @@ if (isset($_GET['root'])) {
   $colname_Recordset1 = $_GET['root'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_Recordset1 = sprintf("SELECT * FROM CATPERMISOS WHERE IDPERMISO = %s", GetSQLValueString($colname_Recordset1, "int"));
+$query_Recordset1 = sprintf("SELECT * FROM CATPERMISOS WHERE IDPERMISO = %s AND ELIMIN = 0", GetSQLValueString($colname_Recordset1, "int"));
 $Recordset1 = mysql_query($query_Recordset1, $basepangloria) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
@@ -68,6 +68,16 @@ body {
 	margin-bottom: 0px;
 }
 </style>
+<script>
+function Confirm(form){
+
+alert("Se ha Modificado Satisfactoriamente!"); 
+
+form.submit();
+
+}
+
+</script>
 </head>
 
 <body>
@@ -83,7 +93,7 @@ body {
     </tr>
     <tr valign="baseline">
       <td nowrap="nowrap" align="right">&nbsp;</td>
-      <td><input type="submit" value="Actualizar registro" /></td>
+      <td><input type="submit" value="Actualizar registro" onClick="Confirm(this.form)" /></td>
     </tr>
   </table>
   <input type="hidden" name="MM_update" value="form1" />

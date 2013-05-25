@@ -43,7 +43,7 @@ if (isset($_GET['q'])) {
   $colname_conpermiso = $_GET['q'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_conpermiso = sprintf("SELECT * FROM CATPERMISOS WHERE IDPERMISO = %s", GetSQLValueString($colname_conpermiso, "int"));
+$query_conpermiso = sprintf("SELECT * FROM CATPERMISOS WHERE IDPERMISO = %s AND ELIMIN=0", GetSQLValueString($colname_conpermiso, "int"));
 $query_limit_conpermiso = sprintf("%s LIMIT %d, %d", $query_conpermiso, $startRow_conpermiso, $maxRows_conpermiso);
 $conpermiso = mysql_query($query_limit_conpermiso, $basepangloria) or die(mysql_error());
 $row_conpermiso = mysql_fetch_assoc($conpermiso);

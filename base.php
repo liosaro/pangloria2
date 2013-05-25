@@ -182,10 +182,10 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a href="#" class="MenuBarItemSubmenu">Permisos</a>
                   <ul>
-                    <li><a href="administracion/permisos/IngresoPermiso.php" target="contenedor">Ingresar Permisos</a></li>
-                    <li><a href="administracion/permisos/modificarpermisos.php" target="contenedor">Modificar Permisos</a></li>
-                    <li><a href="administracion/permisos/consultapermiso.php" target="contenedor">Consultar Permisos</a></li>
-                    <li><a href="administracion/permisos/eliminarpermisos.php">Eliminar Permisos</a></li>
+                    <li><a href="administracion/permisos/Ingresar/IngresoPermiso.php" target="contenedor">Ingresar Permisos</a></li>
+                    <li><a href="administracion/permisos/Modificar/filtromodificapermiso.php" target="contenedor">Modificar Permisos</a></li>
+                    <li><a href="administracion/permisos/Eliminar/eliminarpermisos.php" target="contenedor">Eliminar Permisos</a></li>
+<li><a href="administracion/permisos/Consultar/consultapermiso.php" target="contenedor">Consultar Permisos</a></li>
                   </ul>
                 </li>
                 <li><a href="#" class="MenuBarItemSubmenu">Atribuciones</a>

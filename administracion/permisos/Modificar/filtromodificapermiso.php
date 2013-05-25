@@ -43,7 +43,7 @@ if (isset($_POST['filtroprod'])) {
   $colname_filtradoproducto = $_POST['filtroprod'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_filtradoproducto = sprintf("SELECT * FROM CATPERMISOS WHERE DESCRIPCION LIKE %s", GetSQLValueString("%" . $colname_filtradoproducto . "%", "text"));
+$query_filtradoproducto = sprintf("SELECT * FROM CATPERMISOS WHERE DESCRIPCION LIKE %s AND ELIMIN = 0", GetSQLValueString("%" . $colname_filtradoproducto . "%", "text"));
 $query_limit_filtradoproducto = sprintf("%s LIMIT %d, %d", $query_filtradoproducto, $startRow_filtradoproducto, $maxRows_filtradoproducto);
 $filtradoproducto = mysql_query($query_limit_filtradoproducto, $basepangloria) or die(mysql_error());
 $row_filtradoproducto = mysql_fetch_assoc($filtradoproducto);
@@ -70,8 +70,7 @@ body {
 </head>
 
 <body>
-<iframe src="modificadorPermiso.php" name="modiprodu" width="780" height="250" align="middle" scrolling="No" frameborder="0" id="modiproducs"></iframe>
-<p>&nbsp;</p>
+<iframe src="modificadorPermiso.php" name="modiprodu" width="780" height="100" align="middle" scrolling="No" frameborder="0" id="modiproducs"></iframe>
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center" bgcolor="#999999"><strong>Modificacion</strong></td>

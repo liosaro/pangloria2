@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_consultapermi'])) {
 $startRow_consultapermi = $pageNum_consultapermi * $maxRows_consultapermi;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_consultapermi = "SELECT * FROM CATPERMISOS";
+$query_consultapermi = "SELECT * FROM CATPERMISOS WHERE ELIMIN=0";
 $query_limit_consultapermi = sprintf("%s LIMIT %d, %d", $query_consultapermi, $startRow_consultapermi, $maxRows_consultapermi);
 $consultapermi = mysql_query($query_limit_consultapermi, $basepangloria) or die(mysql_error());
 $row_consultapermi = mysql_fetch_assoc($consultapermi);
@@ -103,24 +103,26 @@ $queryString_consultaProducto = sprintf("&totalRows_consultaProducto=%d%s", $tot
           <table width="1026" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td width="800" colspan="6" align="left">&nbsp;
-                <iframe src="modificadorPermiso.php" name="modiprodu" width="830" height="400" align="middle" scrolling="auto" frameborder="0" id="modiprodu"></iframe>
-                <p><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, 0, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, max(0, $pageNum_consultapermi - 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, min($totalPages_consultapermi, $pageNum_consultapermi + 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, $totalPages_consultapermi, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a> </p>
+                <iframe src="modificadorPermiso.php" name="modiprodu" width="830" height="200" align="middle" scrolling="auto" frameborder="0" id="modiprodu"></iframe>
+                <p><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, 0, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, max(0, $pageNum_consultapermi - 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, min($totalPages_consultapermi, $pageNum_consultapermi + 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, $totalPages_consultapermi, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a> Registros <?php echo ($startRow_consultapermi + 1) ?> a <?php echo min($startRow_consultapermi + $maxRows_consultapermi, $totalRows_consultapermi) ?> de <?php echo $totalRows_consultapermi ?></p>
                 <p>
                   <input type="text" name="filtroprod" id="filtroprod" />
                   <input type="submit" name="filtrar" id="filtrar" value="Filtrar" />
                 </p>
                 <table border="1" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td align="center">Modificar</td>
+                    <td align="center">&nbsp;</td>
                     <td align="center">Codigo de Permiso</td>
                     <td align="center">Permiso</td>
-                  </tr>
+                    <td align="center">Modificar</td>
+                    </tr>
                   <?php do { ?>
                     <tr>
-                      <td><a href="modificadorPermiso.php?root=<?php echo $row_consultapermi['IDPERMISO']; ?>" target="modiprodu">Modificar</a></td>
+                      <td>&nbsp;</td>
                       <td><?php echo $row_consultapermi['IDPERMISO']; ?></td>
                       <td><?php echo $row_consultapermi['DESCRIPCION']; ?></td>
-                    </tr>
+                      <td><a href="modificadorPermiso.php?root=<?php echo $row_consultapermi['IDPERMISO']; ?>" target="modiprodu"><img src="../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
+                      </tr>
                     <?php } while ($row_consultapermi = mysql_fetch_assoc($consultapermi)); ?>
               </table></td>
             </tr>

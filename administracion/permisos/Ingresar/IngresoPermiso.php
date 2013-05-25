@@ -34,7 +34,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 // *** Redirect if username exists
 $MM_flag="MM_insert";
 if (isset($_POST[$MM_flag])) {
-  $MM_dupKeyRedirect="IngresoPermiso.php";
+  $MM_dupKeyRedirect="../IngresoPermiso.php";
   $loginUsername = $_POST['DESCRIPCION'];
   $LoginRS__query = sprintf("SELECT DESCRIPCION FROM CATPERMISOS WHERE DESCRIPCION=%s", GetSQLValueString($loginUsername, "text"));
   mysql_select_db($database_basepangloria, $basepangloria);
@@ -65,6 +65,12 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
 }
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_Recordset1 = "SELECT IDPERMISO FROM CATPERMISOS ORDER BY IDPERMISO DESC";
+$Recordset1 = mysql_query($query_Recordset1, $basepangloria) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -79,26 +85,50 @@ body {
 	margin-bottom: 0px;
 }
 </style>
+<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
+<script>
+function Confirm(form){
+
+alert("Se ha agregado un nuevo registro!"); 
+
+form.submit();
+
+}
+
+</script>
 
 <body>
 <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
   <table align="center">
     <tr valign="baseline">
+      <td colspan="2" align="center" nowrap="nowrap" bgcolor="#999999" class="encaforms">Ingreso de permisos de Usuario</td>
+    </tr>
+    <tr valign="baseline">
       <td nowrap="nowrap" align="right">Codigo de Permiso:</td>
-      <td><input type="text" name="IDPERMISO" value="" size="32" /></td>
+      <td><input name="IDPERMISO" type="text" disabled="disabled" value="<?php echo $row_Recordset1['IDPERMISO']; ?>" size="32" readonly="readonly" /></td>
     </tr>
     <tr valign="baseline">
       <td nowrap="nowrap" align="right">Permiso:</td>
-      <td><input type="text" name="DESCRIPCION" value="" size="32" /></td>
+      <td><span id="sprytextfield1">
+      <input type="text" name="DESCRIPCION" value="" size="32" />
+      <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldMinCharsMsg">No se cumple el mínimo de caracteres requerido.</span></span></td>
     </tr>
     <tr valign="baseline">
       <td nowrap="nowrap" align="right">&nbsp;</td>
-      <td><input type="submit" value="Insertar registro" /></td>
+      <td><input type="submit" value="Insertar registro" onClick="Confirm(this.form)" /></td>
     </tr>
   </table>
   <input type="hidden" name="MM_insert" value="form1" />
 </form>
 <p>&nbsp;</p>
+<script type="text/javascript">
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "none", {minChars:3, validateOn:["blur"]});
+</script>
 </body>
 </html>
+<?php
+mysql_free_result($Recordset1);
+?>

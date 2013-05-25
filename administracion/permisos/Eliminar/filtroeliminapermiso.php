@@ -43,7 +43,7 @@ if (isset($_POST['filtroprod'])) {
   $colname_filtradoproducto = $_POST['filtroprod'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_filtradoproducto = sprintf("SELECT * FROM CATPERMISOS WHERE DESCRIPCION LIKE %s", GetSQLValueString("%" . $colname_filtradoproducto . "%", "text"));
+$query_filtradoproducto = sprintf("SELECT * FROM CATPERMISOS WHERE DESCRIPCION LIKE %s AND ELIMIN = 0", GetSQLValueString("%" . $colname_filtradoproducto . "%", "text"));
 $query_limit_filtradoproducto = sprintf("%s LIMIT %d, %d", $query_filtradoproducto, $startRow_filtradoproducto, $maxRows_filtradoproducto);
 $filtradoproducto = mysql_query($query_limit_filtradoproducto, $basepangloria) or die(mysql_error());
 $row_filtradoproducto = mysql_fetch_assoc($filtradoproducto);
@@ -89,7 +89,7 @@ return true;
   </tr>
   <?php do { ?>
     <tr>
-      <td><a href="javascript:;" onclick="aviso('eliminaPermiso.php?root=<?php echo $row_filtradoproducto['IDPERMISO'];?>'); return false;">Eliminar</a></td>
+      <td><a href="javascript:;" onclick="aviso('eliminaPermiso.php?root=<?php echo $row_filtradoproducto['IDPERMISO'];?>'); return false;"><img src="../../../imagenes/icono/delete-32.png" width="32" height="32" /></a></td>
       <td><?php echo $row_filtradoproducto['IDPERMISO']; ?></td>
       <td><?php echo $row_filtradoproducto['DESCRIPCION']; ?></td>
     </tr>

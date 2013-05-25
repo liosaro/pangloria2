@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_conpermiso'])) {
 $startRow_conpermiso = $pageNum_conpermiso * $maxRows_conpermiso;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_conpermiso = "SELECT * FROM CATPERMISOS";
+$query_conpermiso = "SELECT * FROM CATPERMISOS WHERE ELIMIN=0";
 $query_limit_conpermiso = sprintf("%s LIMIT %d, %d", $query_conpermiso, $startRow_conpermiso, $maxRows_conpermiso);
 $conpermiso = mysql_query($query_limit_conpermiso, $basepangloria) or die(mysql_error());
 $row_conpermiso = mysql_fetch_assoc($conpermiso);
@@ -89,7 +89,7 @@ body {
     <td colspan="2" bgcolor="#999999">Detalle de Consulta de Permisos</td>
   </tr>
   <tr>
-    <td colspan="2"><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, 0, $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, max(0, $pageNum_conpermiso - 1), $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, min($totalPages_conpermiso, $pageNum_conpermiso + 1), $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, $totalPages_conpermiso, $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></td>
+    <td colspan="2"><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, 0, $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, max(0, $pageNum_conpermiso - 1), $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, min($totalPages_conpermiso, $pageNum_conpermiso + 1), $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, $totalPages_conpermiso, $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /> Registros <?php echo ($startRow_conpermiso + 1) ?> a <?php echo min($startRow_conpermiso + $maxRows_conpermiso, $totalRows_conpermiso) ?> de <?php echo $totalRows_conpermiso ?> </a></td>
   </tr>
   <tr>
     <td>Codigo de Permiso</td>
