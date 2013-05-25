@@ -84,6 +84,16 @@ $totalRows_ultimo = mysql_num_rows($ultimo);
 <script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 <link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 <link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+<script>
+function Confirm(form){
+
+alert("Se ha agregado un nuevo registro!"); 
+
+form.submit();
+
+}
+
+</script>
 </head>
 
 <body>
@@ -152,7 +162,7 @@ $totalRows_ultimo = mysql_num_rows($ultimo);
           <td colspan="5">&nbsp;</td>
         </tr>
         <tr>
-          <td><input type="submit" name="SEND" id="SEND" value="Enviar" /></td>
+          <td><input type="submit" name="SEND" id="SEND" value="Enviar" onClick="Confirm(this.form)" /></td>
           <td><input type="reset" name="add2" id="add2" value="Limpiar" /></td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
@@ -171,10 +181,10 @@ $totalRows_ultimo = mysql_num_rows($ultimo);
 </div>
 <script type="text/javascript">
 var sprytextfield2 = new Spry.Widget.ValidationTextField("PRODCADUCIDAD", "integer", {minChars:1, maxChars:3, minValue:1, maxValue:365, validateOn:["blur"]});
-var sprytextfield5 = new Spry.Widget.ValidationTextField("PRODVENTAMAYOR", "currency", {hint:"0.00", validateOn:["blur"], isRequired:false, format:"dot_comma", minValue:0});
-var sprytextfield3 = new Spry.Widget.ValidationTextField("PRODCOSTO", "currency", {validateOn:["blur"], hint:"0.00", isRequired:false, format:"dot_comma", minValue:0});
-var sprytextfield4 = new Spry.Widget.ValidationTextField("PRODVENTAMENOR", "currency", {hint:"0.00", isRequired:false, validateOn:["blur"], format:"dot_comma", minValue:0});
-var sprytextfield1 = new Spry.Widget.ValidationTextField("verficardortiponombre", "none", {validateOn:["blur"], minChars:4});
+var sprytextfield5 = new Spry.Widget.ValidationTextField("PRODVENTAMAYOR", "currency", {validateOn:["blur"], isRequired:false, minValue:0});
+var sprytextfield3 = new Spry.Widget.ValidationTextField("PRODCOSTO", "currency", {validateOn:["blur"], isRequired:false, minValue:0});
+var sprytextfield4 = new Spry.Widget.ValidationTextField("PRODVENTAMENOR", "currency", {isRequired:false, validateOn:["blur"], minValue:0});
+var sprytextfield1 = new Spry.Widget.ValidationTextField("verficardortiponombre", "none", {minChars:4, validateOn:["blur"]});
 </script>
 </body>
 </html>

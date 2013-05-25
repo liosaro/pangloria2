@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -91,7 +91,7 @@ $queryString_consultaProducto = sprintf("&totalRows_consultaProducto=%d%s", $tot
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Control de Empleados</title>
-<link href="../../style.css" rel="stylesheet" type="text/css" />
+<link href="../../../style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript">
 function aviso(url){
 if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
@@ -115,7 +115,7 @@ return true;
             <tr>
               <td width="800" colspan="6" align="left">&nbsp;
                 <iframe src="filtroeliminapermiso.php" name="modiprodu" width="830" height="200" align="middle" scrolling="Auto" frameborder="0" id="modiprodu"></iframe>
-                <p><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, 0, $queryString_consultapermi); ?>"><img src="../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, max(0, $pageNum_consultapermi - 1), $queryString_consultapermi); ?>"><img src="../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, min($totalPages_consultapermi, $pageNum_consultapermi + 1), $queryString_consultapermi); ?>"><img src="../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, $totalPages_consultapermi, $queryString_consultapermi); ?>"><img src="../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a> </p>
+                <p><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, 0, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, max(0, $pageNum_consultapermi - 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, min($totalPages_consultapermi, $pageNum_consultapermi + 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, $totalPages_consultapermi, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a> </p>
                 <p>
                   <input type="text" name="filtroprod" id="filtroprod" />
                   <input type="submit" name="filtrar" id="filtrar" value="Filtrar" />

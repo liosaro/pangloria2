@@ -124,12 +124,12 @@ $totalRows_empleado = mysql_num_rows($empleado);
 </head>
 
 <body>
-<table width="810" border="0">
+<table width="1004" border="0">
   <tr>
-    <td class="encaforms">Ingresar Justificacion Pedida de Materia Prima</td>
+    <td width="998" class="encaforms">Ingresar Justificacion Pedida de Materia Prima</td>
   </tr>
   <tr>
-    <td><table width="100%" border="0">
+    <td><table width="810" border="0">
       <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -153,7 +153,8 @@ $totalRows_empleado = mysql_num_rows($empleado);
   <tr>
     <td>&nbsp;
       <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-        <table width="100%" align="center">
+        <table width="810" align="left
+        ">
           <tr valign="baseline">
             <td width="16%" align="right" nowrap="nowrap">Unidad de Medida:</td>
             <td width="6%"><select name="IDUNIDAD">
@@ -185,8 +186,7 @@ do {
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><textarea name="JUSTIFICACION" cols="50" rows="5"></textarea></td>
+            <td colspan="2"><textarea name="JUSTIFICACION" cols="50" rows="5"></textarea></td>
           </tr>
           <tr valign="baseline">
             <td nowrap="nowrap" align="right">&nbsp;</td>
@@ -194,8 +194,8 @@ do {
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td align="right"><input type="submit" value="Insertar registro" /></td>
+            <td><input type="submit" value="Insertar registro" /></td>
+            <td align="right">&nbsp;</td>
           </tr>
         </table>
         <input type="hidden" name="IDENCABEZADO" value="<?php echo $row_ultimoenca['IDENCABEZADO']; ?>" />
@@ -204,10 +204,9 @@ do {
     <p>&nbsp;</p></td>
   </tr>
   <tr>
-    <td align="center"><span class="deta">&nbsp;Registros Agregado</span>
-<table width="100%" border="1" cellpadding="0" cellspacing="0">
+    <td align="left"><span class="deta">&nbsp;Registros Agregado</span>
+<table width="820" border="1" cellpadding="0" cellspacing="0">
         <tr class="retabla">
-          <td bgcolor="#000000">Codigo</td>
           <td bgcolor="#000000">Unidad de Medida</td>
           <td bgcolor="#000000">Cantidad</td>
           <td bgcolor="#000000">Materia Prima</td>
@@ -230,7 +229,6 @@ $totalRows_medidatabla = mysql_num_rows($medidatabla);
 
 		?>
           <tr>
-            <td><?php echo $row_ultimodetalle['ID_PERDIDA']; ?></td>
             <td><?php echo $row_medidatabla['TIPOUNIDAD']; ?></td>
             <td><?php echo $row_ultimodetalle['CANT_PERDIDA']; ?></td>
             <td><?php echo $row_materiatabla['DESCRIPCION']; ?></td>

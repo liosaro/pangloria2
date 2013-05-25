@@ -46,7 +46,7 @@ if (isset($_POST['user'])) {
   $loginUsername=$_POST['user'];
   $password=$_POST['pass'];
   $MM_fldUserAuthorization = "";
-  $MM_redirectLoginSuccess = "proceso/base.php";
+  $MM_redirectLoginSuccess = "base.php";
   $MM_redirectLoginFailed = "index.php";
   $MM_redirecttoReferrer = false;
   mysql_select_db($database_basepangloria, $basepangloria);

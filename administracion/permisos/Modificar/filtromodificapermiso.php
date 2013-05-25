@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -67,20 +67,11 @@ body {
 	margin-top: 0px;
 }
 </style>
-<script language="JavaScript">
-function aviso(url){
-if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
-return false;
-}
-else {
-document.location = url;
-return true;
-}
-}
-</script>
 </head>
 
 <body>
+<iframe src="modificadorPermiso.php" name="modiprodu" width="780" height="250" align="middle" scrolling="No" frameborder="0" id="modiproducs"></iframe>
+<p>&nbsp;</p>
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center" bgcolor="#999999"><strong>Modificacion</strong></td>
@@ -89,7 +80,7 @@ return true;
   </tr>
   <?php do { ?>
     <tr>
-      <td><a href="javascript:;" onclick="aviso('eliminaPermiso.php?root=<?php echo $row_filtradoproducto['IDPERMISO'];?>'); return false;">Eliminar</a></td>
+      <td><a href="modificadorPermiso.php?root=<?php echo $row_filtradoproducto['IDPERMISO']; ?>" target="modiprodu">Modificar</a></td>
       <td><?php echo $row_filtradoproducto['IDPERMISO']; ?></td>
       <td><?php echo $row_filtradoproducto['DESCRIPCION']; ?></td>
     </tr>

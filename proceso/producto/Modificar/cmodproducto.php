@@ -72,6 +72,16 @@ body {
 	margin-top: 0px;
 }
 </style>
+<script>
+function Confirm(form){
+
+alert("Se ha Modificado Satisfactoriamente!"); 
+
+form.submit();
+
+}
+
+</script>
 </head>
 
 <body>
@@ -129,7 +139,7 @@ body {
       <td colspan="5">&nbsp;</td>
     </tr>
     <tr>
-      <td><input type="submit" value="Actualizar registro" /></td>
+      <td><input type="submit" value="Actualizar registro" onClick="Confirm(this.form)" /></td>
       <td><input type="reset" name="add2" id="add2" value="Limpiar" /></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>

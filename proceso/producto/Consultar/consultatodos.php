@@ -52,7 +52,7 @@ if (isset($_GET['totalRows_nombre'])) {
   $all_nombre = mysql_query($query_nombre);
   $totalRows_nombre = mysql_num_rows($all_nombre);
 }
-$totalPages_nombre = ceil($totalRows_nombre/$maxRows_nombre = 20);
+$totalPages_nombre = ceil($totalRows_nombre/$maxRows_nombre)-1;
 $pageNum_nombre = 0;
 if (isset($_GET['pageNum_nombre'])) {
   $pageNum_nombre = $_GET['pageNum_nombre'];
@@ -88,7 +88,7 @@ $queryString_nombre = sprintf("&totalRows_nombre=%d%s", $totalRows_nombre, $quer
     <td colspan="6" align="center" bgcolor="#999999"><h1>Detalle</h1></td>
   </tr>
   <tr>
-    <td colspan="6"><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, 0, $queryString_nombre); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, max(0, $pageNum_nombre - 1), $queryString_nombre); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, min($totalPages_nombre, $pageNum_nombre + 1), $queryString_nombre); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, $totalPages_nombre, $queryString_nombre); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></td>
+    <td colspan="6"><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, 0, $queryString_nombre); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, max(0, $pageNum_nombre - 1), $queryString_nombre); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, min($totalPages_nombre, $pageNum_nombre + 1), $queryString_nombre); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombre=%d%s", $currentPage, $totalPages_nombre, $queryString_nombre); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /> Registros <?php echo ($startRow_nombre + 1) ?> a <?php echo min($startRow_nombre + $maxRows_nombre, $totalRows_nombre) ?> de <?php echo $totalRows_nombre ?> </a></td>
   </tr>
   <tr>
     <td>Id del Producto</td>

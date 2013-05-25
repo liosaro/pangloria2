@@ -19,7 +19,7 @@ if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
   unset($_SESSION['MM_UserGroup']);
   unset($_SESSION['PrevUrl']);
 	
-  $logoutGoTo = "../index.php";
+  $logoutGoTo = "index.php";
   if ($logoutGoTo) {
     header("Location: $logoutGoTo");
     exit;
@@ -59,7 +59,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
-$MM_restrictGoTo = "../index.php";
+$MM_restrictGoTo = "index.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
@@ -76,11 +76,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Control d Producto en Proceso y Terminado</title>
-<link href="../style.css" rel="stylesheet" type="text/css" />
-<script src="../SpryAssets/SpryAccordion.js" type="text/javascript"></script>
-<script src="../SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
-<link href="../SpryAssets/SpryAccordion.css" rel="stylesheet" type="text/css" />
-<link href="../SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="SpryAssets/SpryAccordion.js" type="text/javascript"></script>
+<script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
+<link href="SpryAssets/SpryAccordion.css" rel="stylesheet" type="text/css" />
+<link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
 
  
 </head>
@@ -94,43 +94,44 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
           <ul id="MenuBar1" class="MenuBarHorizontal">
             <li><a class="MenuBarItemSubmenu" href="#">Produccion</a>
               <ul>
-                <li><a href="ModificarOrdenProdccion.php" target="contenedor" class="MenuBarItemSubmenu">Orden de Produccion</a>
+                <li><a href="proceso/ModificarOrdenProdccion.php" target="contenedor" class="MenuBarItemSubmenu">Orden de Produccion</a>
                   <ul>
-                    <li><a href="produccion/ordendeproduccion/ingreso/insert.php">Ingresar Orden de Produccion</a></li>
-                    <li><a href="produccion/ordendeproduccion/Modificacion/filtro.php">Modificar Orden de Produccion</a></li>
-                    <li><a href="produccion/ordendeproduccion/eliminar/filtro.php">Eliminar Orden de Produccion</a></li>
-                    <li><a href="produccion/ordendeproduccion/consulta/filtro.php">Consultar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/ingreso/insert.php">Ingresar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/Modificacion/filtro.php">Modificar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/eliminar/filtro.php">Eliminar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/consulta/filtro.php">Consultar Orden de Produccion</a></li>
                   </ul>
                 </li>
-                <li><a href="ConsultarOrdenProduc.php" target="contenedor">Consultar Orden de Produccion</a></li>
+                <li><a href="proceso/ConsultarOrdenProduc.php" target="contenedor">Consultar Orden de Produccion</a></li>
                 <li><a href="#">Elemento 1.3</a></li>
               </ul>
             </li>
             <li><a href="#" class="MenuBarItemSubmenu MenuBarItemSubmenu">Materia Prima</a>
               <ul>
-                <li><a href="promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
+                <li><a href="proceso/promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
                   <ul>
-                    <li><a href="promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor">Ingresar Pedido</a></li>
-                    <li><a href="promateriaprima/pedidomateriaprima/Modificar/filtro.php">Modificar Pedido de Materia Prima</a></li>
-                    <li><a href="promateriaprima/pedidomateriaprima/eliminar/filtro.php">Eliminar Pedido de Materia Prima</a></li>
-                    <li><a href="promateriaprima/pedidomateriaprima/consulta/filtro.php">Consultar Pedido de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor">Ingresar Pedido</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/Modificar/filtro.php">Modificar Pedido de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/eliminar/filtro.php">Eliminar Pedido de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/consulta/filtro.php">Consultar Pedido de Materia Prima</a></li>
                   </ul>
                 </li>
                 <li><a href="#" class="MenuBarItemSubmenu">Salida Materia Prima</a>
                   <ul>
-                    <li><a href="promateriaprima/SalidaMateriaPrima/ingresar/insert.php" target="contenedor">Ingreso de Salida de Materia Prima</a></li>
-                    <li><a href="promateriaprima/SalidaMateriaPrima/Modificar/filtro.php" target="contenedor">Modificar Salida de Materia Prima</a></li>
-                    <li><a href="promateriaprima/SalidaMateriaPrima/eliminar/filtro.php" target="contenedor">Eliminar Salida de Materia Prima </a></li>
-                    <li><a href="promateriaprima/SalidaMateriaPrima/consulta/filtro.php" target="contenedor">Consultar Salida de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/SalidaMateriaPrima/ingresar/insert.php" target="contenedor">Ingreso de Salida de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/SalidaMateriaPrima/Modificar/filtro.php" target="contenedor">Modificar Salida de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/SalidaMateriaPrima/eliminar/filtro.php" target="contenedor">Eliminar Salida de Materia Prima </a></li>
+                    <li><a href="proceso/promateriaprima/SalidaMateriaPrima/consulta/filtro.php" target="contenedor">Consultar Salida de Materia Prima</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Elemento sin t&iacute;tulo</a></li>
                 <li><a href="#">Entrega de Materia Prima</a></li>
                 <li><a href="#" class="MenuBarItemSubmenu">Justificacion Perdia Materia Prima</a>
                   <ul>
-                    <li><a href="promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificacion</a></li>
-                    <li><a href="promateriaprima/PerMateriaPri/Modificar/modificarjustificacion.php" target="contenedor">Modificar Justificacion</a></li>
-                    <li><a href="promateriaprima/PerMateriaPri/Eliminar/contenidoeliminador.php" target="contenedor">Eliminar Justificacion</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificacion</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Modificar/modificarjustificacion.php" target="contenedor">Modificar Justificacion</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Eliminar/contenidoeliminador.php" target="contenedor">Eliminar Justificacion</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Consultar/filtro.php" target="contenedor">Consultar Justificacion Perdida Materia Prima</a></li>
                   </ul>
                 </li>
 </ul>
@@ -146,8 +147,8 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <li><a href="#">Control de Produccion</a></li>
                 <li><a href="#" class="MenuBarItemSubmenu">Control Materia Prima</a>
                   <ul>
-                    <li><a href="promateriaprima/controlmatprima/ingresomatpri.php" target="contenedor">Ingreso</a></li>
-                    <li><a href="promateriaprima/controlmatprima/modimatprima.php" target="contenedor">Modificar</a></li>
+                    <li><a href="proceso/promateriaprima/controlmatprima/ingresomatpri.php" target="contenedor">Ingreso</a></li>
+                    <li><a href="proceso/promateriaprima/controlmatprima/modimatprima.php" target="contenedor">Modificar</a></li>
                   </ul>
                 </li>
               </ul>
@@ -156,10 +157,10 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a href="#" class="MenuBarItemSubmenu">Administrar Productos</a>
                   <ul>
-                    <li><a href="producto/Ingresar/ingresaproducto.php" target="contenedor">Ingresar Producto</a></li>
-                    <li><a href="producto/Modificar/modificarproducto.php" target="contenedor">Modificar Producto</a></li>
-                    <li><a href="producto/Eliminar/eliminacionProducto.php" target="contenedor">Eliminar Producto</a></li>
-                    <li><a href="producto/Consultar/consultaproducto.php" target="contenedor">Consultar Productos</a></li>
+                    <li><a href="proceso/producto/Ingresar/ingresaproducto.php" target="contenedor">Ingresar Producto</a></li>
+                    <li><a href="proceso/producto/Modificar/modificarproducto.php" target="contenedor">Modificar Producto</a></li>
+                    <li><a href="proceso/producto/Eliminar/eliminacionProducto.php" target="contenedor">Eliminar Producto</a></li>
+                    <li><a href="proceso/producto/Consultar/consultaproducto.php" target="contenedor">Consultar Productos</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Justificar Perdida Productos</a></li>
@@ -169,9 +170,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
 <li><a href="#" class="MenuBarItemSubmenu">Cargos</a>
   <ul>
-    <li><a href="../MateriaPrima/cargo_empleado/Ingreso_cargo.php" target="contenedor">Ingreso de Cargos</a></li>
+    <li><a href="MateriaPrima/cargo_empleado/Ingreso_cargo.php" target="contenedor">Ingreso de Cargos</a></li>
     <li><a href="#">Consultar Cargos</a></li>
-    <li><a href="../MateriaPrima/cargo_empleado/modificarcargo.php" target="contenedor">Modificar Cargos</a></li>
+    <li><a href="MateriaPrima/cargo_empleado/modificarcargo.php" target="contenedor">Modificar Cargos</a></li>
     <li><a href="#">Eliminar Cargos</a></li>
   </ul>
               </li>
@@ -181,15 +182,15 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a href="#" class="MenuBarItemSubmenu">Permisos</a>
                   <ul>
-                    <li><a href="../administracion/permisos/IngresoPermiso.php" target="contenedor">Ingresar Permisos</a></li>
-                    <li><a href="../administracion/permisos/modificarpermisos.php" target="contenedor">Modificar Permisos</a></li>
-                    <li><a href="../administracion/permisos/consultapermiso.php" target="contenedor">Consultar Permisos</a></li>
-                    <li><a href="../administracion/permisos/eliminarpermisos.php">Eliminar Permisos</a></li>
+                    <li><a href="administracion/permisos/IngresoPermiso.php" target="contenedor">Ingresar Permisos</a></li>
+                    <li><a href="administracion/permisos/modificarpermisos.php" target="contenedor">Modificar Permisos</a></li>
+                    <li><a href="administracion/permisos/consultapermiso.php" target="contenedor">Consultar Permisos</a></li>
+                    <li><a href="administracion/permisos/eliminarpermisos.php">Eliminar Permisos</a></li>
                   </ul>
                 </li>
                 <li><a href="#" class="MenuBarItemSubmenu">Atribuciones</a>
                   <ul>
-                    <li><a href="../administracion/atribucion/ingresoatribucion.php" target="contenedor">Ingreso</a></li>
+                    <li><a href="administracion/atribucion/ingresoatribucion.php" target="contenedor">Ingreso</a></li>
                     <li><a href="#">Consulta</a></li>
                     <li><a href="#">Modificar</a></li>
                     <li><a href="#">Eliminar</a></li>
@@ -206,7 +207,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user1">
                   <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Man_Red_256.png" width="45" height="45" /><img src="../imagenes/icono/Supervisor-256.png" width="45" height="45" /><img src="../imagenes/icono/Judge-256.png" width="45" height="45" alt="Consultar Empleados" /></td>
+                      <td align="center" valign="bottom"><img src="imagenes/icono/Man_Red_256.png" width="45" height="45" /><img src="imagenes/icono/Supervisor-256.png" width="45" height="45" /><img src="imagenes/icono/Judge-256.png" width="45" height="45" alt="Consultar Empleados" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Empleados</h4></td>
@@ -216,7 +217,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user2">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/shopping_cart_128.png" width="45" height="45" /><img src="../imagenes/icono/Shopping-cart-256.png" width="45" height="45" /><img src="../imagenes/icono/Red-Wallet-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="imagenes/icono/shopping_cart_128.png" width="45" height="45" /><img src="imagenes/icono/Shopping-cart-256.png" width="45" height="45" /><img src="imagenes/icono/Red-Wallet-256.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Compras</h4></td>
@@ -226,7 +227,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user3">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Invoice-256.png" width="45" height="45" /><img src="../imagenes/icono/Safe-256.png" width="45" height="45" /><img src="../imagenes/icono/Cash-register-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="imagenes/icono/Invoice-256.png" width="45" height="45" /><img src="imagenes/icono/Safe-256.png" width="45" height="45" /><img src="imagenes/icono/Cash-register-256.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Cotizaciones</h4></td>
@@ -236,7 +237,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user4">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Delivery-Truck.png" width="45" height="45" /><img src="../imagenes/icono/Card-file.png" width="45" height="45" /><img src="../imagenes/icono/Time.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="imagenes/icono/Delivery-Truck.png" width="45" height="45" /><img src="imagenes/icono/Card-file.png" width="45" height="45" /><img src="imagenes/icono/Time.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Proveedores</h4></td>
@@ -246,7 +247,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user5">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="../imagenes/icono/Banana-128.png" width="45" height="45" /><img src="../imagenes/icono/Breakfast-Box-128.png" width="45" height="45" /><img src="../imagenes/icono/Compurter-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><img src="imagenes/icono/Banana-128.png" width="45" height="45" /><img src="imagenes/icono/Breakfast-Box-128.png" width="45" height="45" /><img src="imagenes/icono/Compurter-256.png" width="45" height="45" /></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Materia Prima</h4></td>
@@ -334,7 +335,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
         </div>
 </div>
     </div></td>
-    <td align="center" valign="middle"><div class="contido" id="contido"><iframe src="../dibujo.html" name="contenedor" width="835" marginwidth="0" height="675" marginheight="0" align="left" scrolling="no" frameborder="0"></iframe></div></td>
+    <td align="center" valign="middle"><div class="contido" id="contido"><iframe src="dibujo.html" name="contenedor" width="835" marginwidth="0" height="675" marginheight="0" align="left" scrolling="no" frameborder="0"></iframe></div></td>
   </tr>
 </table>
 </div>

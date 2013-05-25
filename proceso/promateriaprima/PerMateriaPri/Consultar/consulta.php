@@ -77,34 +77,6 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
-if (isset($_SERVER['QUERY_STRING'])) {
-  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form2")) {
-  $updateSQL = sprintf("UPDATE TRNJUSTIFICAIONPERMATPRI SET IDENCABEZADO=%s, IDUNIDAD=%s, CANT_PERDIDA=%s, MAT_PRIMA=%s, JUSTIFICACION=%s WHERE ID_PERDIDA=%s",
-                       GetSQLValueString($_POST['IDENCABEZADO'], "int"),
-                       GetSQLValueString($_POST['IDUNIDAD'], "int"),
-                       GetSQLValueString($_POST['CANT_PERDIDA'], "double"),
-                       GetSQLValueString($_POST['MAT_PRIMA'], "int"),
-                       GetSQLValueString($_POST['JUSTIFICACION'], "text"),
-                       GetSQLValueString($_POST['ID_PERDIDA'], "int"));
-
-  mysql_select_db($database_basepangloria, $basepangloria);
-  $Result1 = mysql_query($updateSQL, $basepangloria) or die(mysql_error());
-}
-
-$colname_concuerpo = "-1";
-if (isset($_GET['root'])) {
-  $colname_concuerpo = $_GET['root'];
-}
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_concuerpo = sprintf("SELECT * FROM TRNJUSTIFICAIONPERMATPRI WHERE ID_PERDIDA = %s", GetSQLValueString($colname_concuerpo, "int"));
-$concuerpo = mysql_query($query_concuerpo, $basepangloria) or die(mysql_error());
-$row_concuerpo = mysql_fetch_assoc($concuerpo);
-$totalRows_concuerpo = mysql_num_rows($concuerpo);
-
 mysql_select_db($database_basepangloria, $basepangloria);
 $query_matpri = "SELECT IDMATPRIMA, DESCRIPCION FROM CATMATERIAPRIMA WHERE ELIMIN = 0 ORDER BY DESCRIPCION ASC";
 $matpri = mysql_query($query_matpri, $basepangloria) or die(mysql_error());
@@ -182,26 +154,15 @@ body {
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript">
-function aviso(url){
-if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
-return false;
-}
-else {
-document.location = url;
-return true;
-}
-}
-</script>
 </head>
 
 <body>
 <table width="820" border="0" align="left">
   <tr>
-    <td width="820"><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+    <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
       <table width="820" align="left">
         <tr valign="baseline">
-          <td colspan="4" align="center" nowrap="nowrap" bgcolor="#999999" class="encaforms">Modificar Justificacion de Perdida de Materia Prima</td>
+          <td colspan="4" align="center" nowrap="nowrap" bgcolor="#999999" class="encaforms"> Justificacion de Perdida de Materia Prima</td>
           </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">Codigo de Encabezado:</td>
@@ -221,77 +182,16 @@ return true;
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>
-  </table>
+    </table>
     </form></td>
   </tr>
   <tr>
-    <td>&nbsp;
-      <form action="<?php echo $editFormAction; ?>" method="post" name="form2" id="form2">
-        <table width="100%" align="left
-        ">
-          <tr valign="baseline">
-            <td width="11%">Codigo de Detalle:</td>
-            <td width="16%"><?php echo $row_concuerpo['ID_PERDIDA']; ?></td>
-            <td width="11%">&nbsp;</td>
-            <td width="10%">&nbsp;</td>
-            <td width="10%">&nbsp;</td>
-            <td width="12%">&nbsp;</td>
-            <td width="30%">&nbsp;</td>
-          </tr>
-          <tr valign="baseline">
-            <td>Cantidad:</td>
-            <td><input type="text" name="CANT_PERDIDA" value="<?php echo htmlentities($row_concuerpo['CANT_PERDIDA'], ENT_COMPAT, 'utf-8'); ?>" size="9" /></td>
-            <td>Unidad de Medida:</td>
-            <td><select name="IDUNIDAD">
-              <?php 
-do {  
-?>
-              <option value="<?php echo $row_medi['IDUNIDAD']?>" <?php if (!(strcmp($row_medi['IDUNIDAD'], htmlentities($row_concuerpo['IDUNIDAD'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_medi['TIPOUNIDAD']?></option>
-              <?php
-} while ($row_medi = mysql_fetch_assoc($medi));
-?>
-            </select></td>
-            <td>Materia Prima:</td>
-            <td><select name="MAT_PRIMA">
-              <?php 
-do {  
-?>
-              <option value="<?php echo $row_matpri['IDMATPRIMA']?>" <?php if (!(strcmp($row_matpri['IDMATPRIMA'], htmlentities($row_concuerpo['MAT_PRIMA'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_matpri['DESCRIPCION']?></option>
-              <?php
-} while ($row_matpri = mysql_fetch_assoc($matpri));
-?>
-            </select></td>
-            <td>Justificacion:</td>
-          </tr>
-          <tr valign="baseline">
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><textarea name="JUSTIFICACION" cols="32" rows="5"><?php echo htmlentities($row_concuerpo['JUSTIFICACION'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
-          </tr>
-          <tr valign="baseline">
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Actualizar registro" /></td>
-          </tr>
-        </table>
-        <input type="hidden" name="IDENCABEZADO" value="<?php echo htmlentities($row_concuerpo['IDENCABEZADO'], ENT_COMPAT, 'utf-8'); ?>" />
-        <input type="hidden" name="MM_update" value="form2" />
-        <input type="hidden" name="ID_PERDIDA" value="<?php echo $row_concuerpo['ID_PERDIDA']; ?>" />
-      </form>
-    <p>&nbsp;</p></td>
+    <td>&nbsp;</td>
   </tr>
   <tr>
     <td><table width="820" border="1" cellpadding="0" cellspacing="0">
       <tr>
-        <td colspan="8" align="center" class="retabla"><span class="deta">Detalles</span></td>
+        <td colspan="6" align="center" class="retabla"><span class="deta">Detalles</span></td>
         </tr>
       <tr class="retabla">
         
@@ -301,8 +201,6 @@ do {
         <td bgcolor="#000000">Cantidad</td>
         <td bgcolor="#000000">Materia Prima</td>
         <td bgcolor="#000000">Justificacion</td>
-        <td bgcolor="#000000">Modificar</td>
-        <td bgcolor="#000000">Eliminar</td>
         </tr>
       <?php do { ?>
       <?php mysql_select_db($database_basepangloria, $basepangloria);
@@ -324,8 +222,6 @@ $totalRows_conmedi = mysql_num_rows($conmedi);?>
         <td><?php echo $row_cuerpo['CANT_PERDIDA']; ?></td>
         <td><?php echo $row_materia['DESCRIPCION']; ?></td>
         <td><?php echo $row_cuerpo['JUSTIFICACION']; ?></td>
-        <td align="center"><a href="modificador.php?root=<?php echo $row_cuerpo['ID_PERDIDA']; ?>&filtrojust=<?php echo $row_cuerpo['IDENCABEZADO']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
-        <td align="center"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_cuerpo['ID_PERDIDA'];?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32" /></a></td>
         </tr>
       <?php } while ($row_cuerpo = mysql_fetch_assoc($cuerpo)); ?>
     </table></td>

@@ -46,7 +46,7 @@ if (isset($_GET['totalRows_consultaproducto'])) {
   $all_consultaproducto = mysql_query($query_consultaproducto);
   $totalRows_consultaproducto = mysql_num_rows($all_consultaproducto);
 }
-$totalPages_consultaproducto = ceil($totalRows_consultaproducto/$maxRows_consultaproducto)-1;$maxRows_consultaproducto = 5;
+$totalPages_consultaproducto = ceil($totalRows_consultaproducto/$maxRows_consultaproducto = 5);
 $pageNum_consultaproducto = 0;
 if (isset($_GET['pageNum_consultaproducto'])) {
   $pageNum_consultaproducto = $_GET['pageNum_consultaproducto'];
@@ -128,7 +128,7 @@ return true;
             <tr>
               <td width="800" colspan="6" align="left">&nbsp;
                 <iframe src="filtroeliminaproducto.php" name="modiprodu" width="830" height="200" align="middle" scrolling="Auto" frameborder="0" id="modiprodu"></iframe>
-<p><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, 0, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, max(0, $pageNum_consultaproducto - 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, min($totalPages_consultaproducto, $pageNum_consultaproducto + 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, $totalPages_consultaproducto, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></p>
+<p><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, 0, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, max(0, $pageNum_consultaproducto - 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, min($totalPages_consultaproducto, $pageNum_consultaproducto + 1), $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultaproducto=%d%s", $currentPage, $totalPages_consultaproducto, $queryString_consultaproducto); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a> Registros <?php echo ($startRow_consultaproducto + 1) ?> a <?php echo min($startRow_consultaproducto + $maxRows_consultaproducto, $totalRows_consultaproducto) ?> de <?php echo $totalRows_consultaproducto ?></p>
                 <table width="830" border="1">
                   <tr>
                     <td colspan="2"><input type="text" name="filtroprod" id="filtroprod" />
