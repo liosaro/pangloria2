@@ -30,30 +30,29 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
+mysql_select_db($database_basepangloria, $basepangloria);
+$id=$_GET["id"];
+$query = "UPDATE TRNJUSTIFICAIONPERMATPRI SET ELIMIN=1 WHERE ID_PERDIDA=$id";
 
-if ((isset($_GET['root'])) && ($_GET['root'] != "")) {
-  $deleteSQL = sprintf("UPDATE TRNENCABEZADOJUSTPERMATPRIM SET ELIMIN=1 WHERE IDENCABEZADO=%s",
-                       GetSQLValueString($_GET['root'], "int"));
+    $result = mysql_query($query);
 
-  mysql_select_db($database_basepangloria, $basepangloria);
-  $Result1 = mysql_query($deleteSQL, $basepangloria) or die(mysql_error());
-}
+    if (!$result) {
+        echo "No pudo ejecutarse satisfactoriamente la consulta ($query) " .
+        "en la BD: " . mysql_error();
+        //Finalizo la aplicación
+        exit;
+    }
+	function urlActual() {
+ $pageURL = 'http://';
+ if ($_SERVER["SERVER_PORT"] != "80") {
+ $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+ $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ return $pageURL;
+ }
+$url = $_SERVER['HTTP_REFERER'];
+echo $url;
+header ("location: $url ");
+
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sin título</title>
-<style type="text/css">
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-}
-</style>
-</head>
-
-<body>
-</body>
-</html>

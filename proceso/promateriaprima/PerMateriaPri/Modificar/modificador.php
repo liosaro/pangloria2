@@ -83,18 +83,32 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-  $updateSQL = sprintf("UPDATE TRNENCABEZADOJUSTPERMATPRIM SET IDEMPLEADO=%s, IDORDENPRODUCCION=%s, FECHAINGRESOJUSTIFICA=%s, EMPLEADOINGRESA=%s, FECHAHORAUSUA=%s WHERE IDENCABEZADO=%s",
-                       GetSQLValueString($_POST['IDEMPLEADO'], "int"),
-                       GetSQLValueString($_POST['IDORDENPRODUCCION'], "int"),
-                       GetSQLValueString($_POST['FECHAINGRESOJUSTIFICA'], "date"),
-                       GetSQLValueString($_POST['EMPLEADOINGRESA'], "int"),
-                       GetSQLValueString($_POST['FECHAHORAUSUA'], "date"),
-                       GetSQLValueString($_POST['IDENCABEZADO'], "int"));
+  $updateSQL = sprintf("UPDATE TRNJUSTIFICAIONPERMATPRI SET IDENCABEZADO=%s, IDUNIDAD=%s, CANT_PERDIDA=%s, MAT_PRIMA=%s, JUSTIFICACION=%s WHERE ID_PERDIDA=%s",
+                       GetSQLValueString($_POST['IDENCABEZADO'], "int"),
+                       GetSQLValueString($_POST['IDUNIDAD'], "int"),
+                       GetSQLValueString($_POST['CANT_PERDIDA'], "double"),
+                       GetSQLValueString($_POST['MAT_PRIMA'], "int"),
+                       GetSQLValueString($_POST['JUSTIFICACION'], "text"),
+                       GetSQLValueString($_POST['ID_PERDIDA'], "int"));
 
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($updateSQL, $basepangloria) or die(mysql_error());
 }
+$colname_concuerpo = "-1";
+if (isset($_GET['root'])) {
+  $colname_concuerpo = $_GET['root'];
+}
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_concuerpo = sprintf("SELECT * FROM TRNJUSTIFICAIONPERMATPRI WHERE ID_PERDIDA = %s", GetSQLValueString($colname_concuerpo, "int"));
+$concuerpo = mysql_query($query_concuerpo, $basepangloria) or die(mysql_error());
+$row_concuerpo = mysql_fetch_assoc($concuerpo);
+$totalRows_concuerpo = mysql_num_rows($concuerpo);
 
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_matpri = "SELECT IDMATPRIMA, DESCRIPCION FROM CATMATERIAPRIMA WHERE ELIMIN = 0 ORDER BY DESCRIPCION ASC";
+$matpri = mysql_query($query_matpri, $basepangloria) or die(mysql_error());
+$row_matpri = mysql_fetch_assoc($matpri);
+$totalRows_matpri = mysql_num_rows($matpri);
 $maxRows_encabezado = 10;
 $pageNum_encabezado = 0;
 if (isset($_GET['pageNum_encabezado'])) {
@@ -103,11 +117,11 @@ if (isset($_GET['pageNum_encabezado'])) {
 $startRow_encabezado = $pageNum_encabezado * $maxRows_encabezado;
 
 $colname_encabezado = "-1";
-if (isset($_POST['filtrojust'])) {
-  $colname_encabezado = $_POST['filtrojust'];
+if (isset($_GET['filtrojust'])) {
+  $colname_encabezado = $_GET['filtrojust'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_encabezado = sprintf("SELECT * FROM TRNENCABEZADOJUSTPERMATPRIM WHERE IDENCABEZADO = %s", GetSQLValueString($colname_encabezado, "int"));
+$query_encabezado = sprintf("SELECT * FROM TRNENCABEZADOJUSTPERMATPRIM WHERE IDENCABEZADO = %s AND ELIMIN=0 AND EDTI=0", GetSQLValueString($colname_encabezado, "int"));
 $query_limit_encabezado = sprintf("%s LIMIT %d, %d", $query_encabezado, $startRow_encabezado, $maxRows_encabezado);
 $encabezado = mysql_query($query_limit_encabezado, $basepangloria) or die(mysql_error());
 $row_encabezado = mysql_fetch_assoc($encabezado);
@@ -128,13 +142,14 @@ if (isset($_GET['pageNum_cuerpo'])) {
 $startRow_cuerpo = $pageNum_cuerpo * $maxRows_cuerpo;
 
 $colname_cuerpo = "-1";
-if (isset($_POST['filtrojust'])) {
-  $colname_cuerpo = $_POST['filtrojust'];
+if (isset($_GET['filtrojust'])) {
+  $colname_cuerpo = $_GET['filtrojust'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_cuerpo = sprintf("SELECT * FROM TRNJUSTIFICAIONPERMATPRI WHERE IDENCABEZADO = %s", GetSQLValueString($colname_cuerpo, "int"));
+$IDENCABE = $row_encabezado['IDENCABEZADO'];
+$query_cuerpo = sprintf("SELECT * FROM TRNJUSTIFICAIONPERMATPRI WHERE IDENCABEZADO = $IDENCABE AND ELIMIN =0");
 $query_limit_cuerpo = sprintf("%s LIMIT %d, %d", $query_cuerpo, $startRow_cuerpo, $maxRows_cuerpo);
-$cuerpo = mysql_query($query_limit_cuerpo, $basepangloria) or die(mysql_error());
+$cuerpo = mysql_query($query_limit_cuerpo, $basepangloria);
 $row_cuerpo = mysql_fetch_assoc($cuerpo);
 
 if (isset($_GET['totalRows_cuerpo'])) {
@@ -145,27 +160,12 @@ if (isset($_GET['totalRows_cuerpo'])) {
 }
 $totalPages_cuerpo = ceil($totalRows_cuerpo/$maxRows_cuerpo)-1;
 
-$colname_conmedi = "-1";
-if (isset($_POST['ID_MEDIDA'])) {
-  $colname_conmedi = $_POST['ID_MEDIDA'];
-}
 mysql_select_db($database_basepangloria, $basepangloria);
-$medi = $row_cuerpo['IDUNIDAD'];
-$query_conmedi = sprintf("SELECT MEDIDA FROM CATMEDIDAS WHERE ID_MEDIDA = '$medi'", GetSQLValueString($colname_conmedi, "int"));
-$conmedi = mysql_query($query_conmedi, $basepangloria) or die(mysql_error());
-$row_conmedi = mysql_fetch_assoc($conmedi);
-$totalRows_conmedi = mysql_num_rows($conmedi);
+$query_medi = "SELECT IDUNIDAD, TIPOUNIDAD FROM CATUNIDADES WHERE ELIMIN = 0 ORDER BY TIPOUNIDAD ASC";
+$medi = mysql_query($query_medi, $basepangloria) or die(mysql_error());
+$row_medi = mysql_fetch_assoc($medi);
+$totalRows_medi = mysql_num_rows($medi);
 
-$colname_materia = "-1";
-if (isset($_POST['MAT_PRIMA'])) {
-  $colname_materia = $_POST['MAT_PRIMA'];
-}
-mysql_select_db($database_basepangloria, $basepangloria);
-$buscar = $row_cuerpo['MAT_PRIMA'];
-$query_materia = sprintf("SELECT DESCRIPCION FROM CATMATERIAPRIMA WHERE IDMATPRIMA = '$buscar'", GetSQLValueString($colname_materia, "int"));
-$materia = mysql_query($query_materia, $basepangloria) or die(mysql_error());
-$row_materia = mysql_fetch_assoc($materia);
-$totalRows_materia = mysql_num_rows($materia);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -179,14 +179,12 @@ body {
 	text-align: center;
 }
 </style>
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<table width="820" border="0">
+<table width="820" border="0" align="left">
   <tr>
     <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
       <input type="hidden" name="MM_update" value="form1" />
@@ -197,64 +195,19 @@ body {
           </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">Codigo de Encabezado:</td>
-          <td align="left"><?php echo $row_encabezado['IDENCABEZADO']; ?></td>
+          <td align="left" class="NO"><?php echo $row_encabezado['IDENCABEZADO']; ?></td>
           <td>Codigo de empleado:</td>
-          <td><input name="IDEMPLEADO" type="text" value="<?php echo htmlentities($row_encabezado['IDEMPLEADO'], ENT_COMPAT, 'utf-8'); ?>" size="32" readonly="readonly" /></td>
+          <td class="retorno"><?php echo htmlentities($row_encabezado['IDEMPLEADO'], ENT_COMPAT, 'utf-8'); ?></td>
         </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">Orden de Produccion:</td>
-          <td><input type="text" name="IDORDENPRODUCCION" value="<?php echo htmlentities($row_encabezado['IDORDENPRODUCCION'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+          <td class="retorno"><?php echo htmlentities($row_encabezado['IDORDENPRODUCCION'], ENT_COMPAT, 'utf-8'); ?></td>
           <td>Fecha Ingreso:</td>
-          <td><script type="text/javascript"
-     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script> 
-    <script type="text/javascript"
-     src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-    </script>
-   <div class="welsl">
-  <div id="datetimepicker4" class="input-append">
-    <input name="FECHAINGRESOJUSTIFICA" type="text" value="<?php echo htmlentities($row_encabezado['FECHAINGRESOJUSTIFICA'], ENT_COMPAT, 'utf-8'); ?>" data-format="yyyy-MM-dd"></input>
-    <span class="add-on">
-      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-      </i>
-    </span>
-  </div>
-</div>
-<script type="text/javascript">
-  $(function() {
-    $('#datetimepicker4').datetimepicker({
-      pickTime: false
-    });
-  });
-</script></td>
+          <td class="retorno"><?php echo htmlentities($row_encabezado['FECHAINGRESOJUSTIFICA'], ENT_COMPAT, 'utf-8'); ?></td>
         </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">Emplead:</td>
-          <td><input type="text" name="EMPLEADOINGRESA" value="<?php echo htmlentities($row_encabezado['EMPLEADOINGRESA'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
-          <td>Fecha y Hora de usuario:</td>
-          <td><input name="FECHAHORAUSUA" type="text" value="<?php echo htmlentities($row_encabezado['FECHAHORAUSUA'], ENT_COMPAT, 'utf-8'); ?>" size="32" readonly="readonly" /></td>
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td><input type="submit" value="Actualizar registro" /></td>
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td>&nbsp;</td>
+          <td class="retorno"><?php echo htmlentities($row_encabezado['EMPLEADOINGRESA'], ENT_COMPAT, 'utf-8'); ?></td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>
@@ -262,49 +215,123 @@ body {
     </form></td>
   </tr>
   <tr>
-    <td><iframe src="modcuerpo.php" name="mocu" width="820" align="left"  height="250" scrolling="auto" frameborder="0"></iframe>&nbsp;</td>
+    <td><table width="820" border="0">
+      <tr>
+        <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form2">
+          <table width="100%" align="center">
+            <tr valign="baseline">
+              <td nowrap="nowrap" align="right">Codigo de Perdia:</td>
+              <td align="left" nowrap="nowrap" class="NO"><?php echo $row_concuerpo['ID_PERDIDA']; ?></td>
+              <td nowrap="nowrap" align="right">Codigo de Encabezado:</td>
+              <td class="NO"><?php echo $row_concuerpo['IDENCABEZADO']; ?></td>
+            </tr>
+            <tr valign="baseline">
+              <td nowrap="nowrap" align="right">Cantidad Perdia:</td>
+              <td nowrap="nowrap" align="right"><input type="text" name="CANT_PERDIDA" value="<?php echo htmlentities($row_concuerpo['CANT_PERDIDA'], ENT_COMPAT, 'utf-8'); ?>" size="32"  onchange="document.form1.ins.dissabled=false;"/></td>
+              <td nowrap="nowrap" align="right">Medida:</td>
+              <td><select name="IDUNIDAD" onchange="document.form1.ins.dissabled=false;">
+                <?php
+do {  
+?>
+                <option value="<?php echo $row_medi['IDUNIDAD']?>"<?php if (!(strcmp($row_medi['IDUNIDAD'], htmlentities($row_concuerpo['IDUNIDAD'], ENT_COMPAT, 'utf-8')))) {echo "selected=\"selected\"";} ?>><?php echo $row_medi['TIPOUNIDAD']?></option>
+                <?php
+} while ($row_medi = mysql_fetch_assoc($medi));
+  $rows = mysql_num_rows($medi);
+  if($rows > 0) {
+      mysql_data_seek($medi, 0);
+	  $row_medi = mysql_fetch_assoc($medi);
+  }
+?>
+              </select></td>
+            </tr>
+            <tr valign="baseline">
+              <td nowrap="nowrap" align="right">&nbsp;</td>
+              <td nowrap="nowrap" align="right">&nbsp;</td>
+              <td nowrap="nowrap" align="right">Materia Prima:</td>
+              <td><select name="MAT_PRIMA"  onchange="document.form1.ins.dissabled=false;">
+                <?php
+do {  
+?>
+                <option value="<?php echo $row_matpri['IDMATPRIMA']?>"<?php if (!(strcmp($row_matpri['IDMATPRIMA'], $row_concuerpo['MAT_PRIMA']))) {echo "selected=\"selected\"";} ?>><?php echo $row_matpri['DESCRIPCION']?></option>
+                <?php
+} while ($row_matpri = mysql_fetch_assoc($matpri));
+  $rows = mysql_num_rows($matpri);
+  if($rows > 0) {
+      mysql_data_seek($matpri, 0);
+	  $row_matpri = mysql_fetch_assoc($matpri);
+  }
+?>
+              </select></td>
+            </tr>
+            <tr valign="baseline">
+              <td colspan="4" align="left" nowrap="nowrap">JUSTIFICACION:
+                <label for="JUSTIFICACION"></label>
+                <textarea name="JUSTIFICACION" id="JUSTIFICACION" cols="45" rows="5" onchange="document.form1.ins.dissabled=false;"><?php echo htmlentities($row_concuerpo['JUSTIFICACION'], ENT_COMPAT, 'utf-8'); ?></textarea>
+                <input name="ins" type="submit" id="ins" value="Actualizar registro" dissabled /></td>
+            </tr>
+          </table>
+          <input type="hidden" name="MM_update2" value="form1" />
+          <input type="hidden" name="ID_PERDIDA" value="<?php echo $row_concuerpo['ID_PERDIDA']; ?>" />
+        </form></td>
+      </tr>
+    </table></td>
   </tr>
-</table>
-
-
-
-<table width="820" border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td colspan="8" align="center">Detalles</td>
-    <td>&nbsp;</td>
+    <td><table width="820" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="8" align="center">Detalles</td>
+        </tr>
+      <tr>
+        
+        <td>Codigo de Perdida</td>
+        <td>Codigo de Encabezado</td>
+        <td>Medida</td>
+        <td>Cantidad</td>
+        <td>Materia Prima</td>
+        <td>Justificacion</td>
+        <td>Modificar</td>
+        <td>Eliminar</td>
+        </tr>
+      <?php do { ?>
+      <?php mysql_select_db($database_basepangloria, $basepangloria);
+$buscar = $row_cuerpo['MAT_PRIMA'];
+$query_materia = sprintf("SELECT DESCRIPCION FROM CATMATERIAPRIMA WHERE IDMATPRIMA = '$buscar'", GetSQLValueString($colname_materia, "int"));
+$materia = mysql_query($query_materia, $basepangloria) or die(mysql_error());
+$row_materia = mysql_fetch_assoc($materia);
+$totalRows_materia = mysql_num_rows($materia);
+$medi = $row_cuerpo['IDUNIDAD'];
+$query_conmedi = sprintf("SELECT TIPOUNIDAD FROM CATUNIDADES WHERE IDUNIDAD = '$medi'", GetSQLValueString($colname_conmedi, "int"));
+$conmedi = mysql_query($query_conmedi, $basepangloria) or die(mysql_error());
+$row_conmedi = mysql_fetch_assoc($conmedi);
+$totalRows_conmedi = mysql_num_rows($conmedi);?>
+      <tr>
+        
+        <td><?php echo $row_cuerpo['ID_PERDIDA']; ?></td>
+        <td><?php echo $row_cuerpo['IDENCABEZADO']; ?></td>
+        <td><?php echo $row_conmedi['TIPOUNIDAD']; ?></td>
+        <td><?php echo $row_cuerpo['CANT_PERDIDA']; ?></td>
+        <td><?php echo $row_materia['DESCRIPCION']; ?></td>
+        <td><?php echo $row_cuerpo['JUSTIFICACION']; ?></td>
+        <td align="center"><a href="modificador.php?root=<?php echo $row_cuerpo['ID_PERDIDA']; ?>&filtrojust=<?php echo $row_cuerpo['IDENCABEZADO']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
+        <td align="center"><a href="eliminar.php?id=<?php echo $row_cuerpo['ID_PERDIDA']; ?>" target="_self"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32" /></a></td>
+        </tr>
+      <?php } while ($row_cuerpo = mysql_fetch_assoc($cuerpo)); ?>
+    </table></td>
   </tr>
-  <tr>
-    <td>Modificar</td>
-    <td>Codigo de Perdida</td>
-    <td>Codigo de Encabezado</td>
-    <td>Medida</td>
-    <td>Cantidad</td>
-    <td>Materia Prima</td>
-    <td>Justificacion</td>
-    <td>Usuario Ingreso</td>
-    <td>Fecha y Hora de Ingreso</td>
-  </tr>
-  <?php do { ?>
-  <tr>
-    <td align="center"><a href="modcuerpo.php?root=<?php echo $row_cuerpo['ID_PERDIDA']; ?>" target="mocu">Modificar</a></td>
-    <td><?php echo $row_cuerpo['ID_PERDIDA']; ?></td>
-    <td><?php echo $row_cuerpo['IDENCABEZADO']; ?></td>
-    <td><?php echo $row_conmedi['MEDIDA']; ?></td>
-    <td><?php echo $row_cuerpo['CANT_PERDIDA']; ?></td>
-    <td><?php echo $row_materia['DESCRIPCION']; ?></td>
-    <td><?php echo $row_cuerpo['JUSTIFICACION']; ?></td>
-    <td><?php echo $row_cuerpo['USUARIOPERMATPRI']; ?></td>
-    <td><?php echo $row_cuerpo['FECHAYHORAUSUAPMATPRI']; ?></td>
-  </tr>
-  <?php } while ($row_cuerpo = mysql_fetch_assoc($cuerpo)); ?>
 </table>
 <p>&nbsp;</p>
 </body>
 </html>
 <?php
+mysql_free_result($concuerpo);
+
 mysql_free_result($encabezado);
 
 mysql_free_result($cuerpo);
+
+mysql_free_result($medi);
+
+mysql_free_result($matpri);
 
 mysql_free_result($conmedi);
 

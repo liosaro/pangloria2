@@ -77,7 +77,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_comboidjusti = "SELECT IDENCABEZADO, FECHAINGRESOJUSTIFICA FROM TRNENCABEZADOJUSTPERMATPRIM";
+$query_comboidjusti = "SELECT IDENCABEZADO, FECHAINGRESOJUSTIFICA FROM TRNENCABEZADOJUSTPERMATPRIM WHERE ELIMIN = 0";
+$comboidjusti = mysql_query($query_comboidjusti, $basepangloria) or die(mysql_error());
+$row_comboidjusti = mysql_fetch_assoc($comboidjusti);
+$totalRows_comboidjusti = mysql_num_rows($comboidjusti);mysql_select_db($database_basepangloria, $basepangloria);
+$query_comboidjusti = "SELECT IDENCABEZADO, FECHAINGRESOJUSTIFICA FROM TRNENCABEZADOJUSTPERMATPRIM WHERE ELIMIN = 0 AND EDTI = 0";
 $comboidjusti = mysql_query($query_comboidjusti, $basepangloria) or die(mysql_error());
 $row_comboidjusti = mysql_fetch_assoc($comboidjusti);
 $totalRows_comboidjusti = mysql_num_rows($comboidjusti);
@@ -105,7 +109,7 @@ body {
         <td><form action="modificador.php" method="post" name="form1" target="modiprod" id="form1">
 Ingrese o seleccione el codigo de Justificacion:
           <label for="filtrojust"></label>
-          <select name="filtrojust" id="filtrojust" onchange="submit">
+          <select name="filtrojust" id="filtrojust" onchange="location.href ='modificador.php?filtrojust='+this.value+';'">
             <?php
 do {  
 ?>
@@ -119,11 +123,11 @@ do {
   }
 ?>
           </select>
-          <input type="submit" name="enviar" id="enviar" value="Enviar" />
+          <img src="../../../../imagenes/icono/3D-Search-32.png" width="32" height="32" onclick="window.open('?filtrojust='+filtrojust.value+'','_self');"/>
         </form></td>
       </tr>
       <tr>
-        <td><iframe src="modificarjustificacion.php" name="modiprod" width="820" height="650" scrolling="auto"></iframe>&nbsp;</td>
+        <td>&nbsp;</td>
       </tr>
     </table></td>
   </tr>

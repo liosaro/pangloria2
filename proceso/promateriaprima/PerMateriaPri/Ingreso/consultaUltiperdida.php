@@ -33,24 +33,13 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 $maxRows_uljusperdia = 10;
 $pageNum_uljusperdia = 0;
-if (isset($_GET['pageNum_uljusperdia'])) {
-  $pageNum_uljusperdia = $_GET['pageNum_uljusperdia'];
-}
-$startRow_uljusperdia = $pageNum_uljusperdia * $maxRows_uljusperdia;
-
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_uljusperdia = "SELECT IDUNIDAD, CANT_PERDIDA, MAT_PRIMA, JUSTIFICACION, USUARIOPERMATPRI FROM TRNJUSTIFICAIONPERMATPRI ORDER BY ID_PERDIDA DESC";
-$query_limit_uljusperdia = sprintf("%s LIMIT %d, %d", $query_uljusperdia, $startRow_uljusperdia, $maxRows_uljusperdia);
-$uljusperdia = mysql_query($query_limit_uljusperdia, $basepangloria) or die(mysql_error());
-$row_uljusperdia = mysql_fetch_assoc($uljusperdia);
-
 if (isset($_GET['totalRows_uljusperdia'])) {
   $totalRows_uljusperdia = $_GET['totalRows_uljusperdia'];
 } else {
   $all_uljusperdia = mysql_query($query_uljusperdia);
   $totalRows_uljusperdia = mysql_num_rows($all_uljusperdia);
 }
-$totalPages_uljusperdia = ceil($totalRows_uljusperdia/$maxRows_uljusperdia)-1;$maxRows_uljusperdia = 10;
+$totalPages_uljusperdia = ceil($totalRows_uljusperdia/$maxRows_uljusperdia = 10);
 $pageNum_uljusperdia = 0;
 if (isset($_GET['pageNum_uljusperdia'])) {
   $pageNum_uljusperdia = $_GET['pageNum_uljusperdia'];
@@ -58,7 +47,8 @@ if (isset($_GET['pageNum_uljusperdia'])) {
 $startRow_uljusperdia = $pageNum_uljusperdia * $maxRows_uljusperdia;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_uljusperdia = "SELECT ID_PERDIDA, IDUNIDAD, CANT_PERDIDA, MAT_PRIMA, JUSTIFICACION, USUARIOPERMATPRI FROM TRNJUSTIFICAIONPERMATPRI ORDER BY ID_PERDIDA DESC";
+$peri = $row_Recordset1['IDENCABEZADO'];
+$query_uljusperdia = "SELECT ID_PERDIDA, IDUNIDAD, CANT_PERDIDA, MAT_PRIMA, JUSTIFICACION, USUARIOPERMATPRI FROM TRNJUSTIFICAIONPERMATPRI where ID_PERDIDA = $peri  ORDER BY ID_PERDIDA DESC";
 $query_limit_uljusperdia = sprintf("%s LIMIT %d, %d", $query_uljusperdia, $startRow_uljusperdia, $maxRows_uljusperdia);
 $uljusperdia = mysql_query($query_limit_uljusperdia, $basepangloria) or die(mysql_error());
 $row_uljusperdia = mysql_fetch_assoc($uljusperdia);
@@ -70,6 +60,12 @@ if (isset($_GET['totalRows_uljusperdia'])) {
   $totalRows_uljusperdia = mysql_num_rows($all_uljusperdia);
 }
 $totalPages_uljusperdia = ceil($totalRows_uljusperdia/$maxRows_uljusperdia)-1;
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_Recordset1 = "SELECT IDENCABEZADO FROM TRNENCABEZADOJUSTPERMATPRIM ORDER BY IDENCABEZADO DESC";
+$Recordset1 = mysql_query($query_Recordset1, $basepangloria) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -125,4 +121,6 @@ $totalRows_medida = mysql_num_rows($medida);
 </html>
 <?php
 mysql_free_result($uljusperdia);
+
+mysql_free_result($Recordset1);
 ?>

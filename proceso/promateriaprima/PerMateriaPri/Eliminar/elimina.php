@@ -36,7 +36,7 @@ if (isset($_POST['filtrador'])) {
   $colname_encabezado = $_POST['filtrador'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_encabezado = sprintf("SELECT * FROM TRNENCABEZADOJUSTPERMATPRIM WHERE IDENCABEZADO = %s", GetSQLValueString($colname_encabezado, "int"));
+$query_encabezado = sprintf("SELECT * FROM TRNENCABEZADOJUSTPERMATPRIM WHERE IDENCABEZADO = %s AND ELIMIN=0", GetSQLValueString($colname_encabezado, "int"));
 $encabezado = mysql_query($query_encabezado, $basepangloria) or die(mysql_error());
 $row_encabezado = mysql_fetch_assoc($encabezado);
 $totalRows_encabezado = mysql_num_rows($encabezado);
@@ -121,6 +121,7 @@ return true;
 }
 }
 </script>
+<link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -129,7 +130,7 @@ return true;
     <td align="center" bgcolor="#999999">Encabezado de la Justificacion</td>
   </tr>
   <tr>
-    <td><a href="javascript:;" onclick="aviso('EliminarHead.php?root=<?php echo $row_encabezado['IDENCABEZADO'];?>'); return false;">Eliminar</a>
+    <td><a href="javascript:;" onclick="aviso('EliminarHead.php?root=<?php echo $row_encabezado['IDENCABEZADO'];?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32" /></a>
       <table width="815" border="0">
       <tr>
         <td width="153">Codigo de justificacion:</td>
@@ -159,8 +160,9 @@ return true;
           <td>Materia Prima</td>
           <td>Justificacion</td>
         </tr>
+        <?php if ($row_cuerpo['ELIMIN']==0){?>
         <?php do { ?>
-          <tr>
+        		          <tr>
             <td><?php echo $row_cuerpo['ID_PERDIDA']; ?></td>
             <td><?php echo $row_cuerpo['IDENCABEZADO']; ?></td>
             <td><?php echo $row_medida['MEDIDA']; ?></p></td>
@@ -168,7 +170,10 @@ return true;
             <td><?php echo $row_materiajustifi['DESCRIPCION']; ?></td>
             <td><?php echo $row_cuerpo['JUSTIFICACION']; ?></td>
           </tr>
+          
           <?php } while ($row_cuerpo = mysql_fetch_assoc($cuerpo)); ?>
+    <?php } else 
+		  		 	echo " <p class='NO'>Ya Fue Eliminada</p>" ?>
     </table></td>
   </tr>
 </table>
@@ -185,3 +190,4 @@ mysql_free_result($medida);
 
 mysql_free_result($nomempleado);
 ?>
+
