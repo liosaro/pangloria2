@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -32,7 +32,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
-$MM_restrictGoTo = "../../seguridad.php";
+$MM_restrictGoTo = "../../../seguridad.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
@@ -134,9 +134,42 @@ body {
 	margin-top: 0px;
 }
 </style>
-<link href="../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+<link href="../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" media="screen"
-     href="../../css/bootstrap-datetimepicker.min.css">
+     href="../../../css/bootstrap-datetimepicker.min.css">
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+<script>
+function cerrarse()
+{
+ opener.location.reload();
+ window.close()
+}
+</script>
+<script>
+function Confirm(form){
+
+alert("Se ha agregado un nuevo registro!"); 
+
+form.submit();
+ opener.location.reload();
+ window.close()
+
+
+}
+
+</script>
+<script>
+function validar(date)
+  {
+        var today = new Date();
+        var date2= new Date(date);
+ 
+        if (date2<today)
+        {
+            alert("Ha insertado Una Fecha Inferior a la del sistema es esto Correcto?"); 
+        }
+   }
+  </script>
 </head>
 
 <body>
@@ -145,7 +178,7 @@ body {
     <td align="left"><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
       <table align="left">
         <tr valign="baseline">
-          <td colspan="4" align="center" nowrap="nowrap" bgcolor="#999999">Ingreso de orden de compra</td>
+          <td colspan="4" align="center" nowrap="nowrap" bgcolor="#999999" class="error"><span class="encaforms">Ingreso de Encabezado para orden de compra</span></td>
         </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="left">Codigo de Orden de compra:</td>
@@ -167,8 +200,11 @@ do {
           </select></td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="left">Codigo de Empleado:</td>
-          <td nowrap="nowrap" align="left"><input name="IDEMPLEADO" type="text" value="<?php echo $row_nusuario['IDUSUARIO']; ?>" size="32" readonly="readonly" /></td>
+          <td nowrap="nowrap" align="left">Fecha de Entrega:</td>
+          <td nowrap="nowrap" align="left"><div id="datetimepicker4" class="input-append">
+            <input name="FECHAENTREGA" type="text" id="FECHAENTREGA" data-format="yyyy-MM-dd"   onblur="validar(this.value)" />
+            </input>
+            <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> </span> </div></td>
           <td nowrap="nowrap" align="left">Autorizado por:</td>
           <td align="left"><select name="AUTORIZADOPOR" onfocus="document.form1.subit.disabled=false;">
             <?php
@@ -188,35 +224,29 @@ do {
         <tr valign="baseline">
           <td nowrap="nowrap" align="left">Fecha de emision:</td>
           <td nowrap="nowrap" align="left"><input name="FECHAEMISIONORDCOM" type="text" id="FECHAEMISIONORDCOM" value="<?php echo date("Y-m-d H:i:s");;?> " readonly="readonly" /></td>
-          <td nowrap="nowrap" align="left">Fecha de Entrega:</td>
+          <td nowrap="nowrap" align="left">Codigo de Empleado:</td>
           <td align="left"><script type="text/javascript"
-      src="../../SpryAssets/jquery-1.8.3.min.js">
+      src="../../../SpryAssets/jquery-1.8.3.min.js">
     </script> 
     <script type="text/javascript"
-      src="../../SpryAssets/bootstrap.min.js">
+      src="../../../SpryAssets/bootstrap.min.js">
     </script>
     <script type="text/javascript"
-      src="../../SpryAssets/bootstrap-datetimepicker.min.js">
+      src="../../../SpryAssets/bootstrap-datetimepicker.min.js">
     </script>
     <script type="text/javascript"
-     src="../../SpryAssets/bootstrap-datetimepicker.es.js">
-    </script>  <div id="datetimepicker4" class="input-append">
-    <input name="FECHAENTREGA" type="text" id="FECHAENTREGA" data-format="yyyy-MM-dd"></input>
-    <span class="add-on">
-      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-      </i>
-    </span>
-  </div>
-<script type="text/javascript">
+     src="../../../SpryAssets/bootstrap-datetimepicker.es.js">
+    </script><script type="text/javascript">
   $(function() {
     $('#datetimepicker4').datetimepicker({
       pickTime: false
     });
   });
-</script></td>
+</script>
+    <input name="IDEMPLEADO" type="text" value="<?php echo $row_nusuario['IDUSUARIO']; ?>" size="32" readonly="readonly" /></td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="left"><input type="submit" value="Insertar registro"  name="subit" id="subit" disabled /></td>
+          <td nowrap="nowrap" align="left"><input type="submit" value="Insertar registro"  name="subit" id="subit" disabled onclick="Confirm(this.form)" /></td>
           <td nowrap="nowrap" align="left">&nbsp;</td>
           <td nowrap="nowrap" align="left">&nbsp;</td>
           <td align="left">&nbsp;</td>
@@ -226,8 +256,6 @@ do {
     </form></td>
   </tr>
 </table>
-<p>&nbsp;</p>
-<div id="detalle"><?php  include('concotiza.php') ?></div>
 </body>
 </html>
 <?php

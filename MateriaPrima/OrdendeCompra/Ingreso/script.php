@@ -1,5 +1,5 @@
 <head> 
-<?php require_once('../../Connections/basepangloria.php'); 
+<?php require_once('../../../Connections/basepangloria.php'); 
 mysql_select_db($database_basepangloria, $basepangloria);
 ?>
 
