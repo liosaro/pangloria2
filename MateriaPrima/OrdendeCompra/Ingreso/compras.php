@@ -90,9 +90,12 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['FECHAENTREGA'], "date"),
                        GetSQLValueString($_POST['AUTORIZADOPOR'], "int"),
                        GetSQLValueString($_POST['ESTADODEORDEN'], "text"));
+					   $ncotiz= $_POST['NUMEROCOTIZACIO'];
+	$updateSQL = sprintf ("update TRNCABEZACOTIZACION set EDITA=1 where IDENCABEZADO= $ncotiz");
 
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
+  $Result2 = mysql_query($updateSQL, $basepangloria) or die(mysql_error());
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
@@ -151,10 +154,6 @@ function Confirm(form){
 alert("Se ha agregado un nuevo registro!"); 
 
 form.submit();
- opener.location.reload();
- window.close()
-
-
 }
 
 </script>
@@ -184,7 +183,7 @@ function validar(date)
           <td nowrap="nowrap" align="left">Codigo de Orden de compra:</td>
           <td nowrap="nowrap" align="left"><input name="IDORDEN" type="text" disabled="disabled" value="<?php echo $row_numorden['IDORDEN']+1; ?>" size="32" /></td>
           <td nowrap="nowrap" align="left">Numero de Cotizacion:</td>
-          <td align="left"><select name="NUMEROCOTIZACIO"  onchange="conte.location.href = 'concotiza.php?coti=' + this.value">
+          <td align="left"><select name="NUMEROCOTIZACIO"  onfocus="document.form1.subit.disabled=false;">
             <?php
 do {  
 ?>
@@ -202,7 +201,7 @@ do {
         <tr valign="baseline">
           <td nowrap="nowrap" align="left">Fecha de Entrega:</td>
           <td nowrap="nowrap" align="left"><div id="datetimepicker4" class="input-append">
-            <input name="FECHAENTREGA" type="text" id="FECHAENTREGA" data-format="yyyy-MM-dd"   onblur="validar(this.value)" />
+            <input name="FECHAENTREGA" type="text" id="FECHAENTREGA" data-format="yyyy-MM-dd"   onblur="validar(this.value)" onfocus="document.form1.subit.disabled=false;" />
             </input>
             <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> </span> </div></td>
           <td nowrap="nowrap" align="left">Autorizado por:</td>
@@ -247,7 +246,7 @@ do {
         </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="left"><input type="submit" value="Insertar registro"  name="subit" id="subit" disabled onclick="Confirm(this.form)" /></td>
-          <td nowrap="nowrap" align="left">&nbsp;</td>
+          <td nowrap="nowrap" align="left"><input  class="label-important" type="submit" name="button" id="button" value="Cerrar" onclick="cerrarse()" /></td>
           <td nowrap="nowrap" align="left">&nbsp;</td>
           <td align="left">&nbsp;</td>
         </tr>

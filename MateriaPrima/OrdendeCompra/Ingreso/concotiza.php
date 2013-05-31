@@ -33,7 +33,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ultimaorden = "SELECT IDORDEN FROM TRNENCAORDCOMPRA ORDER BY IDORDEN DESC";
+$query_ultimaorden = "SELECT IDORDEN FROM TRNENCAORDCOMPRA WHERE ELIMIN=0 ORDER BY IDORDEN DESC";
 $ultimaorden = mysql_query($query_ultimaorden, $basepangloria) or die(mysql_error());
 $row_ultimaorden = mysql_fetch_assoc($ultimaorden);
 $totalRows_ultimaorden = mysql_num_rows($ultimaorden);
@@ -49,13 +49,13 @@ if (isset($_GET['varia'])) {
   $colname_concoti = $_GET['varia'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_concoti = sprintf("SELECT IDDETALLE, IDMATPRIMA, IDUNIDAD, CANTPRODUCTO, PRECIOUNITARIO FROM TRNDETALLECOTIZACION WHERE IDENCABEZADO = %s", GetSQLValueString($colname_concoti, "int"));
+$query_concoti = sprintf("SELECT IDDETALLE, IDMATPRIMA, IDUNIDAD, CANTPRODUCTO, PRECIOUNITARIO FROM TRNDETALLECOTIZACION WHERE IDENCABEZADO = %s AND ELIMINA=0" , GetSQLValueString($colname_concoti, "int"));
 $concoti = mysql_query($query_concoti, $basepangloria) or die(mysql_error());
 $row_concoti = mysql_fetch_assoc($concoti);
 $totalRows_concoti = mysql_num_rows($concoti);
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ULTIMOENCA = "SELECT * FROM TRNENCAORDCOMPRA ORDER BY IDORDEN DESC";
+$query_ULTIMOENCA = "SELECT * FROM TRNENCAORDCOMPRA  WHERE ELIMIN=0 ORDER BY IDORDEN DESC";
 $ULTIMOENCA = mysql_query($query_ULTIMOENCA, $basepangloria) or die(mysql_error());
 $row_ULTIMOENCA = mysql_fetch_assoc($ULTIMOENCA);
 $totalRows_ULTIMOENCA = mysql_num_rows($ULTIMOENCA);
@@ -100,9 +100,9 @@ if (isset($_GET['coti'])) {
         <td align="right" class="retorno"><a href="compras.php" target="popup" onclick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../imagenes/icono/Invoice-256.png" width="32" height="32" /></a></td>
       </tr>
       <tr>
-        <td width="158" class="etifactu"><span class="etifactu">Codigo de Orden de Compra</span></td>
+        <td width="123" class="etifactu"><span class="etifactu">Codigo de Orden de Compra</span></td>
         <td width="309" class="retorno"><?php echo $row_ULTIMOENCA['IDORDEN']; ?></td>
-        <td width="60" class="etifactu">Cotizacion que genera</td>
+        <td width="95" class="etifactu">Cotizacion que genera</td>
         <td width="275" class="retorno"><?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO']; ?></td>
       </tr>
       <tr>
@@ -123,23 +123,7 @@ if (isset($_GET['coti'])) {
     <td><form id="form1" name="form1" method="post" action="script.php">
       <table width="820" border="1" cellpadding="0" cellspacing="0">
         <tr>
-          <td colspan="7" bgcolor="#999999"><p>Cargar detalle desde la Cotizacion:
-              <label for="carcoti"></label>
-              <select name="carcoti" id="carcoti" onchange="window.location.href='concotiza.php?varia='+document.getElementById(this.id).value ;">
-                <?php
-do {  
-?>
-                <option value="<?php echo $row_carcoti['IDENCABEZADO']?>"><?php echo $row_carcoti['IDENCABEZADO']?>---<?php echo $row_carcoti['FECHACOTIZACION']?></option>
-                <?php
-} while ($row_carcoti = mysql_fetch_assoc($carcoti));
-  $rows = mysql_num_rows($carcoti);
-  if($rows > 0) {
-      mysql_data_seek($carcoti, 0);
-	  $row_carcoti = mysql_fetch_assoc($carcoti);
-  }
-?>
-              </select>
-            </p></td>
+          <td colspan="7" bgcolor="#999999"><input name="load" type="button" value="Cargar Detalle" onclick="location.href='concotiza.php?varia=<?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO']; ?>'"  /></td>
           </tr>
         <tr class="retabla">
           <td width="166" bgcolor="#000000">Agregar</td>
@@ -169,15 +153,15 @@ $totalRows_nommateria = mysql_num_rows($nommateria);
           <td><?php echo $row_nommateria['DESCRIPCION']; ?></td>
           <td><?php echo $row_Recordset1['TIPOUNIDAD']; ?></td>
           <td><?php echo $row_concoti['CANTPRODUCTO']; ?></td>
-          <td><?php echo $row_concoti['PRECIOUNITARIO']; ?></td>
-          <td><?php echo $row_concoti['PRECIOUNITARIO']*$row_concoti['CANTPRODUCTO'] ; ?></td>
+          <td>$<?php echo $row_concoti['PRECIOUNITARIO']; ?></td>
+          <td>$<?php echo $row_concoti['PRECIOUNITARIO']*$row_concoti['CANTPRODUCTO'] ; ?></td>
         </tr>
         <?php } while ($row_concoti = mysql_fetch_assoc($concoti)); ?>
       </table>
       <table width="820" border="0">
         <tr>
           <td align="right" bgcolor="#CCCCCC">Total de la Compra</td>
-          <td bgcolor="#CCCCCC"><?php 
+          <td bgcolor="#CCCCCC">$<?php 
 	$result = mysql_query("Select sum(CANTPRODUCTO * PRECIOUNITARIO ) as total from TRNDETALLECOTIZACION where IDENCABEZADO = " . $_GET['varia']);
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	echo $row['total'];

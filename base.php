@@ -96,24 +96,23 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a href="proceso/ModificarOrdenProdccion.php" target="contenedor" class="MenuBarItemSubmenu">Orden de Produccion</a>
                   <ul>
-                    <li><a href="proceso/produccion/ordendeproduccion/ingreso/insert.php">Ingresar Orden de Produccion</a></li>
-                    <li><a href="proceso/produccion/ordendeproduccion/Modificacion/filtro.php">Modificar Orden de Produccion</a></li>
-                    <li><a href="proceso/produccion/ordendeproduccion/eliminar/filtro.php">Eliminar Orden de Produccion</a></li>
-                    <li><a href="proceso/produccion/ordendeproduccion/consulta/filtro.php">Consultar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/ingreso/insert.php" target="contenedor">Ingresar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/Modificacion/filtro.php" target="contenedor">Modificar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/eliminar/filtro.php" target="contenedor">Eliminar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/consulta/filtro.php" target="contenedor">Consultar Orden de Produccion</a></li>
                   </ul>
                 </li>
-                <li><a href="proceso/ConsultarOrdenProduc.php" target="contenedor">Consultar Orden de Produccion</a></li>
-                <li><a href="#">Elemento 1.3</a></li>
+<li><a href="#">Elemento 1.3</a></li>
               </ul>
             </li>
             <li><a href="#" class="MenuBarItemSubmenu MenuBarItemSubmenu">Materia Prima</a>
               <ul>
-                <li><a href="proceso/promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
+                <li><a href="proceso/promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
                   <ul>
                     <li><a href="proceso/promateriaprima/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor">Ingresar Pedido</a></li>
-                    <li><a href="proceso/promateriaprima/pedidomateriaprima/Modificar/filtro.php">Modificar Pedido de Materia Prima</a></li>
-                    <li><a href="proceso/promateriaprima/pedidomateriaprima/eliminar/filtro.php">Eliminar Pedido de Materia Prima</a></li>
-                    <li><a href="proceso/promateriaprima/pedidomateriaprima/consulta/filtro.php">Consultar Pedido de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/Modificar/filtro.php" target="contenedor">Modificar Pedido de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/eliminar/filtro.php" target="contenedor">Eliminar Pedido de Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/pedidomateriaprima/consulta/filtro.php" target="contenedor">Consultar Pedido de Materia Prima</a></li>
                   </ul>
                 </li>
                 <li><a href="#" class="MenuBarItemSubmenu">Salida Materia Prima</a>
