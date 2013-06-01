@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_comboempleado" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_comboorden" value="name:IDENCABEORDPROD;datatype:int" />
+	<infoitem key="UD_combomedida" value="name:ID_MEDIDA;datatype:int,name:MEDIDA;datatype:blob" />
+	<infoitem key="UD_combomateriaprima" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_ultimajusti" value="name:IDENCABEZADO;datatype:int" />
+	<infoitem key="UD_usuarios" value="name:IDUSUARIO;datatype:int" />
+</info>

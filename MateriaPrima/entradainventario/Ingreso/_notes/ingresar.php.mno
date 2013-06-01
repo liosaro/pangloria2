@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_comboempleado" value="name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_comboorden" value="name:IDENCABEORDPROD;datatype:int" />
+	<infoitem key="UD_Recordset1" value="name:ID_ATRIB;datatype:int,name:IDUSUARIO;datatype:int,name:IDROL;datatype:int,name:IDPERMISO;datatype:int,name:C;datatype:int,name:R;datatype:int,name:U;datatype:int,name:D;datatype:int" />
+	<infoitem key="UD_combomedida" value="name:ID_MEDIDA;datatype:int,name:MEDIDA;datatype:blob" />
+	<infoitem key="UD_combomateriaprima" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_ultimajusti" value="name:IDENCABEZADO;datatype:int,name:IDEMPLEADO;datatype:int,name:IDORDENPRODUCCION;datatype:int,name:FECHAINGRESOJUSTIFICA;datatype:date,name:EMPLEADOINGRESA;datatype:int,name:FECHAHORAUSUA;datatype:datetime,name:ELIMIN;datatype:int,name:EDTI;datatype:int" />
+	<infoitem key="UD_usuarios" value="name:IDUSUARIO;datatype:int" />
+	<infoitem key="UD_ncoti" value="name:IDENCABEZADO;datatype:int" />
+	<infoitem key="UD_empleao" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_emple" value="name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_empleado" value="name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_ultimoenca" value="name:IdEncabezadoEnInventario;datatype:int,name:idEmpleado;datatype:int,name:fechaIngresoInventario;datatype:date,name:idcompra;datatype:int" />
+	<infoitem key="UD_commat" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_catmedi" value="name:ID_MEDIDA;datatype:int,name:MEDIDA;datatype:blob" />
+	<infoitem key="UD_combomateria" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_comomedida" value="name:IDUNIDAD;datatype:int,name:TIPOUNIDAD;datatype:blob" />
+	<infoitem key="UD_ultimodetalle" value="name:ID_PERDIDA;datatype:int,name:IDUNIDAD;datatype:int,name:CANT_PERDIDA;datatype:real,name:MAT_PRIMA;datatype:int,name:JUSTIFICACION;datatype:blob" />
+	<infoitem key="UD_materiatabla" value="name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_medidatabla" value="name:TIPOUNIDAD;datatype:blob" />
+	<infoitem key="UD_consulcompra" value="name:IDCOMPRA;datatype:int,name:IDUNIDAD;datatype:int,name:ID_DETENCCOM;datatype:int,name:CANTIDADMATPRIMA;datatype:int,name:MATERIAPRIMA;datatype:int" />
+</info>
