@@ -6,4 +6,8 @@
 	<infoitem key="UD_combomateriaprima" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
 	<infoitem key="UD_ultimajusti" value="name:IDENCABEZADO;datatype:int" />
 	<infoitem key="UD_usuarios" value="name:IDUSUARIO;datatype:int" />
+	<infoitem key="UD_Recordset1" value="name:NOMBREEMPLEADO;datatype:blob,name:IDEMPLEADO;datatype:int" />
+	<infoitem key="UD_emplia" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_compr" value="name:ID_DETENCCOM;datatype:int" />
+	<infoitem key="UD_ultimo" value="name:IdEncabezadoEnInventario;datatype:int" />
 </info>

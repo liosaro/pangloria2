@@ -5,4 +5,5 @@
 	<infoitem key="MM_Session_Count" value="0" />
 	<infoitem key="MM_Environment_Count" value="0" />
 	<infoitem key="MM_Form_Count" value="0" />
+	<infoitem key="PageAccessControl" value="Gerente,Administrador,Bodeguero,Panificador,Secretaria" />
 </info>

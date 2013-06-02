@@ -123,22 +123,12 @@ do {
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td>Eliga la Orden de Producción:</td>
-            <td><select name="IDORDENPRODUCCION" onchange="document.form1.enviarenca.disabled=false;">
-              <?php
-do {  
-?>
-              <option value="<?php echo $row_combordenprod['IDENCABEORDPROD']?>"><?php echo $row_combordenprod['IDENCABEORDPROD']?></option>
-              <?php
-} while ($row_combordenprod = mysql_fetch_assoc($combordenprod));
-  $rows = mysql_num_rows($combordenprod);
-  if($rows > 0) {
-      mysql_data_seek($combordenprod, 0);
-	  $row_combordenprod = mysql_fetch_assoc($combordenprod);
-  }
-?>
-            </select></td>
             <td>Fecha:</td>
+            <td><div id="datetimepicker4" class="input-append">
+              <input name="FECHA" type="text" id="FECHA" data-format="yyyy-MM-dd"  onchange="document.form1.enviarenca.disabled=false;" />
+              </input>
+            <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> </span> </div></td>
+            <td>Eliga la Orden de Producción:</td>
             <td><script type="text/javascript"
       src="../../../../SpryAssets/jquery-1.8.3.min.js">
     </script> 
@@ -150,20 +140,27 @@ do {
     </script>
     <script type="text/javascript"
      src="../../../../SpryAssets/bootstrap-datetimepicker.es.js">
-    </script>  <div id="datetimepicker4" class="input-append">
-    <input name="FECHA" type="text" id="FECHA" data-format="yyyy-MM-dd"  onchange="document.form1.enviarenca.disabled=false;"></input>
-    <span class="add-on">
-      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-      </i>
-    </span>
-  </div>
-<script type="text/javascript">
+    </script><script type="text/javascript">
   $(function() {
     $('#datetimepicker4').datetimepicker({
       pickTime: false
     });
   });
-</script></td>
+</script>
+    <select name="IDORDENPRODUCCION" onchange="document.form1.enviarenca.disabled=false;">
+      <?php
+do {  
+?>
+      <option value="<?php echo $row_combordenprod['IDENCABEORDPROD']?>"><?php echo $row_combordenprod['IDENCABEORDPROD']?></option>
+      <?php
+} while ($row_combordenprod = mysql_fetch_assoc($combordenprod));
+  $rows = mysql_num_rows($combordenprod);
+  if($rows > 0) {
+      mysql_data_seek($combordenprod, 0);
+	  $row_combordenprod = mysql_fetch_assoc($combordenprod);
+  }
+?>
+    </select></td>
           </tr>
           <tr>
             <td><input type="submit" name="enviarenca" id="enviarenca" value="Insertar Encabezado" disabled/></td>

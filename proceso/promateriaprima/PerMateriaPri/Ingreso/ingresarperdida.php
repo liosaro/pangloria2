@@ -126,7 +126,7 @@ $totalRows_empleado = mysql_num_rows($empleado);
 <body>
 <table width="1004" border="0">
   <tr>
-    <td width="998" class="encaforms">Ingresar Justificacion Pedida de Materia Prima</td>
+    <td width="998" align="left" class="encaforms">Ingresar Justificacion de Perdida de Materia Prima</td>
   </tr>
   <tr>
     <td><table width="810" border="0">

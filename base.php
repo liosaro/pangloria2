@@ -123,9 +123,9 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                     <li><a href="proceso/promateriaprima/SalidaMateriaPrima/consulta/filtro.php" target="contenedor">Consultar Salida de Materia Prima</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Elemento sin t&iacute;tulo</a></li>
+                <li><a href="#">O</a></li>
                 <li><a href="#">Entrega de Materia Prima</a></li>
-                <li><a href="#" class="MenuBarItemSubmenu">Justificacion Perdia Materia Prima</a>
+                <li><a href="#" class="MenuBarItemSubmenu">Justificacion de Perdida de Materia Prima</a>
                   <ul>
                     <li><a href="proceso/promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificacion</a></li>
                     <li><a href="proceso/promateriaprima/PerMateriaPri/Modificar/modificarjustificacion.php" target="contenedor">Modificar Justificacion</a></li>
@@ -264,10 +264,10 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
           <div class="AccordionPanelTab">Ubicaciones</div>
           <div class="AccordionPanelContent">
             <div class="AccordionPanelContent">
-              <p>Ingresar Ubicaciones</p>
-              <p>Modificar Ubicaciones</p>
-              <p>Eliminar Ubicaciones</p>
-              <p>Consultar Ubicaciones</p>
+              <p><a href="MateriaPrima/Ubicacion/Ingresar/Ingreso.php" target="contenedor">Ingresar Ubicaciones</a></p>
+              <p><a  href="MateriaPrima/Ubicacion/Modificar/modificarpermisos.php" target="contenedor">Modificar Ubicaciones</a></p>
+              <p><a  href="MateriaPrima/Ubicacion/Eliminar/eliminarpermisos.php" target="contenedor">Eliminar Ubicaciones</a></p>
+              <p><a href="MateriaPrima/Ubicacion/Consultar/consultapermiso.php" target="contenedor">Consultar Ubicaciones</a></p>
               <p>Informe de Ubicaciones            </p>
             </div>
           </div>
@@ -303,15 +303,24 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
           </div>
         </div>
         <div class="AccordionPanel">
+          <div class="AccordionPanelTab">Orden de Compra</div>
+          <div class="AccordionPanelContent">
+            <p><a href="MateriaPrima/OrdendeCompra/Ingreso/concotiza.php" target="contenedor">Ingresar Orden de Compra</a></p>
+            <p><a href="MateriaPrima/OrdendeCompra/Modificacion/Filtro.php" target="contenedor">Modificar Orden de Compra</a></p>
+            <p><a href="MateriaPrima/OrdendeCompra/Eliminacion/Filtro.php" target="contenedor">Eliminar Orden de Compra</a></p>
+            <p><a href="MateriaPrima/OrdendeCompra/Consulta/Filtro.php" target="contenedor">Consultar Orden de Compra</a></p>
+          </div>
+        </div>
+        <div class="AccordionPanel">
           <div class="AccordionPanelTab">Entrada Inventario</div>
           <div class="AccordionPanelContent">
-            <p>Ingresar Entrada</p>
-            <p>Modificar Entrada</p>
+            <p><a href="MateriaPrima/entradainventario/Ingreso/ingresar.php" target="contenedor">Ingresar Entrada de Inventario</a></p>
+            <p><a href="MateriaPrima/entradainventario/Modificar/Filtro.php" target="contenedor">Modificar Entrada de Inventario</a></p>
             <p>Eliminar Entrada</p>
             <p>Consultar Entrada</p>
             <p>Informe de Entradas</p>
           </div>
-        </div>
+      </div>
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Materia Prima</div>
           <div class="AccordionPanelContent">

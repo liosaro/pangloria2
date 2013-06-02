@@ -32,7 +32,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ultimoenca = "SELECT IdEncabezadoEnInventario, idEmpleado, fechaIngresoInventario, idcompra FROM TrnEncaEntrInventario WHERE ELIMIN = 0 ORDER BY ELIMIN DESC";
+$query_ultimoenca = "SELECT IdEncabezadoEnInventario, idEmpleado, fechaIngresoInventario, idcompra FROM TrnEncaEntrInventario WHERE ELIMIN = 0 ORDER BY IdEncabezadoEnInventario DESC";
 $ultimoenca = mysql_query($query_ultimoenca, $basepangloria) or die(mysql_error());
 $row_ultimoenca = mysql_fetch_assoc($ultimoenca);
 $totalRows_ultimoenca = mysql_num_rows($ultimoenca);
@@ -46,10 +46,6 @@ $query_consulcompra = sprintf("SELECT IDCOMPRA, IDUNIDAD, ID_DETENCCOM, CANTIDAD
 $consulcompra = mysql_query($query_consulcompra, $basepangloria) or die(mysql_error());
 $row_consulcompra = mysql_fetch_assoc($consulcompra);
 $totalRows_consulcompra = mysql_num_rows($consulcompra);
-$query_ultimoenca = "SELECT IdEncabezadoEnInventario, idEmpleado, fechaIngresoInventario, idcompra FROM TrnEncaEntrInventario WHERE ELIMIN = 0 ORDER BY ELIMIN DESC";
-$ultimoenca = mysql_query($query_ultimoenca, $basepangloria) or die(mysql_error());
-$row_ultimoenca = mysql_fetch_assoc($ultimoenca);
-$totalRows_ultimoenca = mysql_num_rows($ultimoenca);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -69,7 +65,7 @@ $totalRows_ultimoenca = mysql_num_rows($ultimoenca);
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td align="right"><a href="compras.php" target="popup" onclick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../imagenes/icono/Invoice-256.png" alt="" width="32" height="32" /></a></td>
+        <td align="right"><a href="encabeza.php" target="popup" onclick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../imagenes/icono/Invoice-256.png" alt="" width="32" height="32" /></a></td>
       </tr>
       <tr>
         <td>No. de Ingreso:<?php echo $row_ultimoenca['IdEncabezadoEnInventario']; ?></td>

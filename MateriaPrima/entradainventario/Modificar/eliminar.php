@@ -1,4 +1,4 @@
-<?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -31,9 +31,17 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$id=$_GET["id"];
-$query = "UPDATE TRNJUSTIFICAIONPERMATPRI SET ELIMIN=1 WHERE ID_PERDIDA=$id";
 
+mysql_query("Update CATMATERIAPRIMA set CantDisponible=$nueva where IDMATPRIMA= $mat");
+$id=$_GET["root"];
+$mat=$_GET["mat"];
+$canti= $_GET["canti"];
+$sql2="Select CantDisponible from CATMATERIAPRIMA where IDMATPRIMA= $mat ";
+			   $rsl2=mysql_query($sql2);
+			   $fil2 = mysql_fetch_array($rsl2);
+			   $nueva= $fil2['CantDisponible'] - $canti;
+			   mysql_query("Update CATMATERIAPRIMA set CantDisponible=$nueva where IDMATPRIMA= $mat");
+$query = "UPDATE TRNENTRADA_INVENTARIO SET ELIMIN=1 WHERE IDENTRADA=$id";
     $result = mysql_query($query);
 
     if (!$result) {
@@ -42,7 +50,7 @@ $query = "UPDATE TRNJUSTIFICAIONPERMATPRI SET ELIMIN=1 WHERE ID_PERDIDA=$id";
         //Finalizo la aplicación
         exit;
     }
-	function urlActual() {
+function urlActual() {
  $pageURL = 'http://';
  if ($_SERVER["SERVER_PORT"] != "80") {
  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
@@ -54,5 +62,4 @@ $query = "UPDATE TRNJUSTIFICAIONPERMATPRI SET ELIMIN=1 WHERE ID_PERDIDA=$id";
 $url = $_SERVER['HTTP_REFERER'];
 echo $url;
 header ("location: $url ");
-
 ?>

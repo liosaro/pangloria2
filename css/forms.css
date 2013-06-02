@@ -4,7 +4,7 @@
 	font-size: xx-large;
 	font-weight: bold;
 	color: #000;
-	text-align: center;
+	text-align: left;
 }
 
 body {
@@ -13,6 +13,7 @@ body {
 	margin-right: 0px;
 	margin-bottom: 0px;
 	color: #000;
+	text-align: left;
 }.etifactu {
 	font-family: "Times New Roman", Times, serif;
 	font-size: 14px;
