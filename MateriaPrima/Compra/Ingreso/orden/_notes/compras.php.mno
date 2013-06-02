@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_ncoti" value="name:IDENCABEZADO;datatype:int" />
+	<infoitem key="UD_numorden" value="name:IDORDEN;datatype:int" />
+	<infoitem key="UD_nusuario" value="name:IDUSUARIO;datatype:int" />
+	<infoitem key="UD_empleao" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_Proveedor" value="name:IDPROVEEDOR;datatype:int,name:NOMBREPROVEEDOR;datatype:blob" />
+	<infoitem key="UD_estadofactura" value="name:IDESTAFACTURA;datatype:int,name:ESTADO;datatype:blob" />
+	<infoitem key="UD_TipoFactura" value="name:ID_TIPO_FACTURA;datatype:int,name:TIPOFACTURA;datatype:blob" />
+	<infoitem key="UD_ordencompra" value="name:IDORDEN;datatype:int" />
+</info>

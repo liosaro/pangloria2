@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_cotiza" value="name:IDMATPRIMA;datatype:int,name:IDUNIDAD;datatype:int,name:CANTPRODUCTO;datatype:int,name:PRECIOUNITARIO;datatype:real" />
+	<infoitem key="UD_consultacotiza" value="name:IDMATPRIMA;datatype:int,name:IDUNIDAD;datatype:int,name:CANTPRODUCTO;datatype:int,name:PRECIOUNITARIO;datatype:real" />
+	<infoitem key="UD_materia" value="name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_concoti" value="name:IDDETALLECOMP;datatype:int,name:IDMATPRIMA;datatype:int,name:IDUNIDAD;datatype:int,name:CANTPRODUCTO;datatype:int,name:PRECIOUNITARIO;datatype:real" />
+	<infoitem key="UD_nommateria" value="name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_Recordset1" value="name:TIPOUNIDAD;datatype:blob" />
+	<infoitem key="UD_detorden" value="name:IDORDENPRODUCCION;datatype:int,name:IDENCABEORDPROD;datatype:int,name:CANTIDADORPROD;datatype:real,name:ID_MEDIDA;datatype:int,name:PRODUCTOORDPRODUC;datatype:int,name:FECHAHORAUSUA;datatype:datetime,name:USUARIO;datatype:int" />
+	<infoitem key="UD_numeorden" value="name:IDORDEN;datatype:int" />
+	<infoitem key="UD_carcoti" value="name:IDENCABEZADO;datatype:int,name:FECHACOTIZACION;datatype:date" />
+	<infoitem key="UD_ultimaorden" value="name:ID_DETENCCOM;datatype:int,name:IDPROVEEDOR;datatype:int,name:IDORDEN;datatype:int,name:IDEMPLEADO;datatype:int,name:ID_TIPO_FACTURA;datatype:int,name:IDESTAFACTURA;datatype:int,name:NOFACTURA;datatype:blob,name:FECHACOMPRA;datatype:date" />
+	<infoitem key="UD_ULTIMOENCA" value="name:IDORDEN;datatype:int,name:NUMEROCOTIZACIO;datatype:int,name:IDEMPLEADO;datatype:int,name:FECHAEMISIONORDCOM;datatype:date,name:FECHAENTREGA;datatype:date,name:AUTORIZADOPOR;datatype:int,name:ESTADODEORDEN;datatype:blob,name:ELIMIN;datatype:int,name:EDITA;datatype:int" />
+	<infoitem key="UD_comproveedor" value="name:NOMBREPROVEEDOR;datatype:blob" />
+	<infoitem key="UD_comEmple" value="name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_COMestadofact" value="name:ESTADO;datatype:blob" />
+	<infoitem key="UD_Ctipfactura" value="name:TIPOFACTURA;datatype:blob" />
+	<infoitem key="UD_Consutaorden2" value="name:IDORDEN;datatype:int" />
+	<infoitem key="UD_TipoFact" value="name:ID_TIPO_FACTURA;datatype:int,name:TIPOFACTURA;datatype:blob" />
+	<infoitem key="UD_Proveedor" value="name:IDPROVEEDOR;datatype:int,name:NOMBREPROVEEDOR;datatype:blob" />
+	<infoitem key="UD_Emple" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
+	<infoitem key="UD_ESTADOFAC" value="name:IDESTAFACTURA;datatype:int,name:ESTADO;datatype:blob" />
+	<infoitem key="UD_consuldetaorprod" value="name:IDCOMPRA;datatype:int,name:IDUNIDAD;datatype:int,name:ID_DETENCCOM;datatype:int,name:CANTIDADMATPRIMA;datatype:int,name:MATERIAPRIMA;datatype:int,name:PRECIOUNIDAD;datatype:real,name:ELIMINA;datatype:int,name:EDITA;datatype:int" />
+</info>
