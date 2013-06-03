@@ -199,10 +199,8 @@ do {
 } while ($row_Proveedor = mysql_fetch_assoc($Proveedor));
 ?>
             </select></td>
-            <td>No. de Orden:</td>
-            <td><input name="IDORDEN" type="text" id="IDORDEN" value="0" size="3" readonly="readonly" /></td>
             <td>Tipo de Factura:</td>
-            <td><select name="ID_TIPO_FACTURA" onchange="document.form1.subit.disabled=false;"> 
+            <td><select name="ID_TIPO_FACTURA" onchange="document.form1.subit.disabled=false;">
               <?php 
 do {  
 ?>
@@ -211,6 +209,8 @@ do {
 } while ($row_TipoFactura = mysql_fetch_assoc($TipoFactura));
 ?>
             </select></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
           <tr valign="baseline">
             <td nowrap="nowrap" align="right">Estado de Factura:</td>
@@ -247,6 +247,7 @@ do {
         </table>
         <input type="hidden" name="ID_DETENCCOM" value="" />
         <input type="hidden" name="MM_insert" value="form1" />
+        <input name="IDORDEN" type="hidden" id="IDORDEN" value="1" />
       </form>
     <p>&nbsp;</p></td>
   </tr>

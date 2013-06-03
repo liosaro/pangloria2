@@ -31,6 +31,24 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
+
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
+  $insertSQL = sprintf("INSERT INTO TRNDETALLECOMPRA (IDCOMPRA, IDUNIDAD, ID_DETENCCOM, CANTIDADMATPRIMA, MATERIAPRIMA, PRECIOUNIDAD) VALUES (%s, %s, %s, %s, %s, %s)",
+                       GetSQLValueString($_POST['IDCOMPRA'], "int"),
+                       GetSQLValueString($_POST['IDUNIDAD'], "int"),
+                       GetSQLValueString($_POST['ID_DETENCCOM'], "int"),
+                       GetSQLValueString($_POST['CANTIDADMATPRIMA'], "int"),
+                       GetSQLValueString($_POST['MATERIAPRIMA'], "int"),
+                       GetSQLValueString($_POST['PRECIOUNIDAD'], "double"));
+
+  mysql_select_db($database_basepangloria, $basepangloria);
+  $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
+}
 // consulta para seleccionar el ultimo encabezado de compra
 mysql_select_db($database_basepangloria, $basepangloria);
 $query_ultimaorden = "SELECT ID_DETENCCOM, IDPROVEEDOR, IDORDEN, IDEMPLEADO, ID_TIPO_FACTURA, IDESTAFACTURA, NOFACTURA, FECHACOMPRA FROM TRNENCABEZADOCOMPRA WHERE ELIMIN = 0 ORDER BY ID_DETENCCOM DESC";
@@ -72,6 +90,18 @@ $query_consuldetaorprod = "SELECT * FROM TRNDETALLECOMPRA  WHERE ELIMINA = 0 AND
 $consuldetaorprod = mysql_query($query_consuldetaorprod, $basepangloria) or die(mysql_error());
 $row_consuldetaorprod = mysql_fetch_assoc($consuldetaorprod);
 $totalRows_consuldetaorprod = mysql_num_rows($consuldetaorprod);
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_Materia = "SELECT IDMATPRIMA, DESCRIPCION FROM CATMATERIAPRIMA WHERE ELIMIN = 0 ORDER BY DESCRIPCION ASC";
+$Materia = mysql_query($query_Materia, $basepangloria) or die(mysql_error());
+$row_Materia = mysql_fetch_assoc($Materia);
+$totalRows_Materia = mysql_num_rows($Materia);
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_Unidad = "SELECT IDUNIDAD, TIPOUNIDAD FROM CATUNIDADES WHERE ELIMIN = 0 ORDER BY TIPOUNIDAD ASC";
+$Unidad = mysql_query($query_Unidad, $basepangloria) or die(mysql_error());
+$row_Unidad = mysql_fetch_assoc($Unidad);
+$totalRows_Unidad = mysql_num_rows($Unidad);
 
 ?>
 
@@ -128,7 +158,53 @@ $totalRows_consuldetaorprod = mysql_num_rows($consuldetaorprod);
     </table></td>
   </tr>
   <tr>
+    <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
+      <table align="center">
+        <tr valign="baseline">
+          <td nowrap="nowrap" align="right">Unidad de Medida:</td>
+          <td nowrap="nowrap" align="right"><select name="IDUNIDAD" onchange="document.form1.enviar.disabled=false;">
+            <?php 
+do {  
+?>
+            <option value="<?php echo $row_Unidad['IDUNIDAD']?>" ><?php echo $row_Unidad['TIPOUNIDAD']?></option>
+            <?php
+} while ($row_Unidad = mysql_fetch_assoc($Unidad));
+?>
+          </select></td>
+          <td>Cantidad de Materia Prima:</td>
+          <td><input type="text" name="CANTIDADMATPRIMA" value="" size="9" /></td>
+          <td>Materia Prima:</td>
+          <td><select name="MATERIAPRIMA" >
+            <?php 
+do {  
+?>
+            <option value="<?php echo $row_Materia['IDMATPRIMA']?>" ><?php echo $row_Materia['DESCRIPCION']?></option>
+            <?php
+} while ($row_Materia = mysql_fetch_assoc($Materia));
+?>
+          </select></td>
+          <td>Precio Unitario:</td>
+          <td><input type="text" name="PRECIOUNIDAD" value="" size="9" /></td>
+        </tr>
+        <tr valign="baseline">
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td><input name="enviar" type="submit" disabled id="enviar" value="Insertar registro"/></td>
+        </tr>
+      </table>
+      <input type="hidden" name="IDCOMPRA" value="" />
+      <input type="hidden" name="ID_DETENCCOM" value="<?php echo $row_ultimaorden['ID_DETENCCOM']; ?>" />
+      <input type="hidden" name="MM_insert" value="form1" />
+    </form></td>
+  </tr>
+  <tr>
     <td><form action="scriptcompra.php" method="post" target="_self" id="detil">
+      <p>&nbsp;</p>
       <table width="820" border="1">
         <tr>
           <td colspan="6" bgcolor="#999999" class="deta">Registros Agregados</td>
@@ -197,7 +273,8 @@ $coste = ($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECI
       </table>
       <p>&nbsp; </p>
       <p>&nbsp;</p>
-    </form></td>
+    </form>
+    <p>&nbsp;</p></td>
   </tr>
 </table>
 <p class="etifactu"><span class="retorno"></span></p>
@@ -215,4 +292,8 @@ mysql_free_result($Emple);
 mysql_free_result($ESTADOFAC);
 
 mysql_free_result($consuldetaorprod);
+
+mysql_free_result($Materia);
+
+mysql_free_result($Unidad);
 ?>

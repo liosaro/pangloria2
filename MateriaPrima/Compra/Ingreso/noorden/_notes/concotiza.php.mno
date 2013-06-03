@@ -21,4 +21,6 @@
 	<infoitem key="UD_Emple" value="name:IDEMPLEADO;datatype:int,name:NOMBREEMPLEADO;datatype:blob" />
 	<infoitem key="UD_ESTADOFAC" value="name:IDESTAFACTURA;datatype:int,name:ESTADO;datatype:blob" />
 	<infoitem key="UD_consuldetaorprod" value="name:IDCOMPRA;datatype:int,name:IDUNIDAD;datatype:int,name:ID_DETENCCOM;datatype:int,name:CANTIDADMATPRIMA;datatype:int,name:MATERIAPRIMA;datatype:int,name:PRECIOUNIDAD;datatype:real,name:ELIMINA;datatype:int,name:EDITA;datatype:int" />
+	<infoitem key="UD_Materia" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_Unidad" value="name:IDUNIDAD;datatype:int,name:TIPOUNIDAD;datatype:blob" />
 </info>
