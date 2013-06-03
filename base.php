@@ -268,9 +268,13 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <p><a  href="MateriaPrima/Ubicacion/Modificar/modificarpermisos.php" target="contenedor">Modificar Ubicaciones</a></p>
               <p><a  href="MateriaPrima/Ubicacion/Eliminar/eliminarpermisos.php" target="contenedor">Eliminar Ubicaciones</a></p>
               <p><a href="MateriaPrima/Ubicacion/Consultar/consultapermiso.php" target="contenedor">Consultar Ubicaciones</a></p>
-              <p>Informe de Ubicaciones            </p>
+              <p>Informe de Ubicaciones </p>
             </div>
           </div>
+        </div>
+        <div class="AccordionPanel">
+          <div class="AccordionPanelTab">Proveedores</div>
+          <div class="AccordionPanelContent"><a href="MateriaPrima/Proveedores/ingresar/ingresar_proveedor.php">Ingresar_Proveedor</a></div>
         </div>
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Medidas Peso</div>
@@ -281,7 +285,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             <p>Consultar Unidades</p>
             <p>Informe de Unidades</p>
           </div>
-        </div>
+      </div>
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Cotizaciones</div>
           <div class="AccordionPanelContent">

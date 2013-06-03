@@ -233,7 +233,7 @@ do {
             </select></td>
             <td>No. de Factura:</td>
             <td><input type="text" name="NOFACTURA" value="" size="10" /></td>
-            <td>Codig de Empleado que Ingresa</td>
+            <td>Código de Empleado que Ingresa</td>
             <td><input name="IDEMPLEADO" type="text" value="<?php echo $row_nusuario['IDUSUARIO']; ?>" size="4" readonly="readonly" /></td>
           </tr>
           <tr valign="baseline">

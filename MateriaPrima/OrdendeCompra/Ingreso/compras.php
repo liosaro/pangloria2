@@ -180,9 +180,9 @@ function validar(date)
           <td colspan="4" align="center" nowrap="nowrap" bgcolor="#999999" class="error"><span class="encaforms">Ingreso de Encabezado para orden de compra</span></td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="left">Codigo de Orden de compra:</td>
+          <td nowrap="nowrap" align="left">Código de Orden de compra:</td>
           <td nowrap="nowrap" align="left"><input name="IDORDEN" type="text" disabled="disabled" value="<?php echo $row_numorden['IDORDEN']+1; ?>" size="32" /></td>
-          <td nowrap="nowrap" align="left">Numero de Cotizacion:</td>
+          <td nowrap="nowrap" align="left">Numero de Cotización:</td>
           <td align="left"><select name="NUMEROCOTIZACIO"  onfocus="document.form1.subit.disabled=false;">
             <?php
 do {  
@@ -221,9 +221,9 @@ do {
           </select></td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="left">Fecha de emision:</td>
+          <td nowrap="nowrap" align="left">Fecha de emisión:</td>
           <td nowrap="nowrap" align="left"><input name="FECHAEMISIONORDCOM" type="text" id="FECHAEMISIONORDCOM" value="<?php echo date("Y-m-d H:i:s");;?> " readonly="readonly" /></td>
-          <td nowrap="nowrap" align="left">Codigo de Empleado:</td>
+          <td nowrap="nowrap" align="left">Código de Empleado:</td>
           <td align="left"><script type="text/javascript"
       src="../../../SpryAssets/jquery-1.8.3.min.js">
     </script> 

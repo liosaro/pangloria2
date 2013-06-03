@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -45,7 +45,7 @@ if (isset($_GET['root'])) {
   $colname_nombres = $_GET['root'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_nombres = sprintf("SELECT * FROM CATPROVEEDOR WHERE NOMBREPROVEEDOR LIKE %s ORDER BY IDPROVEEDOR ASC", GetSQLValueString("%" . $colname_nombres . "%", "text"));
+$query_nombres = sprintf("SELECT * FROM CATPROVEEDOR WHERE NOMBREPROVEEDOR LIKE %s AND ELIMIN = '0' ORDER BY IDPROVEEDOR ASC", GetSQLValueString("%" . $colname_nombres . "%", "text"));
 $query_limit_nombres = sprintf("%s LIMIT %d, %d", $query_nombres, $startRow_nombres, $maxRows_nombres);
 $nombres = mysql_query($query_limit_nombres, $basepangloria) or die(mysql_error());
 $row_nombres = mysql_fetch_assoc($nombres);
@@ -74,33 +74,36 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 }
 $queryString_nombres = sprintf("&totalRows_nombres=%d%s", $totalRows_nombres, $queryString_nombres);
 ?>
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
 
-<table border="1">
+
+<table width="820" border="1">
   <tr>
-    <td colspan="11" align="center" bgcolor="#999999"><h1>Detalle</h1></td>
+    <td colspan="11" align="center" bgcolor="#999999"><h1>Resultado</h1></td>
   </tr>
   
   <tr>
-    <td colspan="11"><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, 0, $queryString_nombres); ?>"><img src="../../imagenes/icono/Back-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, max(0, $pageNum_nombres - 1), $queryString_nombres); ?>"><img src="../../imagenes/icono/Backward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, min($totalPages_nombres, $pageNum_nombres + 1), $queryString_nombres); ?>"><img src="../../imagenes/icono/Forward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, $totalPages_nombres, $queryString_nombres); ?>"><img src="../../imagenes/icono/Next-32.png" width="32" height="32" /></a></td>
+    <td colspan="11"><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, 0, $queryString_nombres); ?>"><img src="../../../imagenes/icono/Back-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, max(0, $pageNum_nombres - 1), $queryString_nombres); ?>"><img src="../../../imagenes/icono/Backward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, min($totalPages_nombres, $pageNum_nombres + 1), $queryString_nombres); ?>"><img src="../../../imagenes/icono/Forward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_nombres=%d%s", $currentPage, $totalPages_nombres, $queryString_nombres); ?>"><img src="../../../imagenes/icono/Next-32.png" width="32" height="32" /> Registros <?php echo ($startRow_nombres + 1) ?> a <?php echo min($startRow_nombres + $maxRows_nombres, $totalRows_nombres) ?> de <?php echo $totalRows_nombres ?> </a></td>
   </tr>
-  <tr>
-    <td>IDPROVEEDOR</td>
-    <td>IDPAIS</td>
-    <td>NOMBREPROVEEDOR</td>
-    <td>DIRECCIONPROVEEDOR</td>
-    <td>TELEFONOPROVEEDOR</td>
-    <td>CORREOPROVEEDOR</td>
-    <td>FECHAINGRESOPROVE</td>
-    <td>GIRO</td>
-    <td>NUMEROREGISTRO</td>
-    <td>WEB</td>
-    <td>DEPTOPAISPROVEEDOR</td>
+  <tr class="retabla">
+    <td align="center" bgcolor="#000000">Código de Proveedor</td>
+    <td align="center" bgcolor="#000000">Proveedor</td>
+    <td align="center" bgcolor="#000000">Código de Pais</td>
+    <td align="center" bgcolor="#000000">Código de Departamento</td>
+    <td align="center" bgcolor="#000000">Dirección</td>
+    <td align="center" bgcolor="#000000">Teléfono</td>
+    <td align="center" bgcolor="#000000">Correo Electrónico</td>
+    <td align="center" bgcolor="#000000">Fecha de Ingreso</td>
+    <td align="center" bgcolor="#000000">Giro</td>
+    <td align="center" bgcolor="#000000">No. de Registro</td>
+    <td align="center" bgcolor="#000000">WEB</td>
   </tr>
   <?php do { ?>
     <tr>
       <td><?php echo $row_nombres['IDPROVEEDOR']; ?></td>
-      <td><?php echo $row_nombres['IDPAIS']; ?></td>
       <td><?php echo $row_nombres['NOMBREPROVEEDOR']; ?></td>
+      <td><?php echo $row_nombres['IDPAIS']; ?></td>
+      <td><?php echo $row_nombres['DEPTOPAISPROVEEDOR']; ?></td>
       <td><?php echo $row_nombres['DIRECCIONPROVEEDOR']; ?></td>
       <td><?php echo $row_nombres['TELEFONOPROVEEDOR']; ?></td>
       <td><?php echo $row_nombres['CORREOPROVEEDOR']; ?></td>
@@ -108,7 +111,6 @@ $queryString_nombres = sprintf("&totalRows_nombres=%d%s", $totalRows_nombres, $q
       <td><?php echo $row_nombres['GIRO']; ?></td>
       <td><?php echo $row_nombres['NUMEROREGISTRO']; ?></td>
       <td><?php echo $row_nombres['WEB']; ?></td>
-      <td><?php echo $row_nombres['DEPTOPAISPROVEEDOR']; ?></td>
     </tr>
     <?php } while ($row_nombres = mysql_fetch_assoc($nombres)); ?>
 </table>

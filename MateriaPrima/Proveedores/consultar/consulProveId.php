@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -43,7 +43,7 @@ if (isset($_GET['root'])) {
   $colname_id = $_GET['root'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_id = sprintf("SELECT * FROM CATPROVEEDOR WHERE IDPROVEEDOR = %s ORDER BY IDPROVEEDOR ASC", GetSQLValueString($colname_id, "int"));
+$query_id = sprintf("SELECT * FROM CATPROVEEDOR WHERE IDPROVEEDOR = %s AND ELIMIN = '0' ORDER BY IDPROVEEDOR ASC", GetSQLValueString($colname_id, "int"));
 $query_limit_id = sprintf("%s LIMIT %d, %d", $query_id, $startRow_id, $maxRows_id);
 $id = mysql_query($query_limit_id, $basepangloria) or die(mysql_error());
 $row_id = mysql_fetch_assoc($id);
@@ -56,28 +56,32 @@ if (isset($_GET['totalRows_id'])) {
 }
 $totalPages_id = ceil($totalRows_id/$maxRows_id)-1;
 ?>
-<table border="1">
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+
+<table width="820" border="1">
   <tr>
-    <td colspan="11" align="center" bgcolor="#999999"><h1>Detalle</h1></td>
+    <td colspan="12" align="center" bgcolor="#999999"><h1>Detalle</h1></td>
   </tr>
-  <tr>
-    <td>IDPROVEEDOR</td>
-    <td>IDPAIS</td>
-    <td>NOMBREPROVEEDOR</td>
-    <td>DIRECCIONPROVEEDOR</td>
-    <td>TELEFONOPROVEEDOR</td>
-    <td>CORREOPROVEEDOR</td>
-    <td>FECHAINGRESOPROVE</td>
-    <td>GIRO</td>
-    <td>NUMEROREGISTRO</td>
-    <td>WEB</td>
-    <td>DEPTOPAISPROVEEDOR</td>
+  <tr class="retabla">
+    <td align="center" bgcolor="#000000">Código</td>
+    <td align="center" bgcolor="#000000">Proveedor</td>
+    <td align="center" bgcolor="#000000">Código de Pais</td>
+    <td align="center" bgcolor="#000000">Código de departamento</td>
+    <td align="center" bgcolor="#000000">Dirección</td>
+    <td align="center" bgcolor="#000000">Teléfono</td>
+    <td align="center" bgcolor="#000000">Correo Electrónico</td>
+    <td align="center" bgcolor="#000000">Fecha de Ingreso</td>
+    <td align="center" bgcolor="#000000">Giro</td>
+    <td align="center" bgcolor="#000000">No. de Registro</td>
+    <td align="center" bgcolor="#000000">WEB</td>
+    <td align="center" bgcolor="#000000">DEPTOPAISPROVEEDOR</td>
   </tr>
   <?php do { ?>
     <tr>
       <td><?php echo $row_id['IDPROVEEDOR']; ?></td>
-      <td><?php echo $row_id['IDPAIS']; ?></td>
       <td><?php echo $row_id['NOMBREPROVEEDOR']; ?></td>
+      <td><?php echo $row_id['IDPAIS']; ?></td>
+      <td><?php echo $row_id['DEPTOPAISPROVEEDOR']; ?></td>
       <td><?php echo $row_id['DIRECCIONPROVEEDOR']; ?></td>
       <td><?php echo $row_id['TELEFONOPROVEEDOR']; ?></td>
       <td><?php echo $row_id['CORREOPROVEEDOR']; ?></td>
@@ -85,7 +89,7 @@ $totalPages_id = ceil($totalRows_id/$maxRows_id)-1;
       <td><?php echo $row_id['GIRO']; ?></td>
       <td><?php echo $row_id['NUMEROREGISTRO']; ?></td>
       <td><?php echo $row_id['WEB']; ?></td>
-      <td><?php echo $row_id['DEPTOPAISPROVEEDOR']; ?></td>
+      <td>&nbsp;</td>
     </tr>
     <?php } while ($row_id = mysql_fetch_assoc($id)); ?>
 </table>

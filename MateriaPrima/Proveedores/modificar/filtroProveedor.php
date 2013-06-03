@@ -1,6 +1,7 @@
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
 <iframe src="modificarProveedor.php" name="modificar2" width="850" height="400" scrolling="auto"></iframe>
 <p>
-  <?php require_once('../../Connections/basepangloria.php'); ?>
+  <?php require_once('../../../Connections/basepangloria.php'); ?>
   <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -74,7 +75,7 @@ if (isset($_POST['FiltroProvee'])) {
   $colname_FiltroProveedor = $_POST['FiltroProvee'];
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_FiltroProveedor = sprintf("SELECT * FROM CATPROVEEDOR WHERE NOMBREPROVEEDOR LIKE %s ORDER BY NOMBREPROVEEDOR ASC", GetSQLValueString("%" . $colname_FiltroProveedor . "%", "text"));
+$query_FiltroProveedor = sprintf("SELECT * FROM CATPROVEEDOR WHERE NOMBREPROVEEDOR LIKE %s AND ELIMIN=0  ORDER BY NOMBREPROVEEDOR ASC", GetSQLValueString("%" . $colname_FiltroProveedor . "%", "text"));
 $query_limit_FiltroProveedor = sprintf("%s LIMIT %d, %d", $query_FiltroProveedor, $startRow_FiltroProveedor, $maxRows_FiltroProveedor);
 $FiltroProveedor = mysql_query($query_limit_FiltroProveedor, $basepangloria) or die(mysql_error());
 $row_FiltroProveedor = mysql_fetch_assoc($FiltroProveedor);
@@ -91,16 +92,16 @@ mysql_free_result($FiltroProveedor);
 ?>
 </p>
 <table border="1">
-  <tr>
-    <td>Modificar</td>
-    <td>IDPROVEEDOR</td>
-    <td>NOMBREPROVEEDOR</td>
-    <td>GIRO</td>
-    <td>NUMEROREGISTRO</td>
+  <tr class="retabla">
+    <td align="center" bgcolor="#000000">Modificar</td>
+    <td align="center" bgcolor="#000000">Código de Proveedor</td>
+    <td align="center" bgcolor="#000000">Nombre de Proveedor</td>
+    <td align="center" bgcolor="#000000">Giro</td>
+    <td align="center" bgcolor="#000000">Numero de Registro</td>
   </tr>
   <?php do { ?>
     <tr>
-      <td><a href="modificarProveedor.php?root=<?php echo $row_FiltroProveedor['IDPROVEEDOR']; ?>"target="modificar">Modificar</a></td>
+      <td><a href="modificarProveedor.php?root=<?php echo $row_FiltroProveedor['IDPROVEEDOR']; ?>"target="modificar"><img src="../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
       <td><?php echo $row_FiltroProveedor['IDPROVEEDOR']; ?></td>
       <td><?php echo $row_FiltroProveedor['NOMBREPROVEEDOR']; ?></td>
       <td><?php echo $row_FiltroProveedor['GIRO']; ?></td>

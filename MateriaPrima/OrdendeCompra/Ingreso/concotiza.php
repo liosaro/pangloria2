@@ -1,5 +1,49 @@
 <?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "39";
+$MM_donotCheckaccess = "false";
 
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -100,13 +144,13 @@ if (isset($_GET['coti'])) {
         <td align="right" class="retorno"><a href="compras.php" target="popup" onclick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../imagenes/icono/Invoice-256.png" width="32" height="32" /></a></td>
       </tr>
       <tr>
-        <td width="123" class="etifactu"><span class="etifactu">Codigo de Orden de Compra</span></td>
+        <td width="123" class="etifactu"><span class="etifactu">Código de Orden de Compra</span></td>
         <td width="309" class="retorno"><?php echo $row_ULTIMOENCA['IDORDEN']; ?></td>
-        <td width="95" class="etifactu">Cotizacion que genera</td>
+        <td width="95" class="etifactu">Cotización que genera</td>
         <td width="275" class="retorno"><?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO']; ?></td>
       </tr>
       <tr>
-        <td class="etifactu">Fecha de Emision</td>
+        <td class="etifactu">Fecha de Emisión</td>
         <td class="retorno"><?php echo $row_ULTIMOENCA['FECHAEMISIONORDCOM']; ?></td>
         <td class="etifactu">Fecha de Entrega</td>
         <td class="retorno"><?php echo $row_ULTIMOENCA['FECHAENTREGA']; ?></td>
@@ -127,10 +171,10 @@ if (isset($_GET['coti'])) {
           </tr>
         <tr class="retabla">
           <td width="166" bgcolor="#000000">Agregar</td>
-          <td width="166" bgcolor="#000000">Numero Referencial</td>
+          <td width="166" bgcolor="#000000">Numero Referencia</td>
           <td width="166" bgcolor="#000000">Materia Prima</td>
           <td width="144" bgcolor="#000000">Unidad de Medida</td>
-          <td width="195" bgcolor="#000000">Cantida de Producto</td>
+          <td width="195" bgcolor="#000000">Cantidad de Producto</td>
           <td width="208" bgcolor="#000000">Precio Unitario</td>
           <td width="208" bgcolor="#000000"> Costo</td>
         </tr>

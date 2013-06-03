@@ -86,8 +86,8 @@ mysql_select_db($database_basepangloria, $basepangloria);
 </table>
 <table width="820" border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td>Codigo de Orden de Producion</td>
-    <td>Fecha de Emision</td>
+    <td>Código de Orden de Producidos</td>
+    <td>Fecha de Emisión</td>
     <td>Fecha de Entrega</td>
     <td>Modificar</td>
   </tr>

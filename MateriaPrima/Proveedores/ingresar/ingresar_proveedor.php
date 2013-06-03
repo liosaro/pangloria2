@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -86,6 +86,12 @@ if (isset($_GET['totalRows_ingeProvee'])) {
   $totalRows_ingeProvee = mysql_num_rows($all_ingeProvee);
 }
 $totalPages_ingeProvee = ceil($totalRows_ingeProvee/$maxRows_ingeProvee)-1;
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_provee = "SELECT IDPROVEEDOR FROM CATPROVEEDOR ORDER BY IDPROVEEDOR DESC";
+$provee = mysql_query($query_provee, $basepangloria) or die(mysql_error());
+$row_provee = mysql_fetch_assoc($provee);
+$totalRows_provee = mysql_num_rows($provee);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -99,13 +105,24 @@ body {
 	font-size: 16px;
 }
 </style>
-<link href="../../css/forms.css" rel="stylesheet" type="text/css" />
-<script src="../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 
 <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+<script>
+function Confirm(form){
+
+alert("Se ha agregado un nuevo registro!"); 
+
+form.submit();
+
+}
+
+</script>
 </head>
 
 <body>
@@ -117,9 +134,9 @@ href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-da
           <td colspan="4" align="center" nowrap="nowrap" class="ENCABEZADO"><span class="encaforms">Ingreso de Proveedores</span></td>
           </tr>
         <tr valign="baseline">
-          <td >Id Proveedor:</td>
-          <td ><input name="IDPROVEEDOR" type="text" value="" size="32" readonly="readonly" /></td>
-          <td >Direccion del Porveedor:</td>
+          <td >Código de  Proveedor:</td>
+          <td ><input name="IDPROVEEDOR" type="text" value="<?php echo $row_provee['IDPROVEEDOR']+1; ?>" size="32" readonly="readonly" /></td>
+          <td >Dirección del Proveedor:</td>
           <td><input type="text" name="DIRECCIONPROVEEDOR" value="" size="32" /></td>
         </tr>
         <tr valign="baseline">
@@ -142,7 +159,7 @@ do {
           </select></td>
         </tr>
         <tr valign="baseline">
-          <td >Nombre del Porveedor:</td>
+          <td >Nombre del Proveedor:</td>
           <td ><input type="text" name="NOMBREPROVEEDOR" value="" size="32" /></td>
           <td>Departamento</td>
           <td><select name="DEPTOPAISPROVEEDOR">
@@ -167,7 +184,7 @@ do {
           <td>&nbsp;</td>
         </tr>
         <tr valign="baseline">
-          <td >Telefono del Proveedor:</td>
+          <td >Teléfono del Proveedor:</td>
           <td nowrap="nowrap" align="right"><span id="sprytextfield1">
           <input type="text" name="TELEFONOPROVEEDOR" value="" size="32" />
           <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span></span></td>
@@ -248,7 +265,7 @@ pickTime: false
           <td>&nbsp;</td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="right"><input type="submit" value="Insertar registro" /></td>
+          <td nowrap="nowrap" align="right"><input type="submit" name="SEND" id="SEND"  value="Insertar registro" onClick="Confirm(this.form)" /></td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td>&nbsp;</td>
@@ -264,40 +281,10 @@ pickTime: false
     </form></td>
   </tr>
 </table>
-<table border="1">
-  <tr>
-    <td>IDPROVEEDOR</td>
-    <td>IDPAIS</td>
-    <td>NOMBREPROVEEDOR</td>
-    <td>DIRECCIONPROVEEDOR</td>
-    <td>TELEFONOPROVEEDOR</td>
-    <td>CORREOPROVEEDOR</td>
-    <td>FECHAINGRESOPROVE</td>
-    <td>GIRO</td>
-    <td>NUMEROREGISTRO</td>
-    <td>WEB</td>
-    <td>DEPTOPAISPROVEEDOR</td>
-  </tr>
-  <?php do { ?>
-    <tr>
-      <td><?php echo $row_ingeProvee['IDPROVEEDOR']; ?></td>
-      <td><?php echo $row_ingeProvee['IDPAIS']; ?></td>
-      <td><?php echo $row_ingeProvee['NOMBREPROVEEDOR']; ?></td>
-      <td><?php echo $row_ingeProvee['DIRECCIONPROVEEDOR']; ?></td>
-      <td><?php echo $row_ingeProvee['TELEFONOPROVEEDOR']; ?></td>
-      <td><?php echo $row_ingeProvee['CORREOPROVEEDOR']; ?></td>
-      <td><?php echo $row_ingeProvee['FECHAINGRESOPROVE']; ?></td>
-      <td><?php echo $row_ingeProvee['GIRO']; ?></td>
-      <td><?php echo $row_ingeProvee['NUMEROREGISTRO']; ?></td>
-      <td><?php echo $row_ingeProvee['WEB']; ?></td>
-      <td><?php echo $row_ingeProvee['DEPTOPAISPROVEEDOR']; ?></td>
-    </tr>
-    <?php } while ($row_ingeProvee = mysql_fetch_assoc($ingeProvee)); ?>
-</table>
 <script type="text/javascript">
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "phone_number", {format:"phone_custom", pattern:"0000-0000", useCharacterMasking:true, validateOn:["blur"]});
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "email", {hint:"ejemplo@dominio.com", useCharacterMasking:true, validateOn:["blur"]});
-var sprytextfield4 = new Spry.Widget.ValidationTextField("sprytextfield4", "custom", {pattern:"000-000000-000-0", useCharacterMasking:true, validateOn:["blur"]});
+var sprytextfield4 = new Spry.Widget.ValidationTextField("sprytextfield4", "custom", {pattern:"0000-000000-00-0", useCharacterMasking:true, validateOn:["blur"]});
 </script>
 </body>
 </html>
@@ -307,4 +294,6 @@ mysql_free_result($pais);
 mysql_free_result($depPais);
 
 mysql_free_result($ingeProvee);
+
+mysql_free_result($provee);
 ?>

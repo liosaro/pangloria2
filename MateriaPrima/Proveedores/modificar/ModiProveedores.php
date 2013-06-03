@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_modiProvee'])) {
 $startRow_modiProvee = $pageNum_modiProvee * $maxRows_modiProvee;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_modiProvee = "SELECT * FROM CATPROVEEDOR ORDER BY IDPROVEEDOR DESC";
+$query_modiProvee = "SELECT * FROM CATPROVEEDOR WHERE ELIMIN = '0' ORDER BY IDPROVEEDOR DESC";
 $query_limit_modiProvee = sprintf("%s LIMIT %d, %d", $query_modiProvee, $startRow_modiProvee, $maxRows_modiProvee);
 $modiProvee = mysql_query($query_limit_modiProvee, $basepangloria) or die(mysql_error());
 $row_modiProvee = mysql_fetch_assoc($modiProvee);
@@ -102,6 +102,7 @@ body {
 	margin-bottom: 0px;
 }
 </style>
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -118,18 +119,18 @@ body {
     </form></td>
   </tr>
   <tr>
-    <td colspan="5"><a href="<?php printf("%s?pageNum_modiProvee=%d%s", $currentPage, 0, $queryString_modiProvee); ?>"><img src="../../imagenes/icono/Back-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_modiProvee=%d%s", $currentPage, max(0, $pageNum_modiProvee - 1), $queryString_modiProvee); ?>"><img src="../../imagenes/icono/Backward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_modiProvee=%d%s", $currentPage, min($totalPages_modiProvee, $pageNum_modiProvee + 1), $queryString_modiProvee); ?>"><img src="../../imagenes/icono/Forward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_modiProvee=%d%s", $currentPage, $totalPages_modiProvee, $queryString_modiProvee); ?>"><img src="../../imagenes/icono/Next-32.png" width="32" height="32" /></a></td>
+    <td colspan="5">&nbsp;</td>
   </tr>
-  <tr>
-    <td>Modificar</td>
-    <td>IDPROVEEDOR</td>
-    <td>NOMBREPROVEEDOR</td>
-    <td>GIRO</td>
-    <td>NUMEROREGISTRO</td>
+  <tr class="retabla">
+    <td align="center" bgcolor="#000000">Modificar</td>
+    <td align="center" bgcolor="#000000">Código de Proveedor</td>
+    <td align="center" bgcolor="#000000">Nombre de Proveedor</td>
+    <td align="center" bgcolor="#000000">Giro</td>
+    <td align="center" bgcolor="#000000">Numero de Registro</td>
   </tr>
   <?php do { ?>
     <tr>
-      <td><a href="modificarProveedor.php?root=<?php echo $row_modiProvee['IDPROVEEDOR']; ?>"target="modificar">Modificar</a></td>
+      <td><a href="modificarProveedor.php?root=<?php echo $row_modiProvee['IDPROVEEDOR']; ?>"target="modificar"><img src="../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
       <td><?php echo $row_modiProvee['IDPROVEEDOR']; ?></td>
       <td><?php echo $row_modiProvee['NOMBREPROVEEDOR']; ?></td>
       <td><?php echo $row_modiProvee['GIRO']; ?></td>

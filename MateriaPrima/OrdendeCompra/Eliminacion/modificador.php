@@ -106,13 +106,13 @@ return true;
         <td align="right" class="retorno"><a href="javascript:;" onclick="aviso('eliminar.php?root=<?php echo $row_ULTIMOENCA['IDORDEN']; ?>'); return false;"><img src="../../../imagenes/icono/delete-32.png" width="32" height="32" /></a></td>
       </tr>
       <tr>
-        <td width="123" class="etifactu"><span class="etifactu">Codigo de Orden de Compra</span></td>
+        <td width="123" class="etifactu"><span class="etifactu">Código de Orden de Compra</span></td>
         <td width="309" class="retorno"><?php echo $row_ULTIMOENCA['IDORDEN']; ?></td>
-        <td width="95" class="etifactu">Cotizacion que genera</td>
+        <td width="95" class="etifactu">Cotización que genera</td>
         <td width="275" class="retorno"><?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO']; ?></td>
       </tr>
       <tr>
-        <td class="etifactu">Fecha de Emision</td>
+        <td class="etifactu">Fecha de Emisión</td>
         <td class="retorno"><?php echo $row_ULTIMOENCA['FECHAEMISIONORDCOM']; ?></td>
         <td class="etifactu">Fecha de Entrega</td>
         <td class="retorno"><?php echo $row_ULTIMOENCA['FECHAENTREGA']; ?></td>
@@ -132,10 +132,10 @@ return true;
           <td colspan="7" align="left" bgcolor="#000000"><input name="load" type="button" onclick="location.href='modificador.php?varia=<?php echo $row_ULTIMOENCA['IDORDEN']; ?>&amp;root=<?php echo $row_ULTIMOENCA['IDORDEN']; ?>&amp;IDENCABEZADO=<?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO'];?>'" value="Cargar Detalle"  /></td>
         </tr>
         <tr class="retabla">
-          <td width="166" bgcolor="#000000">Numero Referencial</td>
+          <td width="166" bgcolor="#000000">Numero Referencia</td>
           <td width="166" bgcolor="#000000">Materia Prima</td>
           <td width="144" bgcolor="#000000">Unidad de Medida</td>
-          <td width="195" bgcolor="#000000">Cantida de Producto</td>
+          <td width="195" bgcolor="#000000">Cantidad de Producto</td>
           <td width="208" bgcolor="#000000">Precio Unitario</td>
           <td width="208" bgcolor="#000000"> Costo</td>
           <td width="208" bgcolor="#000000">Eliminar</td>

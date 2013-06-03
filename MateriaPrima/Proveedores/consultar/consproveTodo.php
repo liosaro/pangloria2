@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -41,7 +41,7 @@ if (isset($_GET['pageNum_todos'])) {
 $startRow_todos = $pageNum_todos * $maxRows_todos;
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_todos = "SELECT * FROM CATPROVEEDOR ORDER BY IDPROVEEDOR ASC";
+$query_todos = "SELECT * FROM CATPROVEEDOR WHERE IDPROVEEDOR AND ELIMIN = '0'  ORDER BY IDPROVEEDOR ASC";
 $query_limit_todos = sprintf("%s LIMIT %d, %d", $query_todos, $startRow_todos, $maxRows_todos);
 $todos = mysql_query($query_limit_todos, $basepangloria) or die(mysql_error());
 $row_todos = mysql_fetch_assoc($todos);
@@ -70,32 +70,35 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 }
 $queryString_todos = sprintf("&totalRows_todos=%d%s", $totalRows_todos, $queryString_todos);
 ?>
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+
 
 <table border="1">
   <tr>
     <td colspan="11" align="center" bgcolor="#999999"><h1>Detalle</h1></td>
   </tr>
   <tr>
-    <td colspan="11"><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, 0, $queryString_todos); ?>"><img src="../../imagenes/icono/Back-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, max(0, $pageNum_todos - 1), $queryString_todos); ?>"><img src="../../imagenes/icono/Backward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, min($totalPages_todos, $pageNum_todos + 1), $queryString_todos); ?>"><img src="../../imagenes/icono/Forward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, $totalPages_todos, $queryString_todos); ?>"><img src="../../imagenes/icono/Next-32.png" width="32" height="32" /></a></td>
+    <td colspan="11"><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, 0, $queryString_todos); ?>"><img src="../../../imagenes/icono/Back-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, max(0, $pageNum_todos - 1), $queryString_todos); ?>"><img src="../../../imagenes/icono/Backward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, min($totalPages_todos, $pageNum_todos + 1), $queryString_todos); ?>"><img src="../../../imagenes/icono/Forward-32.png" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_todos=%d%s", $currentPage, $totalPages_todos, $queryString_todos); ?>"><img src="../../../imagenes/icono/Next-32.png" width="32" height="32" /> Registros <?php echo ($startRow_todos + 1) ?> a <?php echo min($startRow_todos + $maxRows_todos, $totalRows_todos) ?> de <?php echo $totalRows_todos ?> </a></td>
   </tr>
-  <tr>
-    <td>IDPROVEEDOR</td>
-    <td>IDPAIS</td>
-    <td>NOMBREPROVEEDOR</td>
-    <td>DIRECCIONPROVEEDOR</td>
-    <td>TELEFONOPROVEEDOR</td>
-    <td>CORREOPROVEEDOR</td>
-    <td>FECHAINGRESOPROVE</td>
-    <td>GIRO</td>
-    <td>NUMEROREGISTRO</td>
-    <td>WEB</td>
-    <td>DEPTOPAISPROVEEDOR</td>
+  <tr class="retabla">
+    <td align="center" bgcolor="#000000">Código</td>
+    <td align="center" bgcolor="#000000">Proveedor</td>
+    <td align="center" bgcolor="#000000">Código de Pais</td>
+    <td align="center" bgcolor="#000000">Código de Departamento</td>
+    <td align="center" bgcolor="#000000">Dirección</td>
+    <td align="center" bgcolor="#000000">Teléfono</td>
+    <td align="center" bgcolor="#000000">Correo Electrónico</td>
+    <td align="center" bgcolor="#000000">Fecha de Ingreso</td>
+    <td align="center" bgcolor="#000000">Giro</td>
+    <td align="center" bgcolor="#000000">No. de Registro</td>
+    <td align="center" bgcolor="#000000">WEB</td>
   </tr>
   <?php do { ?>
     <tr>
       <td><?php echo $row_todos['IDPROVEEDOR']; ?></td>
-      <td><?php echo $row_todos['IDPAIS']; ?></td>
       <td><?php echo $row_todos['NOMBREPROVEEDOR']; ?></td>
+      <td><?php echo $row_todos['IDPAIS']; ?></td>
+      <td><?php echo $row_todos['DEPTOPAISPROVEEDOR']; ?></td>
       <td><?php echo $row_todos['DIRECCIONPROVEEDOR']; ?></td>
       <td><?php echo $row_todos['TELEFONOPROVEEDOR']; ?></td>
       <td><?php echo $row_todos['CORREOPROVEEDOR']; ?></td>
@@ -103,7 +106,6 @@ $queryString_todos = sprintf("&totalRows_todos=%d%s", $totalRows_todos, $querySt
       <td><?php echo $row_todos['GIRO']; ?></td>
       <td><?php echo $row_todos['NUMEROREGISTRO']; ?></td>
       <td><?php echo $row_todos['WEB']; ?></td>
-      <td><?php echo $row_todos['DEPTOPAISPROVEEDOR']; ?></td>
     </tr>
     <?php } while ($row_todos = mysql_fetch_assoc($todos)); ?>
 </table>

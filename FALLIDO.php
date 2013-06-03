@@ -1,5 +1,5 @@
 <?php require_once('Connections/basepangloria.php'); ?>
-<?php 
+<?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -48,7 +48,7 @@ if (isset($_POST['user'])) {
   $MM_fldUserAuthorization = "IdRol";
   $MM_redirectLoginSuccess = "base.php";
   $MM_redirectLoginFailed = "index.php";
-  $MM_redirecttoReferrer = true;
+  $MM_redirecttoReferrer = false;
   mysql_select_db($database_basepangloria, $basepangloria);
   	
   $LoginRS__query=sprintf("SELECT NOMBREUSUARIO, CONTRASENA, IdRol FROM CATUSUARIO WHERE NOMBREUSUARIO=%s AND CONTRASENA=%s",
@@ -65,7 +65,7 @@ if (isset($_POST['user'])) {
     $_SESSION['MM_Username'] = $loginUsername;
     $_SESSION['MM_UserGroup'] = $loginStrGroup;	      
 
-    if (isset($_SESSION['PrevUrl']) && true) {
+    if (isset($_SESSION['PrevUrl']) && false) {
       $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
     }
     header("Location: " . $MM_redirectLoginSuccess );

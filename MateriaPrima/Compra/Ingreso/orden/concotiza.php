@@ -118,7 +118,7 @@ $totalRows_consuldetaorprod = mysql_num_rows($consuldetaorprod);
         <td class="retorno"><?php echo $row_Emple['NOMBREEMPLEADO']; ?></td>
       </tr>
       <tr>
-        <td><span class="etifactu">Fehca:</span></td>
+        <td><span class="etifactu">Fecha:</span></td>
         <td class="retorno"><?php echo $row_ultimaorden['FECHACOMPRA']; ?></td>
         <td>Estado de Factura</td>
         <td align="left" class="retorno"><?php echo $row_ESTADOFAC['ESTADO']; ?></td>

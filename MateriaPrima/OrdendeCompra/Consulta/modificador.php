@@ -114,9 +114,9 @@ return true;
   <tr>
     <td><table width="100%" border="0">
       <tr>
-        <td align="left"><p class="deta">Panaderia Gloria</p>
+        <td align="left"><p class="deta">Panadería Gloria</p>
           <p class="etiquetauser">Casa Matriz</p>
-          <p><span class="etiquetauser">Av José Matías Delgado Sur No 42 <br />
+          <p><span class="etiquetauser">Av. José Matías Delgado Sur No 42 <br />
           El Salvador, Santa Ana  </span></p>
           <p><span class="etiquetauser"> Teléfono  : (503) 2440364</span>1</p></td>
         <td align="center" valign="bottom"><img src="../../../imagenes/logotipo.png" width="150" height="100" /></td>
@@ -133,13 +133,13 @@ return true;
               <td align="left" class="retorno"><?php echo $row_provee['NUMEROREGISTRO']; ?></td>
             </tr>
             <tr>
-              <td width="123" class="etifactu">Direccion:</td>
+              <td width="123" class="etifactu">Dirección:</td>
               <td width="254" class="retorno"><?php echo $row_provee['DIRECCIONPROVEEDOR']; ?></td>
-              <td width="150" class="etifactu">Cotizacion que Genera</td>
+              <td width="150" class="etifactu">Cotización que Genera</td>
               <td width="275" class="retorno"><?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO']; ?></td>
             </tr>
             <tr>
-              <td class="etifactu">Telefono:</td>
+              <td class="etifactu">Teléfono:</td>
               <td class="retorno"><?php echo $row_provee['TELEFONOPROVEEDOR']; ?></td>
               <td class="etifactu">Fecha de Entrega</td>
               <td class="retorno"><?php echo $row_ULTIMOENCA['FECHAENTREGA']; ?></td>
@@ -161,10 +161,10 @@ return true;
           <td colspan="6" align="left" bgcolor="#000000"><input name="load" type="button" onclick="location.href='modificador.php?varia=<?php echo $row_ULTIMOENCA['IDORDEN']; ?>&amp;root=<?php echo $row_ULTIMOENCA['IDORDEN']; ?>&amp;IDENCABEZADO=<?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO'];?>'" value="Cargar Detalle"  /></td>
         </tr>
         <tr class="retabla">
-          <td width="166" bgcolor="#000000">Numero Referencial</td>
+          <td width="166" bgcolor="#000000">Numero Referencia</td>
           <td width="166" bgcolor="#000000">Materia Prima</td>
           <td width="144" bgcolor="#000000">Unidad de Medida</td>
-          <td width="195" bgcolor="#000000">Cantida de Producto</td>
+          <td width="195" bgcolor="#000000">Cantidad de Producto</td>
           <td width="208" bgcolor="#000000">Precio Unitario</td>
           <td width="208" bgcolor="#000000"> Costo</td>
         </tr>

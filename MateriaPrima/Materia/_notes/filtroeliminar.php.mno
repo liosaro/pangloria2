@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_filtromate" value="name:IDMATPRIMA;datatype:int,name:IDTIPO;datatype:int,name:DESCRIPCION;datatype:blob,name:UBICACIONBODEGA;datatype:int,name:PrecioUltCompra;datatype:real,name:EDITA;datatype:int,name:ELIMIN;datatype:int,name:CantDisponible;datatype:int" />
+</info>
