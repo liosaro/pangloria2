@@ -8,11 +8,11 @@ function OnSubmitForm()
 {
   if(document.form1.radio[0].checked == true)
   {
-    document.form1.action ="Ingreso/orden/concotiza.php";
+    document.form1.action ="orden/Filtro.php";
   }
   if(document.form1.radio[1].checked == true)
   {
-    document.form1.action ="Ingreso/noorden/concotiza.php";
+    document.form1.action ="noorden/Filtro.php";
   }
   return true;
 }
@@ -20,7 +20,7 @@ function OnSubmitForm()
 </head>
 
 <body>
-<p>Elija si la compra a ingresar Posee Orden de Compra:</p>
+<p>Elija si la compra a modificar Posee Orden de Compra:</p>
 <form id="form1" name="form1" method="post" onsubmit="return OnSubmitForm();" action="">
   <p>
     <label>

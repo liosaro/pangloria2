@@ -1,4 +1,4 @@
-<?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -32,7 +32,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 mysql_select_db($database_basepangloria, $basepangloria);
 $id=$_GET["root"];
-$query = "UPDATE TRNDETALLEORDENCOMPRA SET ELIMIN=1 WHERE IDDETALLECOMP=$id";
+$query = "UPDATE TRNDETALLECOMPRA SET ELIMINA=1 WHERE IDCOMPRA=$id";
 
     $result = mysql_query($query);
 

@@ -1,5 +1,5 @@
 <head> 
-<?php require_once('../../../Connections/basepangloria.php'); 
+<?php require_once('../../../../Connections/basepangloria.php'); 
 mysql_select_db($database_basepangloria, $basepangloria);
 ?>
 
@@ -8,9 +8,7 @@ mysql_select_db($database_basepangloria, $basepangloria);
 
 <?php  
 // consulto la el ultimo numero de orden emitida, en este caso el encabezado, y lo ordeno de forma desendente
-$query_ulencado = "SELECT IDORDEN FROM TRNENCAORDCOMPRA ORDER BY IDORDEN DESC";
-$ulencado = mysql_query($query_ulencado, $basepangloria) or die(mysql_error());
-$row_ulencado = mysql_fetch_assoc($ulencado);
+$row_ulencado = $_GET['enca'];
 //verificamos que se marcara al menos 1 checkbox 
 echo '<pre>';
 echo '<p>Se guardaron los siguientes registros:</p>';
@@ -29,21 +27,7 @@ if (isset($_POST['very'])) {
 			   echo '<p>Precio Unitario: '.$fill['PRECIOUNITARIO'].'</p>';
 			   echo '<p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>';
      } 
-}
-
-function urlActual() {
- $pageURL = 'http://';
- if ($_SERVER["SERVER_PORT"] != "80") {
- $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
- $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- return $pageURL;
- }
-$url = $_SERVER['HTTP_REFERER'];
-echo $url;
-header ("location: $url ");
-?> 
+}?> 
 </head> 
  
 <body> 

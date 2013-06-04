@@ -1,4 +1,50 @@
-<?php require_once('../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "39";
+$MM_donotCheckaccess = "false";
+
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
+
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -45,7 +91,7 @@ mysql_select_db($database_basepangloria, $basepangloria);
 
         $fechafin = '"' . $_GET['fechaf'] . '"';
 
-        $row_consulta = "SELECT IDORDEN, FECHAEMISIONORDCOM, FECHAENTREGA FROM TRNENCAORDCOMPRA WHERE FECHAEMISIONORDCOM BETWEEN $fechainicio AND $fechafin And ELIMIN=0 AND EDITA=0 ORDER BY FECHAEMISIONORDCOM DESC";
+        $row_consulta = "SELECT ID_DETENCCOM,FECHACOMPRA,NOFACTURA  FROM TRNENCABEZADOCOMPRA WHERE FECHACOMPRA BETWEEN $fechainicio AND $fechafin And ELIMIN=0 AND IDORDEN>1 ORDER BY FECHACOMPRA DESC";
 
         $result_buscar = mysql_query($row_consulta);
 
@@ -86,20 +132,21 @@ mysql_select_db($database_basepangloria, $basepangloria);
 </table>
 <table width="820" border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td>Codigo de Orden de Producion</td>
-    <td>Fecha de Emision</td>
-    <td>Fecha de Entrega</td>
+    <td>No. de La Compra</td>
+    <td>Fecha de de Compra</td>
+    <td>No. Documento de Referencia</td>
     <td>Modificar</td>
   </tr>
   <?php do { ?>
     <tr>
-      <td><?php echo $result['IDORDEN']; ?></td>
-      <td><?php echo $result['FECHAEMISIONORDCOM']; ?></td>
-      <td><?php echo $result['FECHAENTREGA']; ?></td>
-      <td><a href="modificador.php?root=<?php echo $result['IDORDEN']; ?>"><img src="../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
+      <td><?php echo $result['ID_DETENCCOM']; ?></td>
+      <td><?php echo $result['FECHACOMPRA']; ?></td>
+      <td><?php echo $result['NOFACTURA']; ?></td>
+      <td><a href="concotiza.php?root=<?php echo $result['ID_DETENCCOM']; ?>"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
     </tr>
     <?php } while ($result = mysql_fetch_assoc($result_buscar)); ?>
 </table>
+<p>&nbsp;</p>
 </body>
 </html>
 <?php
