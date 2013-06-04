@@ -51,14 +51,14 @@ function OnSubmitForm()
           <td width="186">Seleccione tipo de Consulta:</td>
           <td width="188">
           <input name="radiosearch" type="radio" value="1" checked>
-          Codigo Ubicacion</td>
+          Código Ubicación</td>
           <td width="39">&nbsp;</td>
           <td width="200">&nbsp;</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
           <td><input type="radio" name="radiosearch" id="id6" value="id" />
-            Ubicacion</td>
+            Ubicación</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>

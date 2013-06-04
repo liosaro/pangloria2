@@ -83,9 +83,9 @@ return true;
 <body>
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center" bgcolor="#999999"><strong>Modificacion</strong></td>
-    <td align="center" bgcolor="#999999"><strong>Codigo de Ubicacion</strong></td>
-    <td align="center" bgcolor="#999999"><strong>Ubicacion</strong></td>
+    <td align="center" bgcolor="#999999"><strong>Modificación</strong></td>
+    <td align="center" bgcolor="#999999"><strong>Código de Ubicación</strong></td>
+    <td align="center" bgcolor="#999999"><strong>Ubicación</strong></td>
   </tr>
   <?php do { ?>
     <tr>

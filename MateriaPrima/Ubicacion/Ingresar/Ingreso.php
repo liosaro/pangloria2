@@ -82,14 +82,14 @@ form.submit();
 <form action="<?php echo $editFormAction; ?>" method="POST" name="form1" id="form1">
   <table align="center">
     <tr valign="baseline">
-      <td colspan="2" align="center" nowrap="nowrap" bgcolor="#999999" class="encaforms">Ingreso de Ubicacion de Materia Prima</td>
+      <td colspan="2" align="center" nowrap="nowrap" bgcolor="#999999" class="encaforms">Ingreso de Ubicación de Materia Prima</td>
     </tr>
     <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Codigo de Ubicacion:</td>
+      <td nowrap="nowrap" align="right">Código de Ubicación:</td>
       <td><input name="IDPERMISO" type="text" disabled="disabled" value="<?php echo $row_Recordset1['IDUBICACION']+1; ?>" size="32" readonly="readonly" /></td>
     </tr>
     <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Ubicacion:</td>
+      <td nowrap="nowrap" align="right">Ubicación:</td>
       <td><span id="sprytextfield1">
       <input type="text" name="DESCRIPCION" value="" size="32" />
       <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldMinCharsMsg">No se cumple el mínimo de caracteres requerido.</span></span></td>

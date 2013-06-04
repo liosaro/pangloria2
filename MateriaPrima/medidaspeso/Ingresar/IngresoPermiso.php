@@ -107,7 +107,7 @@ form.submit();
       <td colspan="2" align="center" nowrap="nowrap" bgcolor="#999999" class="encaforms">Ingreso de Medidas de Peso</td>
     </tr>
     <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Codigo de Unidad de Peso:</td>
+      <td nowrap="nowrap" align="right">Código de Unidad de Peso:</td>
       <td><input name="IDPERMISO" type="text" disabled="disabled" value="<?php echo $row_Recordset1['IDUNIDAD']+1; ?>" size="32" readonly="readonly" /></td>
     </tr>
     <tr valign="baseline">

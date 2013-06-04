@@ -90,14 +90,14 @@ body {
 <body>
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td colspan="2" bgcolor="#999999">Detalle de Consulta de Ubicacion</td>
+    <td colspan="2" bgcolor="#999999">Detalle de Consulta de Ubicación</td>
   </tr>
   <tr>
     <td colspan="2"><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, 0, $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, max(0, $pageNum_conpermiso - 1), $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, min($totalPages_conpermiso, $pageNum_conpermiso + 1), $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_conpermiso=%d%s", $currentPage, $totalPages_conpermiso, $queryString_conpermiso); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a></td>
   </tr>
   <tr>
-    <td>Codigo de Ubicacion</td>
-    <td>Ubicacion</td>
+    <td>Código de Ubicación</td>
+    <td>Ubicación</td>
   </tr>
   <?php do { ?>
     <tr>

@@ -107,13 +107,13 @@ $queryString_consultaProducto = sprintf("&totalRows_consultaProducto=%d%s", $tot
                 <p><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, 0, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Back-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, max(0, $pageNum_consultapermi - 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Backward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, min($totalPages_consultapermi, $pageNum_consultapermi + 1), $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Forward-32.png" alt="" width="32" height="32" /></a><a href="<?php printf("%s?pageNum_consultapermi=%d%s", $currentPage, $totalPages_consultapermi, $queryString_consultapermi); ?>"><img src="../../../imagenes/icono/Next-32.png" alt="" width="32" height="32" /></a> Registros <?php echo ($startRow_consultapermi + 1) ?> a <?php echo min($startRow_consultapermi + $maxRows_consultapermi, $totalRows_consultapermi) ?> de <?php echo $totalRows_consultapermi ?></p>
                 <p>
                   <input type="text" name="filtroprod" id="filtroprod" />
-                  <input type="submit" name="filtrar" id="filtrar" value="Filtrar" />
+                  <input type="submit" name="filtrar" id="filtrar" value="Nombre de Ubicacion" />
                 </p>
                 <table border="1" cellpadding="0" cellspacing="0">
                   <tr>
                     <td align="center">&nbsp;</td>
-                    <td align="center">Codigo Ubicacion</td>
-                    <td align="center">Ubicacion</td>
+                    <td align="center">Código Ubicación</td>
+                    <td align="center">Ubicación</td>
                     <td align="center">Modificar</td>
                     </tr>
                   <?php do { ?>

@@ -73,13 +73,13 @@ body {
 <iframe src="modificadorPermiso.php" name="modiprodu" width="780" height="100" align="middle" scrolling="No" frameborder="0" id="modiproducs"></iframe>
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center" bgcolor="#999999"><strong>Modificacion</strong></td>
-    <td align="center" bgcolor="#999999"><strong>Codigo de Ubicaion</strong></td>
-    <td align="center" bgcolor="#999999"><strong>Ubicacion</strong></td>
+    <td align="center" bgcolor="#999999"><strong>Modificación</strong></td>
+    <td align="center" bgcolor="#999999"><strong>Código de Ubicación</strong></td>
+    <td align="center" bgcolor="#999999"><strong>Ubicación</strong></td>
   </tr>
   <?php do { ?>
     <tr>
-      <td><a href="modificadorPermiso.php?root=<?php echo $row_filtradoproducto['IDUBICACION']; ?>" target="modiprodu">Modificar</a></td>
+      <td><a href="modificadorPermiso.php?root=<?php echo $row_filtradoproducto['IDUBICACION']; ?>" target="modiprodu"><img src="../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
       <td><?php echo $row_filtradoproducto['IDUBICACION']; ?></td>
       <td><?php echo $row_filtradoproducto['LUGAR']; ?></td>
     </tr>
