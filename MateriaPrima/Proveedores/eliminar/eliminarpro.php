@@ -1,4 +1,4 @@
-<?php require_once('file:///C|/Users/Marielos/Documents/Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -31,7 +31,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 mysql_select_db($database_basepangloria, $basepangloria);
-$id=$_GET["id"];
+$id=$_GET["root"];
 $query = "UPDATE CATPROVEEDOR SET ELIMIN=1 WHERE IDPROVEEDOR=$id";
 
     $result = mysql_query($query);
@@ -42,6 +42,6 @@ $query = "UPDATE CATPROVEEDOR SET ELIMIN=1 WHERE IDPROVEEDOR=$id";
         //Finalizo la aplicación
         exit;
     }
-header ("location: filtro.php ");
+header ("location: eliminacionProve.php ");
 
 ?>

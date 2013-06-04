@@ -268,13 +268,17 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <p><a  href="MateriaPrima/Ubicacion/Modificar/modificarpermisos.php" target="contenedor">Modificar Ubicaciones</a></p>
               <p><a  href="MateriaPrima/Ubicacion/Eliminar/eliminarpermisos.php" target="contenedor">Eliminar Ubicaciones</a></p>
               <p><a href="MateriaPrima/Ubicacion/Consultar/consultapermiso.php" target="contenedor">Consultar Ubicaciones</a></p>
-              <p>Informe de Ubicaciones </p>
             </div>
           </div>
         </div>
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Proveedores</div>
-          <div class="AccordionPanelContent"><a href="MateriaPrima/Proveedores/ingresar/ingresar_proveedor.php">Ingresar_Proveedor</a></div>
+          <div class="AccordionPanelContent">
+            <p><a href="MateriaPrima/Proveedores/ingresar/ingresar_proveedor.php" target="contenedor">Ingresar</a></p>
+            <p><a href="MateriaPrima/Proveedores/modificar/ModiProveedores.php" target="contenedor">Modificar</a></p>
+            <p><a href="MateriaPrima/Proveedores/eliminar/eliminacionProve.php" target="contenedor">Eliminar</a></p>
+            <p><a href="MateriaPrima/Proveedores/consultar/consultar_proveedores.php" target="contenedor">Consultar</a></p>
+          </div>
         </div>
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Medidas Peso</div>
@@ -289,7 +293,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Cotizaciones</div>
           <div class="AccordionPanelContent">
-            <p>Ingresar Cotizacion</p>
+            <p><a href="MateriaPrima/cotizacion/solicitud_programa.php" target="contenedor">Solicitar Cotizacion</a></p>
             <p>Modificar Cotizacion</p>
             <p>Eliminar Coticacion</p>
             <p>Consultar Cotizacion</p>
@@ -356,7 +360,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
     </div>
 </div>
     </div></td>
-    <td align="center" valign="middle"><div class="contido" id="contido"><iframe src="dibujo.html" name="contenedor" width="835" marginwidth="0" height="675" marginheight="0" align="left" scrolling="no" frameborder="0"></iframe></div></td>
+    <td align="center" valign="middle"><div class="contido" id="contido"><iframe src="dibujo.html" name="contenedor" width="835" marginwidth="0" height="675" marginheight="0" align="left" scrolling="auto" frameborder="0"></iframe></div></td>
   </tr>
 </table>
 </div>

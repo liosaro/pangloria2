@@ -1,5 +1,50 @@
 <?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
+
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
+<?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -33,26 +78,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 $currentPage = $_SERVER["PHP_SELF"];
 
-$maxRows_elimiProve = 10;
-$pageNum_elimiProve = 0;
-if (isset($_GET['pageNum_elimiProve'])) {
-  $pageNum_elimiProve = $_GET['pageNum_elimiProve'];
-}
-$startRow_elimiProve = $pageNum_elimiProve * $maxRows_elimiProve;
-
 mysql_select_db($database_basepangloria, $basepangloria);
 $query_elimiProve = "SELECT * FROM CATPROVEEDOR WHERE ELIMIN=0 and EDITA =0 ORDER BY IDPROVEEDOR ASC";
-$query_limit_elimiProve = sprintf("%s LIMIT %d, %d", $query_elimiProve, $startRow_elimiProve, $maxRows_elimiProve);
-$elimiProve = mysql_query($query_limit_elimiProve, $basepangloria) or die(mysql_error());
+$elimiProve = mysql_query($query_elimiProve, $basepangloria) or die(mysql_error());
 $row_elimiProve = mysql_fetch_assoc($elimiProve);
-
-if (isset($_GET['totalRows_elimiProve'])) {
-  $totalRows_elimiProve = $_GET['totalRows_elimiProve'];
-} else {
-  $all_elimiProve = mysql_query($query_elimiProve);
-  $totalRows_elimiProve = mysql_num_rows($all_elimiProve);
-}
-$totalPages_elimiProve = ceil($totalRows_elimiProve/$maxRows_elimiProve)-1;
+$totalRows_elimiProve = mysql_num_rows($elimiProve);
 
 $queryString_elimiProve = "";
 if (!empty($_SERVER['QUERY_STRING'])) {
@@ -101,13 +131,16 @@ return true;
 <tr>
   <td><form action="filtroeliminacionProve.php" method="post" name="form1" target="conten" id="form1">
     <label for="filtroProve"></label>
-    Ingrese el Nombre del Proveedor a Eliminar
+    Ingrese el Nombre del Proveedor a Filtrar
     <input type="text" name="filtroProve" id="filtroProve" />
-    <input type="submit" name="button" id="button" value="Enviar" />
+    <input type="submit" name="button" id="button" value="Filtrar" />
   </form></td>
 </tr>
 <tr>
   <td><table border="1">
+    <tr class="retabla">
+      <td colspan="7" align="center">&nbsp;</td>
+      </tr>
     <tr class="retabla">
       <td align="center" bgcolor="#000000">Eliminar</td>
       <td align="center" bgcolor="#000000">Código</td>
