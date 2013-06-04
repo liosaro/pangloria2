@@ -316,6 +316,15 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
           </div>
         </div>
         <div class="AccordionPanel">
+          <div class="AccordionPanelTab">Devolucion de Compra</div>
+          <div class="AccordionPanelContent">
+            <p><a href="MateriaPrima/Devolucion/Ingresar/ingreso.php " target="contenedor" >Ingresar Devolucion </a></p>
+            <p><a href="MateriaPrima/Devolucion/Modificar/Filtro.php " target="contenedor">Modificar Devolucion </a></p>
+            <p><a href="MateriaPrima/Devolucion/Eliminar/Filtro.php" target="contenedor">Eliminar Devolucion </a></p>
+            <p><a href="MateriaPrima/Devolucion/Consultar/Filtro.php" target="contenedor">Consultar Devolucion </a></p>
+          </div>
+        </div>
+        <div class="AccordionPanel">
           <div class="AccordionPanelTab">Entrada Inventario</div>
           <div class="AccordionPanelContent">
             <p><a href="MateriaPrima/entradainventario/Ingreso/ingresar.php" target="contenedor">Ingresar Entrada de Inventario</a></p>
@@ -324,19 +333,19 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             <p>Consultar Entrada</p>
             <p>Informe de Entradas</p>
           </div>
-      </div>
-        <div class="AccordionPanel">
-          <div class="AccordionPanelTab">Materia Prima</div>
-          <div class="AccordionPanelContent">
-            <p>Ingresar Materia</p>
-            <p>Modificar Materia</p>
-            <p>Eliminar Materia</p>
-            <p>Consultar Materia</p>
-            <p>Informe de Materias</p>
-          </div>
         </div>
-        <div class="AccordionPanel">
-          <div class="AccordionPanelTab">Vendedores</div>
+<div class="AccordionPanel">
+  <div class="AccordionPanelTab">Materia Prima</div>
+  <div class="AccordionPanelContent">
+    <p>Ingresar Materia</p>
+    <p>Modificar Materia</p>
+    <p>Eliminar Materia</p>
+    <p>Consultar Materia</p>
+    <p>Informe de Materias</p>
+  </div>
+</div>
+<div class="AccordionPanel">
+  <div class="AccordionPanelTab">Vendedores</div>
           <div class="AccordionPanelContent">
             <p>Ingresar Vendedor</p>
             <p>Modificar Vendedor</p>
@@ -344,7 +353,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             <p>Consultar Vendedor</p>
             <p>Informe de Vendedores</p>
           </div>
-        </div>
+    </div>
 </div>
     </div></td>
     <td align="center" valign="middle"><div class="contido" id="contido"><iframe src="dibujo.html" name="contenedor" width="835" marginwidth="0" height="675" marginheight="0" align="left" scrolling="no" frameborder="0"></iframe></div></td>

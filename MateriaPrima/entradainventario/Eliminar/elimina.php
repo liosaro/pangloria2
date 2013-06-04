@@ -1,4 +1,4 @@
-<?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -130,7 +130,7 @@ return true;
     <td align="center" bgcolor="#999999">Encabezado de la Justificacion</td>
   </tr>
   <tr>
-    <td><a href="javascript:;" onclick="aviso('EliminarHead.php?root=<?php echo $row_encabezado['IDENCABEZADO'];?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32" /></a>
+    <td><a href="javascript:;" onclick="aviso('EliminarHead.php?root=<?php echo $row_encabezado['IDENCABEZADO'];?>'); return false;"><img src="../../../imagenes/icono/delete-32.png" width="32" height="32" /></a>
       <table width="815" border="0">
       <tr>
         <td width="153">Codigo de justificacion:</td>

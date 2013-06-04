@@ -141,16 +141,17 @@ $totalRows_consultaDevolucion = mysql_num_rows($consultaDevolucion);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
 <link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
-<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<script>
-function Confirm(form){
 
-alert("Se ha actualizado satisfactoriamente el registro!"); 
-
-form.submit();
-
+<script language="JavaScript">
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
 }
-
+else {
+document.location = url;
+return true;
+}
+}
 </script>
 <link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
