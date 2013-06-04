@@ -1,5 +1,49 @@
 <?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
 
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -125,18 +169,23 @@ $totalRows_modific = mysql_num_rows($modific);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script language="JavaScript">
- function Abrir_ventana (pagina) {
- var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=508, height=365, top=85, left=140";
- window.open(pagina,"",opciones);
- }
- </script>
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
+}
+else {
+document.location = url;
+return true;
+}
+}
+</script>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <table width="820" border="0">
   <tr>
-    <td align="center" class="encaforms">Modificar Orden  de  Compra</td>
+    <td align="center" class="encaforms">Modificar   Compra</td>
   </tr>
   <tr>
     <td><table width="820" border="0">
@@ -258,7 +307,7 @@ $coste = ($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECI
 		?>
         <tr>
           <td><a href="concotiza.php?root=<?php echo $row_ultimaorden['ID_DETENCCOM']; ?>&compra=<?php echo $row_consuldetaorprod['IDCOMPRA']; ?>"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
-          <td><a href="eliminar.php?root=<?php echo $row_consuldetaorprod['IDCOMPRA']; ?>"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32" /></td>
+          <td><a href="javascript:;" onclick="aviso('eliminar.php?root=<?php echo $row_consuldetaorprod['IDCOMPRA']; ?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32" /></td>
           <td height="33"><?php echo $row_consuldetaorprod['IDCOMPRA']; ?></td>
           <td><?php echo $row_consulunipeso['TIPOUNIDAD']; ?></td>
           <td><?php echo $row_consulmatpri['DESCRIPCION']; ?></td>

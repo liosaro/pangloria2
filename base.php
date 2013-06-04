@@ -92,14 +92,14 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
       <tr>
         <td align="right"><div class="tope" id="admin2tope">
           <ul id="MenuBar1" class="MenuBarHorizontal">
-            <li><a class="MenuBarItemSubmenu" href="#">Produccion</a>
+            <li><a class="MenuBarItemSubmenu" href="#">Producción</a>
               <ul>
-                <li><a href="proceso/ModificarOrdenProdccion.php" target="contenedor" class="MenuBarItemSubmenu">Orden de Produccion</a>
+                <li><a href="proceso/ModificarOrdenProdccion.php" target="contenedor" class="MenuBarItemSubmenu">Orden de Producción</a>
                   <ul>
-                    <li><a href="proceso/produccion/ordendeproduccion/ingreso/insert.php" target="contenedor">Ingresar Orden de Produccion</a></li>
-                    <li><a href="proceso/produccion/ordendeproduccion/Modificacion/filtro.php" target="contenedor">Modificar Orden de Produccion</a></li>
-                    <li><a href="proceso/produccion/ordendeproduccion/eliminar/filtro.php" target="contenedor">Eliminar Orden de Produccion</a></li>
-                    <li><a href="proceso/produccion/ordendeproduccion/consulta/filtro.php" target="contenedor">Consultar Orden de Produccion</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/ingreso/insert.php" target="contenedor">Ingresar Orden de Producción</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/Modificacion/filtro.php" target="contenedor">Modificar Orden de Producción</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/eliminar/filtro.php" target="contenedor">Eliminar Orden de Producción</a></li>
+                    <li><a href="proceso/produccion/ordendeproduccion/consulta/filtro.php" target="contenedor">Consultar Orden de Producción</a></li>
                   </ul>
                 </li>
 <li><a href="#">Elemento 1.3</a></li>
@@ -125,12 +125,12 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 </li>
                 <li><a href="#">O</a></li>
                 <li><a href="#">Entrega de Materia Prima</a></li>
-                <li><a href="#" class="MenuBarItemSubmenu">Justificacion de Perdida de Materia Prima</a>
+                <li><a href="#" class="MenuBarItemSubmenu">Justificación de Perdida de Materia Prima</a>
                   <ul>
-                    <li><a href="proceso/promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificacion</a></li>
-                    <li><a href="proceso/promateriaprima/PerMateriaPri/Modificar/modificarjustificacion.php" target="contenedor">Modificar Justificacion</a></li>
-                    <li><a href="proceso/promateriaprima/PerMateriaPri/Eliminar/contenidoeliminador.php" target="contenedor">Eliminar Justificacion</a></li>
-                    <li><a href="proceso/promateriaprima/PerMateriaPri/Consultar/filtro.php" target="contenedor">Consultar Justificacion Perdida Materia Prima</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificación</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Modificar/modificarjustificacion.php" target="contenedor">Modificar Justificación</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Eliminar/contenidoeliminador.php" target="contenedor">Eliminar Justificación</a></li>
+                    <li><a href="proceso/promateriaprima/PerMateriaPri/Consultar/filtro.php" target="contenedor">Consultar Justificación Perdida Materia Prima</a></li>
                   </ul>
                 </li>
 </ul>
@@ -143,7 +143,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                     <li><a href="#">Consultar Control</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Control de Produccion</a></li>
+                <li><a href="#">Control de Producción</a></li>
                 <li><a href="#" class="MenuBarItemSubmenu">Control Materia Prima</a>
                   <ul>
                     <li><a href="proceso/promateriaprima/controlmatprima/ingresomatpri.php" target="contenedor">Ingreso</a></li>
@@ -177,7 +177,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               </li>
               </ul>
             </li>
-            <li><a href="#" class="MenuBarItemSubmenu">Administracion</a>
+            <li><a href="#" class="MenuBarItemSubmenu">Administración</a>
               <ul>
                 <li><a href="#" class="MenuBarItemSubmenu">Permisos</a>
                   <ul>
@@ -293,20 +293,20 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Cotizaciones</div>
           <div class="AccordionPanelContent">
-            <p><a href="MateriaPrima/cotizacion/Enviar/solicitud_programa.php" target="contenedor">Solicitar Cotizacion</a></p>
-            <p><a href="MateriaPrima/cotizacion/Ingresar/ejemplo.php" target="contenedor">Ingreso de Cotizacion</a></p>
-            <p><a href="MateriaPrima/cotizacion/Modificar/update_buscar.php" target="contenedor">Modificar Cotizacion</a></p>
-            <p><a href="MateriaPrima/cotizacion/Eliminar/ejemplo_buscar.php" target="contenedor">Eliminar Cotizacion</a></p>
-            <p><a href="MateriaPrima/cotizacion/Consulta/Consultar.php" target="contenedor">Consultar Cotizacion</a></p>
+            <p><a href="MateriaPrima/cotizacion/Enviar/solicitud_programa.php" target="contenedor">Solicitar Cotización</a></p>
+            <p><a href="MateriaPrima/cotizacion/Ingresar/ejemplo.php" target="contenedor">Ingreso de Cotización</a></p>
+            <p><a href="MateriaPrima/cotizacion/Modificar/update_buscar.php" target="contenedor">Modificar Cotización</a></p>
+            <p><a href="MateriaPrima/cotizacion/Eliminar/ejemplo_buscar.php" target="contenedor">Eliminar Cotización</a></p>
+            <p><a href="MateriaPrima/cotizacion/Consulta/Consultar.php" target="contenedor">Consultar Cotización</a></p>
           </div>
         </div>
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Compras</div>
           <div class="AccordionPanelContent">
-            <p>Ingresar Compra</p>
-            <p>Modificar Compra</p>
-            <p>Eliminar Compra</p>
-            <p>Consultar Compra</p>
+            <p><a href="MateriaPrima/Compra/Ingreso/index.php" target="contenedor">Ingresar Compra</a></p>
+            <p><a href="MateriaPrima/Compra/Modificacion/index.php" target="contenedor">Modificar Compra</a></p>
+            <p><a href="MateriaPrima/Compra/Eliminacion/Filtro.php" target="contenedor">Eliminar Compra</a></p>
+            <p><a href="MateriaPrima/Compra/Consulta/Filtro.php" target="contenedor">Consulta de Compras</a></p>
             <p>Informe de Compras</p>
           </div>
         </div>
@@ -320,12 +320,12 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
           </div>
         </div>
         <div class="AccordionPanel">
-          <div class="AccordionPanelTab">Devolucion de Compra</div>
+          <div class="AccordionPanelTab">Devolución de Compra</div>
           <div class="AccordionPanelContent">
-            <p><a href="MateriaPrima/Devolucion/Ingresar/ingreso.php " target="contenedor" >Ingresar Devolucion </a></p>
-            <p><a href="MateriaPrima/Devolucion/Modificar/Filtro.php " target="contenedor">Modificar Devolucion </a></p>
-            <p><a href="MateriaPrima/Devolucion/Eliminar/Filtro.php" target="contenedor">Eliminar Devolucion </a></p>
-            <p><a href="MateriaPrima/Devolucion/Consultar/Filtro.php" target="contenedor">Consultar Devolucion </a></p>
+            <p><a href="MateriaPrima/Devolucion/Ingresar/ingreso.php " target="contenedor" >Ingresar Devolución </a></p>
+            <p><a href="MateriaPrima/Devolucion/Modificar/Filtro.php " target="contenedor">Modificar Devolución </a></p>
+            <p><a href="MateriaPrima/Devolucion/Eliminar/Filtro.php" target="contenedor">Eliminar Devolución </a></p>
+            <p><a href="MateriaPrima/Devolucion/Consultar/Filtro.php" target="contenedor">Consultar Devolución </a></p>
           </div>
         </div>
         <div class="AccordionPanel">

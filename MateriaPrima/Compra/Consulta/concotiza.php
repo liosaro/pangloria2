@@ -1,4 +1,4 @@
-<?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -32,7 +32,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
-$MM_restrictGoTo = "../../../../seguridad.php";
+$MM_restrictGoTo = "../../../seguridad.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
@@ -75,27 +75,13 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-
-$editFormAction = $_SERVER['PHP_SELF'];
-if (isset($_SERVER['QUERY_STRING'])) {
-  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO TRNDETALLECOMPRA (IDCOMPRA, IDUNIDAD, ID_DETENCCOM, CANTIDADMATPRIMA, MATERIAPRIMA, PRECIOUNIDAD) VALUES (%s, %s, %s, %s, %s, %s)",
-                       GetSQLValueString($_POST['IDCOMPRA'], "int"),
-                       GetSQLValueString($_POST['IDUNIDAD'], "int"),
-                       GetSQLValueString($_POST['ID_DETENCCOM'], "int"),
-                       GetSQLValueString($_POST['CANTIDADMATPRIMA'], "int"),
-                       GetSQLValueString($_POST['MATERIAPRIMA'], "int"),
-                       GetSQLValueString($_POST['PRECIOUNIDAD'], "double"));
-
-  mysql_select_db($database_basepangloria, $basepangloria);
-  $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
-}
 // consulta para seleccionar el ultimo encabezado de compra
+$colname_ultimaorden = "-1";
+if (isset($_GET['root'])) {
+  $colname_ultimaorden = $_GET['root'];
+}
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ultimaorden = "SELECT ID_DETENCCOM, IDPROVEEDOR, IDORDEN, IDEMPLEADO, ID_TIPO_FACTURA, IDESTAFACTURA, NOFACTURA, FECHACOMPRA FROM TRNENCABEZADOCOMPRA WHERE ELIMIN = 0 ORDER BY ID_DETENCCOM DESC";
+$query_ultimaorden = sprintf("SELECT ID_DETENCCOM, IDPROVEEDOR, IDORDEN, IDEMPLEADO, ID_TIPO_FACTURA, IDESTAFACTURA, NOFACTURA, FECHACOMPRA FROM TRNENCABEZADOCOMPRA WHERE ID_DETENCCOM = %s ORDER BY ID_DETENCCOM DESC", GetSQLValueString($colname_ultimaorden, "int"));
 $ultimaorden = mysql_query($query_ultimaorden, $basepangloria) or die(mysql_error());
 $row_ultimaorden = mysql_fetch_assoc($ultimaorden);
 $totalRows_ultimaorden = mysql_num_rows($ultimaorden);
@@ -127,25 +113,13 @@ $query_ESTADOFAC = "SELECT IDESTAFACTURA, ESTADO FROM CATESTADOFACTURA WHERE IDE
 $ESTADOFAC = mysql_query($query_ESTADOFAC, $basepangloria) or die(mysql_error());
 $row_ESTADOFAC = mysql_fetch_assoc($ESTADOFAC);
 $totalRows_ESTADOFAC = mysql_num_rows($ESTADOFAC);
-// Consulta de el detalle de la orden de compra
-$eNCA= $row_ultimaorden['ID_DETENCCOM']; 
+$eNCA= $row_ultimaorden['ID_DETENCCOM'];
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_consuldetaorprod = "SELECT * FROM TRNDETALLECOMPRA  WHERE ELIMINA = 0 AND ID_DETENCCOM= $eNCA ";
-$consuldetaorprod = mysql_query($query_consuldetaorprod, $basepangloria) or die(mysql_error());
-$row_consuldetaorprod = mysql_fetch_assoc($consuldetaorprod);
-$totalRows_consuldetaorprod = mysql_num_rows($consuldetaorprod);
+$query_registrodetalle = "SELECT IDCOMPRA, IDUNIDAD, CANTIDADMATPRIMA, MATERIAPRIMA, PRECIOUNIDAD FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM = $eNCA AND ELIMINA=0";
+$registrodetalle = mysql_query($query_registrodetalle, $basepangloria) or die(mysql_error());
+$row_registrodetalle = mysql_fetch_assoc($registrodetalle);
+$totalRows_registrodetalle = mysql_num_rows($registrodetalle);
 
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_Materia = "SELECT IDMATPRIMA, DESCRIPCION FROM CATMATERIAPRIMA WHERE ELIMIN = 0 ORDER BY DESCRIPCION ASC";
-$Materia = mysql_query($query_Materia, $basepangloria) or die(mysql_error());
-$row_Materia = mysql_fetch_assoc($Materia);
-$totalRows_Materia = mysql_num_rows($Materia);
-
-mysql_select_db($database_basepangloria, $basepangloria);
-$query_Unidad = "SELECT IDUNIDAD, TIPOUNIDAD FROM CATUNIDADES WHERE ELIMIN = 0 ORDER BY TIPOUNIDAD ASC";
-$Unidad = mysql_query($query_Unidad, $basepangloria) or die(mysql_error());
-$row_Unidad = mysql_fetch_assoc($Unidad);
-$totalRows_Unidad = mysql_num_rows($Unidad);
 
 ?>
 
@@ -154,18 +128,23 @@ $totalRows_Unidad = mysql_num_rows($Unidad);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script language="JavaScript">
- function Abrir_ventana (pagina) {
- var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=508, height=365, top=85, left=140";
- window.open(pagina,"",opciones);
- }
- </script>
-<link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
+}
+else {
+document.location = url;
+return true;
+}
+}
+</script>
+<link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <table width="820" border="0">
   <tr>
-    <td align="center" class="encaforms">Ingreso de  Compra</td>
+    <td align="center" class="encaforms">Consulta de  Compra</td>
   </tr>
   <tr>
     <td><table width="820" border="0">
@@ -173,7 +152,7 @@ $totalRows_Unidad = mysql_num_rows($Unidad);
         <td class="etifactu">&nbsp;</td>
         <td class="retorno">&nbsp;</td>
         <td class="etifactu">&nbsp;</td>
-        <td align="right" class="retorno"><a href="compras.php" target="popup" onclick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" width="32" height="32" /></a></td>
+        <td align="right" class="retorno">&nbsp;</td>
       </tr>
       <tr>
         <td width="123" class="etifactu">No. de Compra</td>
@@ -202,100 +181,46 @@ $totalRows_Unidad = mysql_num_rows($Unidad);
     </table></td>
   </tr>
   <tr>
-    <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-      <table align="center">
-        <tr valign="baseline">
-          <td nowrap="nowrap" align="right">Unidad de Medida:</td>
-          <td nowrap="nowrap" align="right"><select name="IDUNIDAD" onchange="document.form1.enviar.disabled=false;">
-            <?php 
-do {  
-?>
-            <option value="<?php echo $row_Unidad['IDUNIDAD']?>" ><?php echo $row_Unidad['TIPOUNIDAD']?></option>
-            <?php
-} while ($row_Unidad = mysql_fetch_assoc($Unidad));
-?>
-          </select></td>
-          <td>Cantidad de Materia Prima:</td>
-          <td><input type="text" name="CANTIDADMATPRIMA" value="" size="9" /></td>
-          <td>Materia Prima:</td>
-          <td><select name="MATERIAPRIMA" >
-            <?php 
-do {  
-?>
-            <option value="<?php echo $row_Materia['IDMATPRIMA']?>" ><?php echo $row_Materia['DESCRIPCION']?></option>
-            <?php
-} while ($row_Materia = mysql_fetch_assoc($Materia));
-?>
-          </select></td>
-          <td>Precio Unitario:</td>
-          <td><input type="text" name="PRECIOUNIDAD" value="" size="9" /></td>
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td><input name="enviar" type="submit" disabled id="enviar" value="Insertar registro"/></td>
-        </tr>
-      </table>
-      <input type="hidden" name="IDCOMPRA" value="" />
-      <input type="hidden" name="ID_DETENCCOM" value="<?php echo $row_ultimaorden['ID_DETENCCOM']; ?>" />
-      <input type="hidden" name="MM_insert" value="form1" />
-    </form></td>
-  </tr>
-  <tr>
-    <td><form action="scriptcompra.php" method="post" target="_self" id="detil">
-      <p>&nbsp;</p>
-      <table width="820" border="1">
-        <tr>
-          <td colspan="6" bgcolor="#999999" class="deta">Registros Agregados</td>
-          </tr>
+    <td><form action="scriptcompra.php?enca=<?php echo $row_ultimaorden['ID_DETENCCOM']; ?>" method="post" target="_self" id="detil">
+      <table width="820" border="1" cellpadding="0" cellspacing="0">
         <tr class="retabla">
-          <td bgcolor="#000000">Detalle</td>
-          <td bgcolor="#000000">Unidad de Peso</td>
-          <td bgcolor="#000000">Materia Prima</td>
-          <td bgcolor="#000000">Cantidad de Producto</td>
-          <td bgcolor="#000000">Precio Unitario</td>
-          <td bgcolor="#000000">Costo</td>
+          <td align="center" bgcolor="#000000">Codigo</td>
+          <td align="center" bgcolor="#000000">Unidad de Medida</td>
+          <td align="center" bgcolor="#000000">Cantidad</td>
+          <td align="center" bgcolor="#000000">Materia Prima</td>
+          <td align="center" bgcolor="#000000">Precio Unitario</td>
+          <td align="center" bgcolor="#000000">Costo</td>
         </tr>
-        <?php do { ?>
-        <?php
-		$i= $i+1;
+        <?php do { ?><?php
 		mysql_select_db($database_basepangloria, $basepangloria);
-		$consumat = $row_consuldetaorprod['MATERIAPRIMA'];
+		$consumat = $row_registrodetalle['MATERIAPRIMA'];
 $query_consulmatpri = sprintf("SELECT  DESCRIPCION FROM CATMATERIAPRIMA WHERE IDMATPRIMA = '$consumat'");
 $consulmatpri = mysql_query($query_consulmatpri, $basepangloria) or die(mysql_error());
 $row_consulmatpri = mysql_fetch_assoc($consulmatpri);
 $totalRows_consulmatpri = mysql_num_rows($consulmatpri);
-$conunidad = $row_consuldetaorprod['IDUNIDAD'];
+$conunidad = $row_registrodetalle['IDUNIDAD'];
 $query_consulunipeso = "SELECT * FROM CATUNIDADES where IDUNIDAD='$conunidad' ";
 $consulunipeso = mysql_query($query_consulunipeso, $basepangloria) or die(mysql_error());
 $row_consulunipeso = mysql_fetch_assoc($consulunipeso);
 $totalRows_consulunipeso = mysql_num_rows($consulunipeso);
-$p= $_POST['desc[$i]'];
-$subcosto =($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECIOUNIDAD']);
-$coste = ($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECIOUNIDAD']*$p)
-
- 
-		?>
-        <tr>
-          <td height="33"><?php echo $row_consuldetaorprod['IDCOMPRA']; ?></td>
-          <td><?php echo $row_consulunipeso['TIPOUNIDAD']; ?></td>
-          <td><?php echo $row_consulmatpri['DESCRIPCION']; ?></td>
-          <td><?php echo $row_consuldetaorprod['CANTIDADMATPRIMA']; ?></td>
-          <td>$<?php echo $row_consuldetaorprod['PRECIOUNIDAD']; ?></td>
-          <td><?php echo (($subcosto)-($coste)); ?></td>
-        </tr>
-        <?php } while ($row_consuldetaorprod = mysql_fetch_assoc($consuldetaorprod)); ?>
+        $p= $_POST['desc[$i]'];
+$subcosto =($row_registrodetalle['CANTIDADMATPRIMA']*$row_registrodetalle['PRECIOUNIDAD']);
+$coste = ($$row_registrodetalle['CANTIDADMATPRIMA']*$row_registrodetalle['PRECIOUNIDAD']*$p)?>
+          <tr>
+            <td><?php echo $row_registrodetalle['IDCOMPRA']; ?></td>
+            <td><?php echo $row_consulunipeso['TIPOUNIDAD']; ?></td>
+            <td><?php echo $row_consulmatpri['DESCRIPCION']; ?></td>
+            <td><?php echo $row_registrodetalle['MATERIAPRIMA']; ?></td>
+            <td><?php echo $row_registrodetalle['PRECIOUNIDAD']; ?></td>
+            <td><?php echo (($subcosto)-($coste)); ?></td>
+          </tr>
+          <?php } while ($row_registrodetalle = mysql_fetch_assoc($registrodetalle)); ?>
       </table>
       <table width="820">
         <tr>
           <td width="708" align="right">Sub-Total</td>
           <td width="100">$<?php 
-	$result = mysql_query("Select sum(CANTIDADMATPRIMA * PRECIOUNIDAD ) as 'total' FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM  = $eNCA " );
+	$result = mysql_query("Select sum(CANTIDADMATPRIMA * PRECIOUNIDAD ) as 'total' FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM  = $eNCA AND ElIMINA=0 " );
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	echo $row['total'];
 	 ?></td>
@@ -303,7 +228,7 @@ $coste = ($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECI
         <tr>
           <td align="right">IVA</td>
           <td>$<?php 
-	$result = mysql_query("Select sum(CANTIDADMATPRIMA * PRECIOUNIDAD ) as 'total' FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM  = $eNCA " );
+	$result = mysql_query("Select sum(CANTIDADMATPRIMA * PRECIOUNIDAD ) as 'total' FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM  = $eNCA AND ElIMINA=0" );
 	$row2 = mysql_fetch_array($result, MYSQL_ASSOC);
 	$subto= ($row2['total']*0.13);
 	$tot = ($subto + $row2['total']);
@@ -315,10 +240,9 @@ $coste = ($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECI
           <td>$<?php echo "$tot" ?></td>
         </tr>
       </table>
-      <p>&nbsp; </p>
-      <p>&nbsp;</p>
-    </form>
-    <p>&nbsp;</p></td>
+        <input type="submit" name="sender" id="sender" value="Enviar" />
+      </p>
+    </form></td>
   </tr>
 </table>
 <p class="etifactu"><span class="retorno"></span></p>
@@ -335,9 +259,5 @@ mysql_free_result($Emple);
 
 mysql_free_result($ESTADOFAC);
 
-mysql_free_result($consuldetaorprod);
-
-mysql_free_result($Materia);
-
-mysql_free_result($Unidad);
+mysql_free_result($registrodetalle);
 ?>

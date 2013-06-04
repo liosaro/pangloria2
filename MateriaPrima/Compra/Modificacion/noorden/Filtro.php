@@ -3,7 +3,7 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-$MM_authorizedUsers = "39";
+$MM_authorizedUsers = "37,39";
 $MM_donotCheckaccess = "false";
 
 // *** Restrict Access To Page: Grant or deny access to this page
@@ -44,7 +44,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
-
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 

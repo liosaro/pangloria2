@@ -32,7 +32,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 mysql_select_db($database_basepangloria, $basepangloria);
 $id=$_GET["root"];
-$query = "UPDATE TRNENCAORDCOMPRA SET ELIMIN=1 WHERE IDORDEN=$id";
+$query = "UPDATE TRNENCABEZADOCOMPRA SET ELIMIN=1 WHERE ID_DETENCCOM=$id";
 
     $result = mysql_query($query);
 
@@ -43,8 +43,20 @@ $query = "UPDATE TRNENCAORDCOMPRA SET ELIMIN=1 WHERE IDORDEN=$id";
         exit;
     }
 	function urlActual() {
-$url = "Filtro.php";
-header ("location: $url ");
-	}
+ $pageURL = 'http://';
+ if ($_SERVER["SERVER_PORT"] != "80") {
+ $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+ $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ return $pageURL;
+ }
+echo $url;
+header ("location: Filtro.php ");
 
 ?>
+<HEAD>
+
+<meta http-equiv='refresh' content='5;url='www.google.com'>
+
+</HEAD>

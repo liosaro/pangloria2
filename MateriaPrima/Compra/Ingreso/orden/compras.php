@@ -3,8 +3,8 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-$MM_authorizedUsers = "";
-$MM_donotCheckaccess = "true";
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
 
 // *** Restrict Access To Page: Grant or deny access to this page
 function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
@@ -25,7 +25,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
     if (in_array($UserGroup, $arrGroups)) { 
       $isValid = true; 
     } 
-    if (($strUsers == "") && true) { 
+    if (($strUsers == "") && false) { 
       $isValid = true; 
     } 
   } 
@@ -178,7 +178,7 @@ function validar(date)
       <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
       <table align="left">
           <tr valign="baseline">
-            <td colspan="6" align="right" nowrap="nowrap" bgcolor="#999999" class="encaforms">Nueva Compra            </td>
+            <td colspan="6" align="right" nowrap="nowrap" bgcolor="#999999" class="encaforms">Nueva Compra sin Orden de Compra        </td>
           </tr>
           <tr valign="baseline">
             <td nowrap="nowrap" align="right">&nbsp;</td>

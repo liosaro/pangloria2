@@ -1,5 +1,49 @@
 <?php require_once('../../../../Connections/basepangloria.php'); ?>
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
 
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -78,7 +122,7 @@ $row_consuldetaorprod = mysql_fetch_assoc($consuldetaorprod);
 $totalRows_consuldetaorprod = mysql_num_rows($consuldetaorprod);
 $eNCA= $row_ultimaorden['ID_DETENCCOM'];
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_registrodetalle = "SELECT IDCOMPRA, IDUNIDAD, CANTIDADMATPRIMA, MATERIAPRIMA, PRECIOUNIDAD FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM = $eNCA";
+$query_registrodetalle = "SELECT IDCOMPRA, IDUNIDAD, CANTIDADMATPRIMA, MATERIAPRIMA, PRECIOUNIDAD FROM TRNDETALLECOMPRA WHERE ID_DETENCCOM = $eNCA AND ELIMINA=0";
 $registrodetalle = mysql_query($query_registrodetalle, $basepangloria) or die(mysql_error());
 $row_registrodetalle = mysql_fetch_assoc($registrodetalle);
 $totalRows_registrodetalle = mysql_num_rows($registrodetalle);
@@ -91,18 +135,23 @@ $totalRows_registrodetalle = mysql_num_rows($registrodetalle);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script language="JavaScript">
- function Abrir_ventana (pagina) {
- var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=508, height=365, top=85, left=140";
- window.open(pagina,"",opciones);
- }
- </script>
+function aviso(url){
+if (!confirm("ALERTA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+return false;
+}
+else {
+document.location = url;
+return true;
+}
+}
+</script>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <table width="820" border="0">
   <tr>
-    <td align="center" class="encaforms">Ingreso de  Compra</td>
+    <td align="center" class="encaforms">Modificar Orden  de  Compra</td>
   </tr>
   <tr>
     <td><table width="820" border="0">
@@ -139,24 +188,40 @@ $totalRows_registrodetalle = mysql_num_rows($registrodetalle);
     </table></td>
   </tr>
   <tr>
-    <td><form action="scriptcompra.php?enca=<?php echo $eNCA ?>" method="post" target="_self" id="detil">
-      <table border="1" cellpadding="0" cellspacing="0">
-        <tr>
-          <td>Eliminar</td>
-          <td>IDCOMPRA</td>
-          <td>IDUNIDAD</td>
-          <td>CANTIDADMATPRIMA</td>
-          <td>MATERIAPRIMA</td>
-          <td>PRECIOUNIDAD</td>
+    <td><form action="scriptcompra.php?enca=<?php echo $row_ultimaorden['ID_DETENCCOM']; ?>" method="post" target="_self" id="detil">
+      <table width="820" border="1" cellpadding="0" cellspacing="0">
+        <tr class="retabla">
+          <td align="center" bgcolor="#000000">Eliminar</td>
+          <td align="center" bgcolor="#000000">Código</td>
+          <td align="center" bgcolor="#000000">Unidad de Medida</td>
+          <td align="center" bgcolor="#000000">Cantidad</td>
+          <td align="center" bgcolor="#000000">Materia Prima</td>
+          <td align="center" bgcolor="#000000">Precio Unitario</td>
+          <td align="center" bgcolor="#000000">Costo</td>
         </tr>
-        <?php do { ?>
+        <?php do { ?><?php
+		mysql_select_db($database_basepangloria, $basepangloria);
+		$consumat = $row_registrodetalle['MATERIAPRIMA'];
+$query_consulmatpri = sprintf("SELECT  DESCRIPCION FROM CATMATERIAPRIMA WHERE IDMATPRIMA = '$consumat'");
+$consulmatpri = mysql_query($query_consulmatpri, $basepangloria) or die(mysql_error());
+$row_consulmatpri = mysql_fetch_assoc($consulmatpri);
+$totalRows_consulmatpri = mysql_num_rows($consulmatpri);
+$conunidad = $row_registrodetalle['IDUNIDAD'];
+$query_consulunipeso = "SELECT * FROM CATUNIDADES where IDUNIDAD='$conunidad' ";
+$consulunipeso = mysql_query($query_consulunipeso, $basepangloria) or die(mysql_error());
+$row_consulunipeso = mysql_fetch_assoc($consulunipeso);
+$totalRows_consulunipeso = mysql_num_rows($consulunipeso);
+        $p= $_POST['desc[$i]'];
+$subcosto =($row_registrodetalle['CANTIDADMATPRIMA']*$row_registrodetalle['PRECIOUNIDAD']);
+$coste = ($$row_registrodetalle['CANTIDADMATPRIMA']*$row_registrodetalle['PRECIOUNIDAD']*$p)?>
           <tr>
-            <td><a href="eliminar.php?root=<?php echo $row_registrodetalle['IDCOMPRA']; ?>"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32" /></td>
+            <td><a href="javascript:;" onclick="aviso('eliminar.php?root=<?php echo $row_registrodetalle['IDCOMPRA']; ?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" alt="" width="32" height="32" /></td>
             <td><?php echo $row_registrodetalle['IDCOMPRA']; ?></td>
-            <td><?php echo $row_registrodetalle['IDUNIDAD']; ?></td>
-            <td><?php echo $row_registrodetalle['CANTIDADMATPRIMA']; ?></td>
+            <td><?php echo $row_consulunipeso['TIPOUNIDAD']; ?></td>
+            <td><?php echo $row_consulmatpri['DESCRIPCION']; ?></td>
             <td><?php echo $row_registrodetalle['MATERIAPRIMA']; ?></td>
             <td><?php echo $row_registrodetalle['PRECIOUNIDAD']; ?></td>
+            <td><?php echo (($subcosto)-($coste)); ?></td>
           </tr>
           <?php } while ($row_registrodetalle = mysql_fetch_assoc($registrodetalle)); ?>
       </table>
@@ -186,7 +251,7 @@ $totalRows_registrodetalle = mysql_num_rows($registrodetalle);
       </table>
       <table width="820" border="1">
         <tr>
-          <td colspan="7" bgcolor="#999999"><input name="load" type="button" value="Cargar Detalle de la Orden de Compra" onclick="location.href='concotiza.php?IDOR=<?php echo $row_ultimaorden['IDORDEN']; ?>'"  /></td>
+          <td colspan="7" bgcolor="#999999">&nbsp;</td>
         </tr>
         <tr class="retabla">
           <td bgcolor="#000000">Agregar</td>
