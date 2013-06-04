@@ -2,7 +2,7 @@
 
 <?php
 
-require_once('../../Connections/basepangloria.php');
+require_once('../../../Connections/basepangloria.php');
 
 require_once('class.phpmailer.php');
 
@@ -336,7 +336,7 @@ else
 
       <tr>
 
-        <th width='364' scope='col'><div align='left'><img src='logo.png'/></div></th>
+        <th width='364' scope='col'><div align='left'><img src='../imagenes/logo.png'/></div></th>
 
         <th width='803' scope='col'>
 
@@ -378,7 +378,7 @@ else
 
         <td>&nbsp;</td>
 
-        <td><div align='right'><a href='solicitud_programa.php'><img src='back3.png' alt='' width='69' height='72' /></a></div></td>
+        <td><div align='right'><a href='solicitud_programa.php'><img src='../imagenes/back3.png' alt='' width='69' height='72' /></a></div></td>
 
       </tr>
 

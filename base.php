@@ -293,11 +293,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
         <div class="AccordionPanel">
           <div class="AccordionPanelTab">Cotizaciones</div>
           <div class="AccordionPanelContent">
-            <p><a href="MateriaPrima/cotizacion/solicitud_programa.php" target="contenedor">Solicitar Cotizacion</a></p>
-            <p>Modificar Cotizacion</p>
-            <p>Eliminar Coticacion</p>
-            <p>Consultar Cotizacion</p>
-            <p>Informe de Cotizacion          </p>
+            <p><a href="MateriaPrima/cotizacion/Enviar/solicitud_programa.php" target="contenedor">Solicitar Cotizacion</a></p>
+            <p><a href="MateriaPrima/cotizacion/Ingresar/ejemplo.php" target="contenedor">Ingreso de Cotizacion</a></p>
+            <p><a href="MateriaPrima/cotizacion/Modificar/update_buscar.php" target="contenedor">Modificar Cotizacion</a></p>
+            <p><a href="MateriaPrima/cotizacion/Eliminar/ejemplo_buscar.php" target="contenedor">Eliminar Cotizacion</a></p>
+            <p><a href="MateriaPrima/cotizacion/Consulta/Consultar.php" target="contenedor">Consultar Cotizacion</a></p>
           </div>
         </div>
         <div class="AccordionPanel">

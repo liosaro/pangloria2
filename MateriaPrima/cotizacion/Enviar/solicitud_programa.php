@@ -31,7 +31,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
-$MM_restrictGoTo = "../../seguridad.php";
+$MM_restrictGoTo = "../../../seguridad.php";
 if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
@@ -44,7 +44,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 }
 ?>
 <?php
-require_once('../../Connections/basepangloria.php');
+require_once('../../../Connections/basepangloria.php');
 
  $q_prove = "SELECT * FROM CATPROVEEDOR where ELIMIN = 0";
    mysql_select_db($database_basepangloria, $basepangloria);
@@ -86,7 +86,7 @@ $numsol = $nummax + 1 ;
 $datos = '<form id="sole" name="sole" enctype="multipart/form-data" action="enviar.php" method="post">
      <table width="753" border="0" align="center">
       <tr>
-        <th width="364" scope="col"><div align="center"><img src="../../imagenes/logotipo.png" width="250" height="125"></div></th>
+        <th width="364" scope="col"><div align="center"><img src="../../../imagenes/logotipo.png" width="250" height="125"></div></th>
         <th width="803" scope="col"><div align="center">
           <p><font color="#006699" size="6" face="Calibri"> SOLICITUD DE COTIZACION PAN GLORIA</font></p>
           </div></th>
@@ -141,13 +141,13 @@ $datos = '<form id="sole" name="sole" enctype="multipart/form-data" action="envi
       </tr>
      <tr>
         <td><font face="calibri" color="#808080">Archivo de Referencia</font>:</td>
-        <td><img src="attach.png" width="20" height="20" />
+        <td><img src="../imagenes/attach.png" width="20" height="20" />
         <input type="file" name="fileToUpload"  id="fileToUpload" size="28">
 
       </td>
            </tr>
              </table>
-     <div align="center"><p><font color="#999999" face="Calibri" >Enviar Solicitud</font><br><input type="image" name="enviar" src="sendemail.png"></p>
+     <div align="center"><p><font color="#999999" face="Calibri" >Enviar Solicitud</font><br><input type="image" name="enviar" src="../imagenes/sendemail.png"></p>
      </div>
 
   </form>';

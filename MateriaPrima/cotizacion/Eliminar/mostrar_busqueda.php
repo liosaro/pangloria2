@@ -4,8 +4,8 @@ and open the template in the editor.
 -->
 
 <?php
-   require_once('../../Connections/basepangloria.php');
-
+   require_once('../../../Connections/basepangloria.php');
+ 
    $id_cotizacion  = $_POST['id_cotizacion'];
    
    $q1 = "SELECT CEN.IDENCABEZADO, 
@@ -50,10 +50,10 @@ and open the template in the editor.
    
    
    
-   $q2 = "SELECT CEN.IDENCABEZADO,
+   $q2 = "SELECT CEN.IDENCABEZADO, 
                  CEN.IDVENDEDOR,
                  (SELECT NOM from CATVENDEDOR_PROV where CATVENDEDOR_PROV.IDVENDEDOR = CEN.IDVENDEDOR) NOMBRE_VENDEDOR,
-                 CEN.IDPROVEEDOR,
+                 CEN.IDPROVEEDOR,  
                  (SELECT NOMBREPROVEEDOR from CATPROVEEDOR where CATPROVEEDOR.IDPROVEEDOR = CEN.IDPROVEEDOR) NOMBRE_PROVEEDOR,
                  CEN.IDEMPLEADO,
                  (SELECT NOMBREEMPLEADO from CATEMPLEADO where CATEMPLEADO.IDEMPLEADO = CEN.IDEMPLEADO) NOMBRE_EMPLEADO,
@@ -72,13 +72,13 @@ and open the template in the editor.
          FROM TRNCABEZACOTIZACION CEN, TRNDETALLECOTIZACION CDE
          WHERE CEN.IDENCABEZADO = $id_cotizacion
            AND CEN.IDENCABEZADO = CDE.IDENCABEZADO 
-         ORDER BY CEN.IDENCABEZADO,
-                  CDE.IDDETALLE";
+         ORDER BY CEN.IDENCABEZADO, 
+                  CDE.IDDETALLE";  
    
    mysql_select_db($database_basepangloria, $basepangloria);
    $xxx = mysql_query($q2, $basepangloria) or die(mysql_error());
-
-
+   
+   
    
    /*$q_max = "SELECT MAX(IDENCABEZADO) AS MAX_IDENCABEZADO FROM TRNCABEZACOTIZACION";
    mysql_select_db($database_basepangloria, $basepangloria);
@@ -104,17 +104,7 @@ and open the template in the editor.
         $cmb_matpri .= '<option value="'.$fila['IDMATPRIMA'].'">'.$fila['DESCRIPCION'].'</option>';
    }
    $cmb_matpri .= '</select>';
-
-
-    $q_um = "SELECT * FROM CATUNIDADES";
-   mysql_select_db($database_basepangloria, $basepangloria);
-   $res9 = mysql_query($q_um, $basepangloria) or die(mysql_error());
-
-   $cmb_um = '<select id="mp" name="um[]">';
-   while ($fila = mysql_fetch_assoc($res9)) {
-        $cmb_um .= '<option value="'.$fila['IDUNIDAD'].'">'.$fila['TIPOUNIDAD'].'</option>';
-   }
-   $cmb_um .= '</select>';
+   
 
    
    
@@ -189,16 +179,16 @@ and open the template in the editor.
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Actualizacion de Cotizaci&oacute;n</title>
+        <title>Ingreso de Cotizacion</title>
 
     </head>
     <body>
     <table width="820" style="font-family: verdana; font-size: 0.9em;">
-        <td align="center" bgcolor="#999999">
-        <form name="principal" id="principal" enctype="multipart/form-data" method="post" autocomplete="off" action="update_cotizacion.php">
+        <td align="center" bgcolor="#999999"><form name="principal" id="principal" enctype="multipart/form-data" method="post" autocomplete="off" action="eliminar_cotizacion.php">
           <h1>&nbsp;</h1>
            
-        <h1 style="font-family: verdana; font-size: 0.9em; font-weight: bold; text-align: center;"><h1>Actualizacion de Cotizaci&oacute;n</h1>
+        <h1 style="font-family: verdana; font-size: 0.9em; font-weight: bold; text-align: center;">
+        <h1>Eliminar Cotizaci&oacute;n</h1>
         </table>
         <table style="font-family: verdana; font-size: 0.9em;">
             <tr>
@@ -237,9 +227,10 @@ and open the template in the editor.
         
        
         <?php
-
-
-
+        
+        
+            
+        
         $tabla = '</br>
                   <table border="1" cellspacing="0" cellpadding="3">
                     <tr>
@@ -249,41 +240,38 @@ and open the template in the editor.
                         <th>PRECIO UNITARIO</th>
                         <th>SUBTOTAL</th>
                     </tr>';
-
-
-          while ($fila = mysql_fetch_assoc($xxx)) {
-
+                  
+                  while ($fila = mysql_fetch_assoc($xxx)) {
+                       
                        $subtotal = $fila['CANTPRODUCTO'] * $fila['PRECIOUNITARIO'];
-
-                      $tabla .= '<tr>
-                                    <td align="right">'. $cmb_matpri .'</td>
-                                    <td align="right"> '.$cmb_um.'    </td>
-                                    <td align="right"><input type="text" id="qtde" name="qtde[]" value="'.$fila['CANTPRODUCTO'].'"></td>
-                                    <td align="right"><input type="text" id="pu"   name="pu[]" value="'.$fila['PRECIOUNITARIO'].'"></td>
-                                    <td align="right">$'.$subtotal.'</td>
-
-                                  </tr>';
-
-
+                       
+                       $tabla .= '<tr>
+                                    <td>'.$fila['MATERIA_PRIMA'].'</td>
+                                    <td>'.$fila['DESC_UNIDAD'].'</td>
+                                    <td align="right">'.$fila['CANTPRODUCTO'].'</td>    
+                                    <td align="right">'.$fila['PRECIOUNITARIO'].'</td> 
+                                    <td align="right">$'.$subtotal.'</td>      
+                                  </tr>';   
+                       
                        $total    += $subtotal;
-
+                       
                   }
-
+                                 
          $tabla .= '<tr>
                        <td colspan="4" align="right"><strong>TOTAL</strong></td>
                        <td align="right"><strong> $'.$total.'</strong></td>
                     </tr>
                     </table>
                     </br>
-                    <input type="submit" value="ACTUALIZAR COTIZACION">';
+                    <input type="submit" value="ELIMINAR COTIZACION">';
          
-         echo $tabla;
-
-        ?>
-
-
+         echo $tabla; 
         
-        </form>
+        ?>
+        
+        
+        
+        </form> 
         <?php
             //echo $videmp;
         ?>

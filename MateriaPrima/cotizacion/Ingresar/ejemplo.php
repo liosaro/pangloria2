@@ -4,7 +4,7 @@ and open the template in the editor.
 -->
 
 <?php
-   require_once('../../Connections/basepangloria.php');
+   require_once('../../../Connections/basepangloria.php');
    
    $q_max = "SELECT MAX(IDENCABEZADO) AS MAX_IDENCABEZADO FROM TRNCABEZACOTIZACION";
    mysql_select_db($database_basepangloria, $basepangloria);

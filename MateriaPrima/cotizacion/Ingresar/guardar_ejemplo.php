@@ -1,5 +1,5 @@
 <?php
-    require_once('../../Connections/basepangloria.php');
+    require_once('../../../Connections/basepangloria.php');
     $id_cotizacion  = $_POST['id_cotizacion'];
     $empleado       = $_POST['empleado'];
     $proveedor      = $_POST['proveedor'];
@@ -109,7 +109,7 @@
            
             echo '<a href="ejemplo.php">Ingresar otra Cotiacion</a>'; 
 			
-			echo '<td><tr><a href="www.liosarpc.info/pan/MateriaPrima/proceso/promateriaprima/base.php">Salir</a></tr></td>';
+			
 			
             
         ?>
