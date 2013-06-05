@@ -102,8 +102,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                     <li><a href="proceso/produccion/ordendeproduccion/consulta/filtro.php" target="contenedor">Consultar Orden de Producción</a></li>
                   </ul>
                 </li>
-<li><a href="#">Elemento 1.3</a></li>
-              </ul>
+</ul>
             </li>
             <li><a href="#" class="MenuBarItemSubmenu MenuBarItemSubmenu">Materia Prima</a>
               <ul>
@@ -123,8 +122,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                     <li><a href="proceso/promateriaprima/SalidaMateriaPrima/consulta/filtro.php" target="contenedor">Consultar Salida de Materia Prima</a></li>
                   </ul>
                 </li>
-                <li><a href="#">O</a></li>
-                <li><a href="#">Entrega de Materia Prima</a></li>
+<li><a href="#">Entrega de Materia Prima</a></li>
                 <li><a href="#" class="MenuBarItemSubmenu">Justificación de Perdida de Materia Prima</a>
                   <ul>
                     <li><a href="proceso/promateriaprima/PerMateriaPri/Ingreso/ingresarperdida.php" target="contenedor">Ingresar Justificación</a></li>
