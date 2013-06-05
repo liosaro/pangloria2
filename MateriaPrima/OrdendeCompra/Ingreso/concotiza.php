@@ -164,7 +164,7 @@ if (isset($_GET['coti'])) {
     </table></td>
   </tr>
   <tr>
-    <td><form id="form1" name="form1" method="post" action="script.php">
+    <td><form id="form1" name="form1" method="post" action="script.php?enca=<?php echo $row_ULTIMOENCA['IDORDEN']; ?>">
       <table width="820" border="1" cellpadding="0" cellspacing="0">
         <tr>
           <td colspan="7" bgcolor="#999999"><input name="load" type="button" value="Cargar Detalle" onclick="location.href='concotiza.php?varia=<?php echo $row_ULTIMOENCA['NUMEROCOTIZACIO']; ?>'"  /></td>

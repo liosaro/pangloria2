@@ -153,6 +153,7 @@ $totalRows_Unidad = mysql_num_rows($Unidad);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 <script language="JavaScript">
  function Abrir_ventana (pagina) {
  var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=508, height=365, top=85, left=140";
@@ -160,6 +161,7 @@ $totalRows_Unidad = mysql_num_rows($Unidad);
  }
  </script>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
+<link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -205,6 +207,16 @@ $totalRows_Unidad = mysql_num_rows($Unidad);
     <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
       <table align="center">
         <tr valign="baseline">
+          <td nowrap="nowrap" align="right">Materia Prima:</td>
+          <td nowrap="nowrap" align="right"><select name="MATERIAPRIMA" >
+            <?php 
+do {  
+?>
+            <option value="<?php echo $row_Materia['IDMATPRIMA']?>" ><?php echo $row_Materia['DESCRIPCION']?></option>
+            <?php
+} while ($row_Materia = mysql_fetch_assoc($Materia));
+?>
+          </select></td>
           <td nowrap="nowrap" align="right">Unidad de Medida:</td>
           <td nowrap="nowrap" align="right"><select name="IDUNIDAD" onchange="document.form1.enviar.disabled=false;">
             <?php 
@@ -216,25 +228,19 @@ do {
 ?>
           </select></td>
           <td>Cantidad de Materia Prima:</td>
-          <td><input type="text" name="CANTIDADMATPRIMA" value="" size="9" /></td>
-          <td>Materia Prima:</td>
-          <td><select name="MATERIAPRIMA" >
-            <?php 
-do {  
-?>
-            <option value="<?php echo $row_Materia['IDMATPRIMA']?>" ><?php echo $row_Materia['DESCRIPCION']?></option>
-            <?php
-} while ($row_Materia = mysql_fetch_assoc($Materia));
-?>
-          </select></td>
+          <td><span id="sprytextfield1">
+            <input type="text" name="CANTIDADMATPRIMA" value="" size="9" />
+            <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span></span></td>
           <td>Precio Unitario:</td>
-          <td><input type="text" name="PRECIOUNIDAD" value="" size="9" /></td>
+          <td><span id="sprytextfield2">
+          <input type="text" name="PRECIOUNIDAD" value="" size="9" />
+          <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span></span></td>
         </tr>
         <tr valign="baseline">
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+          <td nowrap="nowrap" align="right">&nbsp;</td>
+          <td nowrap="nowrap" align="right">&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
@@ -322,6 +328,10 @@ $coste = ($row_consuldetaorprod['CANTIDADMATPRIMA']*$row_consuldetaorprod['PRECI
   </tr>
 </table>
 <p class="etifactu"><span class="retorno"></span></p>
+<script type="text/javascript">
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "currency", {validateOn:["blur"]});
+var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "currency", {validateOn:["blur"]});
+</script>
 </body>
 </html>
 <?php

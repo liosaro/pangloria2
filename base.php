@@ -195,6 +195,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                     <li><a href="#">Eliminar</a></li>
                   </ul>
                 </li>
+                <li><a href="backup.php" target="contenedor">Copia de Seguridad</a></li>
               </ul>
             </li>
             <a href="<?php echo $logoutAction ?>">Salir</a>
@@ -216,7 +217,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user2">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="imagenes/icono/shopping_cart_128.png" width="45" height="45" /><img src="imagenes/icono/Shopping-cart-256.png" width="45" height="45" /><img src="imagenes/icono/Red-Wallet-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><a href="MateriaPrima/Compra/Ingreso/index.php" target="contenedor"><img src="imagenes/icono/shopping_cart_128.png" width="45" height="45" /></a><a href="MateriaPrima/Compra/Modificacion/index.php" target="contenedor"><img src="imagenes/icono/Shopping-cart-256.png" width="45" height="45" /></a><a href="MateriaPrima/Compra/Consulta/Filtro.php" target="contenedor"><img src="imagenes/icono/Red-Wallet-256.png" width="45" height="45" /></a></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Compras</h4></td>
@@ -226,7 +227,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user3">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="imagenes/icono/Invoice-256.png" width="45" height="45" /><img src="imagenes/icono/Safe-256.png" width="45" height="45" /><img src="imagenes/icono/Cash-register-256.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><a href="MateriaPrima/cotizacion/Ingresar/ejemplo.php" target="contenedor"><img src="imagenes/icono/Invoice-256.png" width="45" height="45" /></a><a href="MateriaPrima/cotizacion/Modificar/update_buscar.php" target="contenedor"><img src="imagenes/icono/Safe-256.png" width="45" height="45" /></a><a href="MateriaPrima/cotizacion/Consulta/Consultar.php" target="contenedor"><img src="imagenes/icono/Cash-register-256.png" width="45" height="45" /></a></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Cotizaciones</h4></td>
@@ -236,7 +237,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                 <td><div class="usuario" id="user4">
                 <table width="204,8" border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td align="center" valign="bottom"><img src="imagenes/icono/Delivery-Truck.png" width="45" height="45" /><img src="imagenes/icono/Card-file.png" width="45" height="45" /><img src="imagenes/icono/Time.png" width="45" height="45" /></td>
+                      <td align="center" valign="bottom"><a href="MateriaPrima/Proveedores/ingresar/ingresar_proveedor.php" target="contenedor"><img src="imagenes/icono/Delivery-Truck.png" width="45" height="45" /></a><a href="MateriaPrima/Proveedores/modificar/ModiProveedores.php" target="contenedor"><img src="imagenes/icono/Card-file.png" width="45" height="45" /></a><a href="MateriaPrima/Proveedores/consultar/consultar_proveedores.php" target="contenedor"><img src="imagenes/icono/Time.png" width="45" height="45" /></a></td>
                     </tr>
                     <tr>
                       <td align="center"><h4>Proveedores</h4></td>

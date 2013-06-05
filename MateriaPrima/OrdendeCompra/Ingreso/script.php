@@ -18,7 +18,7 @@ if (isset($_POST['very'])) {
 	 			$sql1="SELECT * FROM TRNDETALLECOTIZACION where IDDETALLE = '$idMatPrima'";
 				$rs1=mysql_query($sql1);
 				$fill = mysql_fetch_array($rs1);
-				mysql_query("INSERT INTO TRNDETALLEORDENCOMPRA (IDORDEN, IDMATPRIMA, IDUNIDAD, CANTPRODUCTO, PRECIOUNITARIO) VALUES ('".$row_ulencado['IDORDEN']."','".$fill['IDMATPRIMA']."','".$fill['IDUNIDAD']."','".$fill['CANTPRODUCTO']."','".$fill['PRECIOUNITARIO']."' )") or die(mysql_error());
+				mysql_query("INSERT INTO TRNDETALLEORDENCOMPRA (IDORDEN, IDMATPRIMA, IDUNIDAD, CANTPRODUCTO, PRECIOUNITARIO) VALUES ('".$row_ulencado."','".$fill['IDMATPRIMA']."','".$fill['IDUNIDAD']."','".$fill['CANTPRODUCTO']."','".$fill['PRECIOUNITARIO']."' )") or die(mysql_error());
 			   echo '<p>Detalle de Entrada: '.$idMatPrima.'</p>';
 			   echo '<p>Canitdad de Producto: '.$fill['CANTPRODUCTO'].'</p>';
 			   echo '<p>Materia Prima: '.$fill['IDMATPRIMA'].'</p>';

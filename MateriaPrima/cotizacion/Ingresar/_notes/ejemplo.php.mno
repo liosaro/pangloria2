@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_materia" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_unidad" value="name:IDUNIDAD;datatype:int,name:TIPOUNIDAD;datatype:blob" />
+</info>
