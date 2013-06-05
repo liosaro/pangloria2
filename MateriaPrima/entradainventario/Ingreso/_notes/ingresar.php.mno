@@ -20,4 +20,6 @@
 	<infoitem key="UD_materiatabla" value="name:DESCRIPCION;datatype:blob" />
 	<infoitem key="UD_medidatabla" value="name:TIPOUNIDAD;datatype:blob" />
 	<infoitem key="UD_consulcompra" value="name:IDCOMPRA;datatype:int,name:IDUNIDAD;datatype:int,name:ID_DETENCCOM;datatype:int,name:CANTIDADMATPRIMA;datatype:int,name:MATERIAPRIMA;datatype:int" />
+	<infoitem key="UD_MATI" value="name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_UNIMEDI" value="name:TIPOUNIDAD;datatype:blob" />
 </info>

@@ -7,4 +7,5 @@
 	<infoitem key="UD_proveedor" value="name:IDPROVEEDOR;datatype:int,name:NOMBREPROVEEDOR;datatype:blob" />
 	<infoitem key="UD_VendedorProveedor" value="name:IDVENDEDOR;datatype:int,name:NOM;datatype:blob" />
 	<infoitem key="UD_condicion" value="name:IDCONDICION;datatype:int,name:TIPO;datatype:blob" />
+	<infoitem key="UD_Recordset1" value="name:IDENCABEZADO;datatype:int" />
 </info>

@@ -99,7 +99,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 }
 
 mysql_select_db($database_basepangloria, $basepangloria);
-$query_ncoti = "SELECT IDENCABEZADO FROM TRNCABEZACOTIZACION";
+$query_ncoti = "SELECT IDENCABEZADO FROM TRNCABEZACOTIZACION where ELIMIN= 0 ORDER BY IDENCABEZADO DESC";
 $ncoti = mysql_query($query_ncoti, $basepangloria) or die(mysql_error());
 $row_ncoti = mysql_fetch_assoc($ncoti);
 $totalRows_ncoti = mysql_num_rows($ncoti);

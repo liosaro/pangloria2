@@ -206,7 +206,7 @@ $totalRows_nommateria = mysql_num_rows($nommateria);
         <tr>
           <td align="right" bgcolor="#CCCCCC">Total de la Compra</td>
           <td bgcolor="#CCCCCC">$<?php 
-	$result = mysql_query("Select sum(CANTPRODUCTO * PRECIOUNITARIO ) as total from TRNDETALLECOTIZACION where IDENCABEZADO = " . $_GET['varia']);
+	$result = mysql_query("Select sum(CANTPRODUCTO * PRECIOUNITARIO ) as total from TRNDETALLECOTIZACION where ELIMINA=0 AND IDENCABEZADO = " . $_GET['varia']);
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	echo $row['total'];
 	 ?></td>

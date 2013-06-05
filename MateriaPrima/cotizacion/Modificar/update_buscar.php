@@ -1,3 +1,4 @@
+<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -43,6 +44,44 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_cotizacion = "SELECT IDENCABEZADO, IDPROVEEDOR, FECHACOTIZACION, PLAZOENTREGA FROM TRNCABEZACOTIZACION WHERE ELIMIN = 0 ORDER BY IDENCABEZADO DESC";
+$cotizacion = mysql_query($query_cotizacion, $basepangloria) or die(mysql_error());
+$row_cotizacion = mysql_fetch_assoc($cotizacion);
+$totalRows_cotizacion = mysql_num_rows($cotizacion);
+?>
 <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
@@ -86,7 +125,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Ingreso de Cotizacion</title>
+        <title>Ingreso de Cotizaci&oacute;n</title>
 
         <script language="javascript" type="text/javascript">
                   function addLinha(){
@@ -127,17 +166,19 @@ and open the template in the editor.
                 }
         </script>
 
+    <link href="../../../css/forms.css" rel="stylesheet" type="text/css">
     </head>
     <body>
     <table width="820" style="font-family: verdana; font-size: 0.9em;">
         <td align="center" bgcolor="#999999"><form name="principal" id="principal" enctype="multipart/form-data" method="post" autocomplete="off" action="update_busqueda.php">
           <h1>&nbsp;</h1>
            
-        <h1 style="font-family: verdana; font-size: 0.9em; font-weight: bold; text-align: center;"><h1>Busqueda de Cotizaci&oacute;n</h1>
+        <h1 style="font-family: verdana; font-size: 0.9em; font-weight: bold; text-align: center;">
+        <h1>Modificar de Cotizaci&oacute;n</h1>
         </table>
         <table style="font-family: verdana; font-size: 0.9em;">
             <tr>
-                <td>Id Cotizacion</td>
+                <td>Id Cotizaci&oacute;n</td>
                 <td><input type="text" id="id_cotizacion"  name="id_cotizacion" size="15" value=""> <input type="submit" value="BUSCAR"></td>
             </tr>
             <!--<tr>
@@ -155,52 +196,30 @@ and open the template in the editor.
             </tr>-->
 
         </table>
-       
-
-        </br>
-        
-        <?php
-        
-        $tabla = '</br>
-                  <table border="1" cellspacing="0" cellpadding="3">
-                    <tr>
-                        <th>ID COTIZACION</th>
-                        <th>VENDEDOR</th>
-                        <th>PROVEEDOR</th>
-                        <th>EMPLEADO</th>
-                        <th>CONDICION</th>
-                        <th>FECHA COTIZACION</th>
-                        <th>VALIDEZ OFERTA</th>
-                        <th>PLAZO ENTREGA</th>
-                    </tr>';
-                      
-                  
-                  while ($fila = mysql_fetch_assoc($res1)) {
-                       
-                       $tabla .= '<tr>
-                                    <td>'.$fila['IDENCABEZADO'].'</td>
-                                    <td>'.$fila['NOMBRE_VENDEDOR'].'</td>
-                                    <td>'.$fila['NOMBRE_PROVEEDOR'].'</td>    
-                                    <td>'.$fila['NOMBRE_EMPLEADO'].'</td>   
-                                    <td>'.$fila['IDCONDICION'].'</td>    
-                                    <td>'.$fila['FECHACOTIZACION'].'</td>
-                                    <td>'.$fila['VALIDEZOFERTA'].'</td> 
-                                    <td>'.$fila['PLAZOENTREGA'].'</td>
-                                  </tr>'; 
-                       
-                       
-                  }
-                 
-                  
-                    
-         $tabla .= '</table>';
-         echo $tabla; 
-        
-        ?>
-        
-        </form> 
-        <?php
-           // put your code here
-        ?>
+    <table border="1" cellpadding="0" cellspacing="0">
+          <tr class="retabla">
+            <td align="center" bgcolor="#000000">No. de Cotizaci&oacute;n</td>
+            <td align="center" bgcolor="#000000">Proveedor</td>
+            <td align="center" bgcolor="#000000">Fecha de Cotizaci&oacute;n</td>
+            <td align="center" bgcolor="#000000">Plazo de Entrega</td>
+          </tr>
+          <?php do { ?>
+          <?php  mysql_select_db($database_basepangloria, $basepangloria);
+$IDPROVEEDOR=$row_cotizacion['IDPROVEEDOR'];
+$query_Recordset1 = "SELECT NOMBREPROVEEDOR FROM CATPROVEEDOR WHERE IDPROVEEDOR = $IDPROVEEDOR";
+$Recordset1 = mysql_query($query_Recordset1, $basepangloria) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1); ?>
+          <tr>
+            <td><?php echo $row_cotizacion['IDENCABEZADO']; ?></td>
+            <td><?php echo $row_Recordset1['NOMBREPROVEEDOR']; ?></td>
+            <td><?php echo $row_cotizacion['FECHACOTIZACION']; ?></td>
+            <td><?php echo $row_cotizacion['PLAZOENTREGA']; ?></td>
+          </tr>
+          <?php } while ($row_cotizacion = mysql_fetch_assoc($cotizacion)); ?>
+    </table>
     </body>
 </html>
+<?php
+mysql_free_result($cotizacion);
+?>

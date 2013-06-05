@@ -188,7 +188,7 @@ and open the template in the editor.
           <h1>&nbsp;</h1>
            
         <h1 style="font-family: verdana; font-size: 0.9em; font-weight: bold; text-align: center;">
-        <h1>Eliminar Cotizaci&oacute;n</h1>
+        <h1> Cotizaci&oacute;n</h1>
         </table>
         <table style="font-family: verdana; font-size: 0.9em;">
             <tr>

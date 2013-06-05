@@ -1,6 +1,4 @@
 <?php require_once('../../../Connections/basepangloria.php'); ?>
-<?php require_once('../../../Connections/basepangloria.php'); ?>
-<?php require_once('../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -146,7 +144,7 @@ $totalRows_Agregados = mysql_num_rows($Agregados);
         <td class="retorno"><?php echo $row_encacotiza['PLAZOENTREGA']; ?> dias</td>
       </tr>
       <tr>
-        <td>Codigo de Empleado Ingresa:</td>
+        <td>Empleado que Ingresa:</td>
         <td class="retorno"><?php echo $row_empleado['NOMBREEMPLEADO']; ?></td>
         <td>Condicion de Pago:</td>
         <td class="retorno"><?php echo $row_condicion['TIPO']; ?></td>

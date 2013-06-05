@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_cotizacion" value="name:IDENCABEZADO;datatype:int,name:IDPROVEEDOR;datatype:int,name:FECHACOTIZACION;datatype:date,name:PLAZOENTREGA;datatype:int" />
+	<infoitem key="UD_Recordset1" value="name:NOMBREPROVEEDOR;datatype:blob" />
+</info>

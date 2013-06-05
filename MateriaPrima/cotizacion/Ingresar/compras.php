@@ -82,7 +82,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO TRNCABEZACOTIZACION (IDENCABEZADO, IDVENDEDOR, IDPROVEEDOR, IDEMPLEADO, IDCONDICION, FECHACOTIZACION, VALIDEZOFERTA, PLAZOENTREGA, ELIMIN, EDITA) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+  $insertSQL = sprintf("INSERT INTO TRNCABEZACOTIZACION (IDENCABEZADO, IDVENDEDOR, IDPROVEEDOR, IDEMPLEADO, IDCONDICION, FECHACOTIZACION, VALIDEZOFERTA, PLAZOENTREGA) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($_POST['IDENCABEZADO'], "int"),
                        GetSQLValueString($_POST['IDVENDEDOR'], "int"),
                        GetSQLValueString($_POST['IDPROVEEDOR'], "int"),
@@ -90,13 +90,43 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                        GetSQLValueString($_POST['IDCONDICION'], "int"),
                        GetSQLValueString($_POST['FECHACOTIZACION'], "date"),
                        GetSQLValueString($_POST['VALIDEZOFERTA'], "int"),
-                       GetSQLValueString($_POST['PLAZOENTREGA'], "int"),
-                       GetSQLValueString($_POST['ELIMIN'], "int"),
-                       GetSQLValueString($_POST['EDITA'], "int"));
+                       GetSQLValueString($_POST['PLAZOENTREGA'], "int"));
 
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
 }
+
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
 
 
 $colname_nusuario = "-1";
@@ -132,6 +162,12 @@ $query_condicion = "SELECT IDCONDICION, TIPO FROM CATCONDICIONPAGO WHERE ELIMIN 
 $condicion = mysql_query($query_condicion, $basepangloria) or die(mysql_error());
 $row_condicion = mysql_fetch_assoc($condicion);
 $totalRows_condicion = mysql_num_rows($condicion);
+
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_Recordset1 = "SELECT IDENCABEZADO FROM TRNCABEZACOTIZACION ORDER BY IDENCABEZADO DESC";
+$Recordset1 = mysql_query($query_Recordset1, $basepangloria) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -144,10 +180,8 @@ body {
 	margin-top: 0px;
 }
 </style>
-<link href="../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="../../../css/bootstrap-datetimepicker.min.css">
 <link href="../../../css/forms.css" rel="stylesheet" type="text/css" />
+<script src="../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 <script>
 function cerrarse()
 {
@@ -176,34 +210,20 @@ function validar(date)
         }
    }
   </script>
+<link href="../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-  <table align="center">
+<form action="<?php echo $editFormAction; ?>" method="POST" name="form1" id="form1">
+  <table align="left">
     <tr valign="baseline">
-      <td nowrap="nowrap" colspan="2" align="right">Ingreso Nueva Cotizacion</td>
+      <td colspan="6" align="center" nowrap="nowrap" class="warning"><span class="encaforms">Ingreso Nueva Cotizacion</span></td>
       <td>&nbsp;</td>
     </tr>
     <tr valign="baseline">
       <td nowrap="nowrap" align="right">No. de Cotizacion:</td>
-      <td><input type="text" name="IDENCABEZADO" value="" size="32" /></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Vendedor de Proveedor:</td>
-      <td><select name="IDVENDEDOR" document.form1.subit.disabled=false>
-        <?php 
-do {  
-?>
-        <option value="<?php echo $row_VendedorProveedor['IDVENDEDOR']?>" ><?php echo $row_VendedorProveedor['NOM']?></option>
-        <?php
-} while ($row_VendedorProveedor = mysql_fetch_assoc($VendedorProveedor));
-?>
-      </select></td>
-    </tr>
-    <tr> </tr>
-    <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Proveedor:</td>
+      <td><input name="IDENCABEZADO" type="text" disabled="disabled" value="<?php echo $row_Recordset1['IDENCABEZADO']+1; ?>" size="9" readonly="readonly" /></td>
+      <td>Proveedor:</td>
       <td><select name="IDPROVEEDOR" onchange="document.form1.subit.disabled=false">
         <?php 
 do {  
@@ -213,11 +233,16 @@ do {
 } while ($row_proveedor = mysql_fetch_assoc($proveedor));
 ?>
       </select></td>
-    </tr>
-    <tr> </tr>
-    <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Empleado:</td>
-      <td><input type="text" name="IDEMPLEADO" value="" size="32" /></td>
+      <td>Vendedor de Proveedor:</td>
+      <td><select name="IDVENDEDOR" document.form1.subit.disabled=false>
+        <?php 
+do {  
+?>
+        <option value="<?php echo $row_VendedorProveedor['IDVENDEDOR']?>" ><?php echo $row_VendedorProveedor['NOM']?></option>
+        <?php
+} while ($row_VendedorProveedor = mysql_fetch_assoc($VendedorProveedor));
+?>
+      </select></td>
     </tr>
     <tr valign="baseline">
       <td nowrap="nowrap" align="right">Condicion de Pago:</td>
@@ -235,42 +260,43 @@ do {
   }
 ?>
       </select></td>
+      <td>Empleado:</td>
+      <td><input name="IDEMPLEADO" type="text" value="<?php echo $row_empleao['IDEMPLEADO']; ?>" size="5" readonly="readonly" />
+      <?php echo $row_empleao['NOMBREEMPLEADO']; ?></td>
+      <td>Fecha de Cotizacion:</td>
+      <td><input type="text" name="FECHACOTIZACION" value="<?php echo date("Y-m-d") ?>" size="15" readonly="readonly" /></td>
     </tr>
     <tr> </tr>
     <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Fecha de Cotizacion:</td>
-      <td><input type="text" name="FECHACOTIZACION" value="" size="32" /></td>
-    </tr>
-    <tr valign="baseline">
       <td nowrap="nowrap" align="right">Valides de Oferta:</td>
-      <td><input type="text" name="VALIDEZOFERTA" value="" size="32" /></td>
+      <td><span id="sprytextfield1">
+      <input type="text" name="VALIDEZOFERTA" value="" size="9" />
+      <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
+      <td>Plazo de entrega:</td>
+      <td><span id="sprytextfield2">
+      <input type="text" name="PLAZOENTREGA" value="" size="9" />
+      <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
+    <tr> </tr>
     <tr valign="baseline">
-      <td nowrap="nowrap" align="right">Plazo de entrega:</td>
-      <td><input type="text" name="PLAZOENTREGA" value="" size="32" /></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap="nowrap" align="right">ELIMIN:</td>
-      <td><input type="text" name="ELIMIN" value="" size="32" /></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap="nowrap" align="right">EDITA:</td>
-      <td><input type="text" name="EDITA" value="" size="32" /></td>
-    </tr>
-    <tr valign="baseline">
-      <td nowrap="nowrap" align="right"><input  class="label-important" type="submit" name="button" id="button" value="Cerrar" onclick="cerrarse()" /></td>
+      <td nowrap="nowrap" align="right">&nbsp;</td>
+      <td>&nbsp;</td>
       <td><input type="submit" value="Insertar registro"  name="subit" id="subit" disabled="disabled" onclick="Confirm(this.form)" /></td>
+      <td><input  class="label-important" type="submit" name="button" id="button" value="Cerrar" onclick="cerrarse()" /></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
+    <tr> </tr>
   </table>
   <input type="hidden" name="MM_insert" value="form1" />
 </form>
 <p>&nbsp;</p>
-<table align="left">
-  <tr valign="baseline">
-    <td nowrap="nowrap" align="left">&nbsp;</td>
-    <td nowrap="nowrap" align="left">&nbsp;</td>
-  </tr>
-</table>
+<script type="text/javascript">
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "integer", {validateOn:["blur"], minValue:0});
+var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "integer", {minValue:0, validateOn:["blur"]});
+</script>
 </body>
 </html>
 <?php
@@ -287,4 +313,6 @@ mysql_free_result($proveedor);
 mysql_free_result($VendedorProveedor);
 
 mysql_free_result($condicion);
+
+mysql_free_result($Recordset1);
 ?>

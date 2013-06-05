@@ -46,6 +46,8 @@ $query_consulcompra = sprintf("SELECT IDCOMPRA, IDUNIDAD, ID_DETENCCOM, CANTIDAD
 $consulcompra = mysql_query($query_consulcompra, $basepangloria) or die(mysql_error());
 $row_consulcompra = mysql_fetch_assoc($consulcompra);
 $totalRows_consulcompra = mysql_num_rows($consulcompra);
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -87,12 +89,25 @@ $totalRows_consulcompra = mysql_num_rows($consulcompra);
               <td align="center" bgcolor="#000000">Codigo de Materia Prima</td>
             </tr>
             <?php do { ?>
+            <?php 
+			$IDMATPRO= $row_consulcompra['MATERIAPRIMA'];
+			$idu= $row_consulcompra['IDUNIDAD'];
+			mysql_select_db($database_basepangloria, $basepangloria);
+$query_MATI = "SELECT DESCRIPCION FROM CATMATERIAPRIMA WHERE IDMATPRIMA = $IDMATPRO";
+$MATI = mysql_query($query_MATI, $basepangloria) or die(mysql_error());
+$row_MATI = mysql_fetch_assoc($MATI);
+$totalRows_MATI = mysql_num_rows($MATI);
+$query_UNIMEDI = "SELECT TIPOUNIDAD FROM CATUNIDADES WHERE IDUNIDAD = $idu";
+$UNIMEDI = mysql_query($query_UNIMEDI, $basepangloria) or die(mysql_error());
+$row_UNIMEDI = mysql_fetch_assoc($UNIMEDI);
+$totalRows_UNIMEDI = mysql_num_rows($UNIMEDI);
+?>
             <tr>
               <td><input name="very[]" type="checkbox" id="very[]" value="<?php echo $row_consulcompra['IDCOMPRA']; ?>" checked="checked" /></td>
               <td><?php echo $row_consulcompra['ID_DETENCCOM']; ?></td>
-              <td><?php echo $row_consulcompra['IDUNIDAD']; ?></td>
+              <td><?php echo $row_UNIMEDI['TIPOUNIDAD']; ?></td>
               <td><?php echo $row_consulcompra['CANTIDADMATPRIMA']; ?></td>
-              <td><?php echo $row_consulcompra['MATERIAPRIMA']; ?></td>
+              <td><?php echo $row_MATI['DESCRIPCION']; ?></td>
             </tr>
             <?php } while ($row_consulcompra = mysql_fetch_assoc($consulcompra)); ?>
           </table>
@@ -110,6 +125,10 @@ $totalRows_consulcompra = mysql_num_rows($consulcompra);
 mysql_free_result($ultimoenca);
 
 mysql_free_result($consulcompra);
+
+mysql_free_result($MATI);
+
+mysql_free_result($UNIMEDI);
 
 mysql_free_result($empleado);
 

@@ -196,6 +196,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                   </ul>
                 </li>
                 <li><a href="backup.php" target="contenedor">Copia de Seguridad</a></li>
+                <li><a href="proceso/index.php" target="contenedor">Informes</a></li>
               </ul>
             </li>
             <a href="<?php echo $logoutAction ?>">Salir</a>
