@@ -213,7 +213,7 @@ do {
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
           <td nowrap="nowrap" align="right">&nbsp;</td>
-          <td align="right"><input name="CERADOR" type="submit" class="label-warning" id="CERADOR" value="Cerrar" onclick="cerrarse()"/></td>
+          <td align="right"><input name="CERADOR" type="submit" class="label-important" id="CERADOR" value="Cerrar" onclick="cerrarse()"/></td>
         </tr>
         </table>
       <input type="hidden" name="MM_insert" value="form1" />

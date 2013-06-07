@@ -128,7 +128,7 @@ do {
               <input name="FECHA" type="text" id="FECHA" data-format="yyyy-MM-dd"  onchange="document.form1.enviarenca.disabled=false;" />
               </input>
             <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> </span> </div></td>
-            <td>Eliga la Orden de Producción:</td>
+            <td>Elija la Orden de Producción:</td>
             <td><script type="text/javascript"
       src="../../../../SpryAssets/jquery-1.8.3.min.js">
     </script> 

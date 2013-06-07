@@ -4,8 +4,8 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-$MM_authorizedUsers = "";
-$MM_donotCheckaccess = "true";
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
 
 // *** Restrict Access To Page: Grant or deny access to this page
 function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
@@ -26,7 +26,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
     if (in_array($UserGroup, $arrGroups)) { 
       $isValid = true; 
     } 
-    if (($strUsers == "") && true) { 
+    if (($strUsers == "") && false) { 
       $isValid = true; 
     } 
   } 
@@ -77,69 +77,6 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
@@ -158,6 +95,70 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   mysql_select_db($database_basepangloria, $basepangloria);
   $Result1 = mysql_query($insertSQL, $basepangloria) or die(mysql_error());
 }
+
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
 
 mysql_select_db($database_basepangloria, $basepangloria);
 $query_ultregis = "SELECT * FROM TRNENCABEZADOORDENPROD where ELIMIN = '0' ORDER BY IDENCABEORDPROD DESC";
@@ -226,14 +227,12 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
 <link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
-<script src="../../../../SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-<link href="../../../../SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <table width="820" border="0">
   <tr>
-    <td bgcolor="#999999" class="encaforms">Ingresar Orden de Produccion</td>
+    <td bgcolor="#999999" class="encaforms">Ingresar Orden de Producción</td>
   </tr>
   <tr>
     <td><table width="100%" border="0">
@@ -244,7 +243,7 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
     <td align="right" class="retorno"><a href="encabeza.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" "/></a></td>
   </tr>
   <tr>
-    <td>Orden de Produccion No.:</td>
+    <td>Orden de Producción No.:</td>
     <td align="center" class="NO"><?php echo $row_ultregis['IDENCABEORDPROD']; ?></td>
     <td>Fecha:</td>
     <td class="retorno"><?php echo $row_ultregis['FECHA']; ?></td>
@@ -268,74 +267,60 @@ $totalRows_Sucursal = mysql_num_rows($Sucursal);
     <td><table width="100%" border="1">
       <tr>
         <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
-          <table width="100%" align="center">
-            <tr valign="baseline">
-              <td colspan="6" align="left" nowrap="nowrap">Detalle Para Orden No.:
-                <input name="IDENCABEORDPROD" type="text" value="<?php echo $row_ultregis['IDENCABEORDPROD']; ?>" size="32" readonly="readonly" /></td>
-            </tr>
-            <tr valign="baseline">
-              <td width="11%" align="right" nowrap="nowrap">Cantidad:</td>
-              <td width="10%"><span id="ordprodcant">
-              <input type="text" name="CANTIDADORPROD" value="" size="9" />
-              <span class="textfieldRequiredMsg">Se necesita un valor.</span><span class="textfieldInvalidFormatMsg">Formato no válido.</span><span class="textfieldMinValueMsg">El valor introducido es inferior al mínimo permitido.</span></span></td>
-              <td width="9%">Medida:</td>
-              <td width="8%"><select name="ID_MEDIDA">
-                <?php
+            <table align="center">
+              <tr valign="baseline">
+                <td nowrap="nowrap" align="right">Codigo de Usuario</td>
+                <td nowrap="nowrap" align="right"><input type="text" name="USUARIO" value="<?php echo $row_textusuario['IDUSUARIO']; ?>" size="4" /></td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                </tr>
+              <tr valign="baseline">
+                <td nowrap="nowrap" align="right">Fecha y Hora de Ingreso:</td>
+                <td nowrap="nowrap" align="right"><input name="FECHAHORAUSUA" type="text" value="<?php echo date("Y-m-d") ?>" size="15" readonly="readonly" /></td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                </tr>
+              <tr valign="baseline">
+                <td nowrap="nowrap" align="right">Cantidad:</td>
+                <td nowrap="nowrap" align="right"><input type="text" name="CANTIDADORPROD" value="" size="9" /></td>
+                <td nowrap="nowrap" align="right">Medida:</td>
+                <td nowrap="nowrap" align="right"><select name="ID_MEDIDA">
+                  <?php 
 do {  
 ?>
-                <option value="<?php echo $row_comboMedida['ID_MEDIDA']?>"><?php echo $row_comboMedida['MEDIDA']?></option>
-                <?php
+                  <option value="<?php echo $row_comboMedida['ID_MEDIDA']?>" ><?php echo $row_comboMedida['MEDIDA']?></option>
+                  <?php
 } while ($row_comboMedida = mysql_fetch_assoc($comboMedida));
-  $rows = mysql_num_rows($comboMedida);
-  if($rows > 0) {
-      mysql_data_seek($comboMedida, 0);
-	  $row_comboMedida = mysql_fetch_assoc($comboMedida);
-  }
 ?>
-              </select></td>
-              <td width="18%">Producto :</td>
-              <td width="44%" align="left"><select name="PRODUCTOORDPRODUC" onfocus="document.form1.cuerpo.disabled=false;">
-                <?php
+                  </select></td>
+                <td nowrap="nowrap" align="right">Producto:</td>
+                <td nowrap="nowrap" align="right"><select name="PRODUCTOORDPRODUC">
+                  <?php 
 do {  
 ?>
-                <option value="<?php echo $row_comboProducto['IDPRODUCTO']?>"><?php echo $row_comboProducto['DESCRIPCIONPRODUC']?></option>
-                <?php
+                  <option value="<?php echo $row_comboProducto['IDPRODUCTO']?>" ><?php echo $row_comboProducto['DESCRIPCIONPRODUC']?></option>
+                  <?php
 } while ($row_comboProducto = mysql_fetch_assoc($comboProducto));
-  $rows = mysql_num_rows($comboProducto);
-  if($rows > 0) {
-      mysql_data_seek($comboProducto, 0);
-	  $row_comboProducto = mysql_fetch_assoc($comboProducto);
-  }
 ?>
-              </select></td>
-            </tr>
-            <tr valign="baseline">
-              <td nowrap="nowrap" align="right">&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td align="right" class="etiquetauser">Fecha y Hora del Usuario:</td>
-              <td align="left"><input name="FECHAHORAUSUA" type="text" value="<?php echo date("Y-m-d H:i:s");;?> " size="32" readonly="readonly" /></td>
-            </tr>
-            <tr valign="baseline">
-              <td nowrap="nowrap" align="right">&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td align="right" class="etiquetauser">Usuario:</td>
-              <td align="left"><input name="IDEMPLEADO" type="text" value="<?php echo $row_textusuario['IDUSUARIO']; ?>" size="32" readonly="readonly" /></td>
-            </tr>
-            <tr valign="baseline">
-              <td nowrap="nowrap" align="right">&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td><input name="cuerpo" type="submit" disabled="disabled" id="cuerpo" value="Insertar registro" /></td>
-            </tr>
-          </table>
-          <input type="hidden" name="MM_insert" value="form1" />
-        </form></td>
+                </select></td>
+              </tr>
+              <tr valign="baseline">
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right">&nbsp;</td>
+                <td nowrap="nowrap" align="right"><input type="submit" value="Insertar registro" /></td>
+              </tr>
+              </table>
+            <input type="hidden" name="IDORDENPRODUCCION" value="" />
+            <input type="hidden" name="IDENCABEORDPROD" value="<?php echo $row_ultregis['IDENCABEORDPROD']; ?>" />
+            <input type="hidden" name="MM_insert" value="form1" />
+          </form></td>
       </tr>
     </table></td>
   </tr>
@@ -378,9 +363,6 @@ $totalRows_Producto = mysql_num_rows($Producto);
     </table></td>
   </tr>
 </table>
-<script type="text/javascript">
-var sprytextfield1 = new Spry.Widget.ValidationTextField("ordprodcant", "real", {validateOn:["change"], minValue:0});
-</script>
 </body>
 </html>
 <?php
