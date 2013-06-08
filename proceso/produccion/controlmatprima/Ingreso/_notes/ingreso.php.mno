@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_unidadmediad" value="name:IDUNIDAD;datatype:int,name:TIPOUNIDAD;datatype:blob" />
+	<infoitem key="UD_MateriaPRima" value="name:IDMATPRIMA;datatype:int,name:DESCRIPCION;datatype:blob" />
+	<infoitem key="UD_ultima" value="name:IDENCABEZADOSALMATPRI;datatype:int" />
+	<infoitem key="UD_Ultimocontrol" value="name:ID_CONTROLMAT;datatype:int" />
+</info>
