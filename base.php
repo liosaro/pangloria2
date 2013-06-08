@@ -108,7 +108,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a href="proceso/produccion/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor" class="MenuBarItemSubmenu">Pedido Materia Prima</a>
                   <ul>
-                    <li><a href="proceso/produccion/pedidomateriaprima/ingresar/pedidomateriaprima.php" target="contenedor">Ingresar Pedido</a></li>
+                    <li><a href="proceso/produccion/pedidomateriaprima/ingresar/insertadordetalle.php" target="contenedor">Ingresar Pedido</a></li>
                     <li><a href="proceso/produccion/pedidomateriaprima/Modificar/filtro.php" target="contenedor">Modificar Pedido de Materia Prima</a></li>
                     <li><a href="proceso/produccion/pedidomateriaprima/eliminar/filtro.php" target="contenedor">Eliminar Pedido de Materia Prima</a></li>
                     <li><a href="proceso/produccion/pedidomateriaprima/consulta/filtro.php" target="contenedor">Consultar Pedido de Materia Prima</a></li>
@@ -137,14 +137,14 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
               <ul>
                 <li><a class="MenuBarItemSubmenu" href="#">Producto en Horno</a>
                   <ul>
-                    <li><a href="#">Ingresar Nuevo Control</a></li>
+                    <li><a href="proceso/produccion/ControProductoHorno/ingreso/insert.php" target="contenedor">Ingresar Nuevo Control</a></li>
                     <li><a href="#">Consultar Control</a></li>
                   </ul>
                 </li>
                 <li><a href="#">Control de Producción</a></li>
                 <li><a href="#" class="MenuBarItemSubmenu">Control Materia Prima</a>
                   <ul>
-                    <li><a href="proceso/promateriaprima/controlmatprima/ingresomatpri.php" target="contenedor">Ingreso</a></li>
+                    <li><a href="proceso/produccion/controlmatprima/Ingreso/ingreso.php" target="contenedor">Ingreso</a></li>
                     <li><a href="proceso/promateriaprima/controlmatprima/modimatprima.php" target="contenedor">Modificar</a></li>
                   </ul>
                 </li>
@@ -160,7 +160,11 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
                     <li><a href="proceso/producto/Consultar/consultaproducto.php" target="contenedor">Consultar Productos</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Justificar Perdida Productos</a></li>
+                <li><a href="proceso/promateriaprima/justifaltaprod/Ingreso/IngresoJustiFalta.php" target="contenedor" class="MenuBarItemSubmenu">Justificar Perdida Productos</a>
+                  <ul>
+                    <li><a href="proceso/promateriaprima/justifaltaprod/Ingreso/IngresoJustiFalta.php" target="contenedor">Ingresar</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <li><a href="#" class="MenuBarItemSubmenu">Reporte de Trabajo</a>

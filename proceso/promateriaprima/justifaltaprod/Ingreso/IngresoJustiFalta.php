@@ -135,7 +135,7 @@ href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-da
 </head>
 
 <body>
-<table width="820" border="1">
+<table width="820" border="0">
   <tr>
     <td><form id="form1" name="form1" method="post" action="">
       <table width="100%" border="1">
