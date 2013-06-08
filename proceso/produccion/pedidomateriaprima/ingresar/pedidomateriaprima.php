@@ -1,3 +1,48 @@
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
+
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
 <?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
@@ -57,6 +102,18 @@ mysql_select_db($database_basepangloria, $basepangloria);
 $query_combordenprod = "SELECT IDENCABEORDPROD FROM TRNENCABEZADOORDENPROD";
 $combordenprod = mysql_query($query_combordenprod, $basepangloria) or die(mysql_error());
 $row_combordenprod = mysql_fetch_assoc($combordenprod);
+$totalRows_combordenprod = mysql_num_rows($combordenprod);$colname_combordenprod = "-1";
+if (isset($_GET['0'])) {
+  $colname_combordenprod = $_GET['0'];
+}
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_combordenprod = sprintf("SELECT IDENCABEORDPROD FROM TRNENCABEZADOORDENPROD WHERE ELIMIN = %s ORDER BY IDENCABEORDPROD DESC", GetSQLValueString($colname_combordenprod, "int"));
+$combordenprod = mysql_query($query_combordenprod, $basepangloria) or die(mysql_error());
+$row_combordenprod = mysql_fetch_assoc($combordenprod);
+$totalRows_combordenprod = mysql_num_rows($combordenprod);
+$query_combordenprod = "SELECT IDENCABEORDPROD FROM TRNENCABEZADOORDENPROD ORDER BY IDENCABEORDPROD DESC";
+$combordenprod = mysql_query($query_combordenprod, $basepangloria) or die(mysql_error());
+$row_combordenprod = mysql_fetch_assoc($combordenprod);
 $totalRows_combordenprod = mysql_num_rows($combordenprod);
 
 mysql_select_db($database_basepangloria, $basepangloria);
@@ -87,6 +144,13 @@ body {
 <link href="../../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" media="screen"
      href="../../../../css/bootstrap-datetimepicker.min.css">
+     <script>
+function cerrarse()
+{
+ opener.location.reload();
+ window.close()
+}
+</script>
 </head>
 
 <body>
@@ -164,7 +228,7 @@ do {
           </tr>
           <tr>
             <td><input type="submit" name="enviarenca" id="enviarenca" value="Insertar Encabezado" disabled/></td>
-            <td>&nbsp;</td>
+            <td><input name="CERADOR" type="submit" class="label-important" id="CERADOR" value="Cerrar" onclick="cerrarse()"/></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
           </tr>
@@ -176,7 +240,7 @@ do {
       </form>  
       </tr>
 </table>
-    <p><iframe src="insertadordetalle.php" name="conteb" width="820" height="350" scrolling="auto" frameborder="0"></iframe>&nbsp;</p></td>
+    <p>&nbsp;</p></td>
 </body>
 </html>
 <?php

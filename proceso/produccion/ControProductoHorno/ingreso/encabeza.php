@@ -135,10 +135,7 @@ $totalRows_emplenomb = mysql_num_rows($emplenomb);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
-<link href="../../../../css/forms.css" rel="stylesheet" type="text/css" />
-<link href="../../../../SpryAssets/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="../../../../css/bootstrap-datetimepicker.min.css">
+
      
 <script>
 function cerrarse()
@@ -147,19 +144,7 @@ function cerrarse()
  window.close()
 }
 </script>
-<script>
-function Confirm(form){
-
-alert("Se ha agregado un nuevo registro!"); 
-
-form.submit();
- opener.location.reload();
- window.close()
-
-
-}
-
-</script>
+</head>
 </head>
 
 <body>
@@ -216,7 +201,7 @@ echo date('Y-m-d H:i:s');
             <td nowrap="nowrap" align="right">&nbsp;</td>
             <td nowrap="nowrap" align="right">&nbsp;</td>
             <td nowrap="nowrap" align="right">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td><input name="CERADOR" type="submit" class="label-important" id="CERADOR" value="Cerrar" onclick="cerrarse()"/></td>
           </tr>
           <tr> </tr>
           <tr valign="baseline">

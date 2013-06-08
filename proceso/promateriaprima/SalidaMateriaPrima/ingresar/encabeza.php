@@ -3,8 +3,8 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-$MM_authorizedUsers = "";
-$MM_donotCheckaccess = "true";
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
 
 // *** Restrict Access To Page: Grant or deny access to this page
 function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
@@ -25,7 +25,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
     if (in_array($UserGroup, $arrGroups)) { 
       $isValid = true; 
     } 
-    if (($strUsers == "") && true) { 
+    if (($strUsers == "") && false) { 
       $isValid = true; 
     } 
   } 
@@ -160,7 +160,7 @@ do {
           <td>&nbsp;</td>
         </tr>
         <tr valign="baseline">
-          <td nowrap="nowrap" align="right">Empleado que recive:</td>
+          <td nowrap="nowrap" align="right">Empleado que recibe:</td>
           <td><select name="IDEMPLEADO" onchange="document.form1.insi.disabled=false;">
             <?php 
 do {  

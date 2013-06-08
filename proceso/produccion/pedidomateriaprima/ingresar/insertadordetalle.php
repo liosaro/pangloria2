@@ -1,5 +1,50 @@
 <?php require_once('../../../../Connections/basepangloria.php'); ?>
 <?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "37,39";
+$MM_donotCheckaccess = "false";
+
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../../../seguridad.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
+<?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -109,6 +154,12 @@ $comboMatprima = mysql_query($query_comboMatprima, $basepangloria) or die(mysql_
 $row_comboMatprima = mysql_fetch_assoc($comboMatprima);
 $totalRows_comboMatprima = mysql_num_rows($comboMatprima);
 
+mysql_select_db($database_basepangloria, $basepangloria);
+$query_ultimo = "SELECT ID_ENCAPEDIDO, IDEMPLEADO, IDORDENPRODUCCION, FECHA FROM TRNENCABEZADOPEDMATPRI WHERE ELIMINA = 0 ORDER BY ID_ENCAPEDIDO DESC";
+$ultimo = mysql_query($query_ultimo, $basepangloria) or die(mysql_error());
+$row_ultimo = mysql_fetch_assoc($ultimo);
+$totalRows_ultimo = mysql_num_rows($ultimo);
+
 $colname_unidamedida = "-1";
 if (isset($_POST['IDUNIDAD'])) {
   $colname_unidamedida = $_POST['IDUNIDAD'];
@@ -138,6 +189,58 @@ $totalRows_nombremateria = mysql_num_rows($nombremateria);
 
 <body>
 <table width="820">
+  <tr>
+    <td><table width="100%" border="0">
+      <tr>
+        <td colspan="4" align="center" bgcolor="#999999"><h1>Ingreso Pedido de Materia Prima</h1></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><a href="pedidomateriaprima.php" target="popup" onClick="window.open(this.href, this.target, 'width=810,height=285,resizable = 0'); return false;"><img src="../../../../imagenes/icono/new.png" alt="" width="32" height="32" "/></a></td>
+      </tr>
+      <tr>
+        <td>No. de  Pedido:</td>
+        <td class="NO"><?php echo $row_ultimo['ID_ENCAPEDIDO']; ?></td>
+        <td>Codigo de Empleado que Solicita:</td>
+        <td align="left"><?php echo $row_ultimo['IDEMPLEADO']; ?></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>Fecha:</td>
+        <td><?php echo $row_ultimo['FECHA']; ?></td>
+        <td>No. de Orden de Producción:</td>
+        <td align="left"><script type="text/javascript"
+      src="../../../../SpryAssets/jquery-1.8.3.min.js">
+    </script>
+          <script type="text/javascript"
+      src="../../../../SpryAssets/bootstrap.min.js">
+      </script>
+          <script type="text/javascript"
+      src="../../../../SpryAssets/bootstrap-datetimepicker.min.js">
+      </script>
+          <script type="text/javascript"
+     src="../../../../SpryAssets/bootstrap-datetimepicker.es.js">
+      </script>
+          <script type="text/javascript">
+  $(function() {
+    $('#datetimepicker4').datetimepicker({
+      pickTime: false
+    });
+  });
+      </script><span class="NO"><?php echo $row_ultimo['IDORDENPRODUCCION']; ?></span></td>
+      </tr>
+      <tr>
+        <td colspan="4">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
   <tr>
     <td><form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
         <table align="left">
@@ -240,6 +343,8 @@ mysql_free_result($ultimoingresado);
 mysql_free_result($comboparaunidad);
 
 mysql_free_result($comboMatprima);
+
+mysql_free_result($ultimo);
 
 mysql_free_result($unidamedida);
 

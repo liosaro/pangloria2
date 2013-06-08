@@ -383,7 +383,7 @@ $totalRows_Producto = mysql_num_rows($Producto);
                 <td align="center" bgcolor="#CCCCCC"><?php echo $row_ultdetad['CANTIDADPEDMATPRI']; ?></td>
                 <td align="center" bgcolor="#999999"><?php echo $row_Medida['TIPOUNIDAD']; ?></td>
                 <td align="left" bgcolor="#666666"><?php echo $row_Producto['DESCRIPCION']; ?></td>
-                <td align="center" bgcolor="#666666"><a href="modi.php?enca=<?php echo $row_ultregis['ID_ENCAPEDIDO']; ?>&IDOR=<?php echo $row_ultdetad['ID_PED_MAT_PRIMA']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
+                <td align="center" bgcolor="#666666"><a href="modi.php?enca=<?php echo $row_ultregis['ID_ENCAPEDIDO']; ?>&amp;IDOR=<?php echo $row_ultdetad['ID_PED_MAT_PRIMA']; ?>" target="_self"><img src="../../../../imagenes/icono/modi.png" width="32" height="32" /></a></td>
                 <td align="center" bgcolor="#666666"><a href="javascript:;" onclick="aviso('eliminar.php?id=<?php echo $row_ultdetad['ID_PED_MAT_PRIMA']; ?>'); return false;"><img src="../../../../imagenes/icono/delete-32.png" width="32" height="32"/></a></td>
               </tr>
               <?php } while ($row_ultdetad = mysql_fetch_assoc($ultdetad)); ?>

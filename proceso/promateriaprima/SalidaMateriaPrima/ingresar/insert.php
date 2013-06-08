@@ -185,7 +185,7 @@ if (isset($_GET['IDSUCURSAL'])) {
           <table width="100%" border="1" align="left" cellpadding="0" cellspacing="0">
             <tr class="retabla">
               <td width="10%" align="center" bgcolor="#000000">Agregar</td>
-              <td width="10%" align="center" bgcolor="#000000">Codigo</td>
+              <td width="10%" align="center" bgcolor="#000000">Código</td>
               <td width="10%" align="center" bgcolor="#000000">Cantidad</td>
               <td width="20%" align="center" bgcolor="#000000">Medida</td>
               <td width="70%" align="center" bgcolor="#000000">Materia Prima</td>
